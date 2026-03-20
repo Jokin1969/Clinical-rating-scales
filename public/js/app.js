@@ -84,6 +84,7 @@ const App = (() => {
     if (saved && saved.answers) state.answers = { ...saved.answers };
 
     document.getElementById('scale-label').textContent = scaleId;
+    document.getElementById('questionnaire-patient-code').textContent = state.patientCode;
     showView('questionnaire');
     renderQuestion();
   }
@@ -224,8 +225,11 @@ const App = (() => {
       if (!document.getElementById('btn-finish').disabled) finishScale();
     });
 
-    // Back to menu
+    // Back to menu (results view and questionnaire view)
     document.getElementById('btn-back-menu').addEventListener('click', () => {
+      showView('home');
+    });
+    document.getElementById('btn-back-to-menu').addEventListener('click', () => {
       showView('home');
     });
 

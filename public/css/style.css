@@ -66,6 +66,24 @@ body {
   object-fit: contain;
 }
 
+/* Patient info bar (questionnaire view) */
+.patient-info-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #475569;
+}
+.btn-sm {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+}
+
 /* Language selector */
 .lang-selector { display: flex; gap: 4px; }
 .lang-btn {

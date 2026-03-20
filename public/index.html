@@ -77,6 +77,10 @@
           <span class="scale-score"></span>
         </button>
       </div>
+
+      <div id="full-report-row" class="full-report-row" style="display:none">
+        <button id="btn-full-report" class="btn btn-full-report" data-i18n="fullReport">Informe Completo</button>
+      </div>
     </div>
   </div>
 
@@ -145,8 +149,22 @@
             <div id="results-score" class="score-number"></div>
           </div>
         </div>
-        <button id="btn-back-menu" class="btn btn-primary" data-i18n="backToMenu">Volver al Menú</button>
+        <div class="results-action-row">
+          <button id="btn-view-report" class="btn btn-outline" data-i18n="viewReport">Ver Informe</button>
+          <button id="btn-back-menu" class="btn btn-primary" data-i18n="backToMenu">Volver al Menú</button>
+        </div>
       </div>
+    </div>
+  </div>
+
+  <!-- VIEW: REPORT -->
+  <div id="view-report" class="view">
+    <div class="container">
+      <div class="report-toolbar">
+        <button id="btn-report-back" class="btn btn-outline btn-sm">&#8592; <span id="report-back-label">Volver</span></button>
+        <button id="btn-report-share" class="btn btn-primary btn-sm">&#9993; <span data-i18n="sendByEmail">Enviar por e-mail</span></button>
+      </div>
+      <div id="report-paper" class="report-paper"></div>
     </div>
   </div>
 
@@ -161,6 +179,7 @@
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="/js/i18n.js"></script>
   <script src="/js/data.js"></script>
   <script src="/js/app.js"></script>

@@ -482,6 +482,166 @@ body {
 .modal-header h3 { font-size: 1rem; color: var(--primary); }
 .modal-content { padding: 1.25rem; line-height: 1.65; font-size: 0.95rem; }
 
+/* ===== RESULTS ACTION ROW ===== */
+.results-action-row {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ===== FULL REPORT ROW (home) ===== */
+.full-report-row {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+.btn-full-report {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  padding: 0.6rem 1.8rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, transform 0.1s;
+}
+.btn-full-report:hover { background: var(--primary); color: #fff; transform: translateY(-1px); }
+
+/* ===== MINI REPORT BUTTON (inside scale-btn) ===== */
+.scale-report-mini {
+  align-self: flex-start;
+  margin-top: 0.35rem;
+  background: transparent;
+  border: 1px solid #15803d;
+  color: #15803d;
+  border-radius: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  pointer-events: all;
+}
+.scale-report-mini:hover { background: #15803d; color: #fff; }
+
+/* ===== REPORT VIEW ===== */
+.report-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+}
+
+/* ===== REPORT PAPER ===== */
+.report-paper {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 2rem 2.5rem;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #1e293b;
+}
+
+.rp-doc-header {
+  border-bottom: 3px solid var(--primary);
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+.rp-app-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+.rp-doc-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+.rp-doc-meta {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.rp-meta-row { display: flex; flex-direction: column; gap: 0.1rem; }
+.rp-meta-k { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+.rp-meta-v { font-size: 1rem; font-weight: 700; color: #1e293b; }
+
+.rp-scale-block {
+  margin-bottom: 2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.rp-scale-id-bar {
+  background: var(--header-bg);
+  color: #fff;
+  padding: 0.6rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.rp-scale-id {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+.rp-scale-fullname { font-size: 0.85rem; opacity: 0.85; }
+
+.rp-qa-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.rp-qa {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.rp-qa:last-child { border-bottom: none; }
+.rp-qa--unanswered { background: #fef9c3; }
+.rp-qa-num {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--highlight);
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+.rp-qa-body { flex: 1; }
+.rp-q { font-size: 0.9rem; line-height: 1.5; color: #374151; margin-bottom: 0.3rem; }
+.rp-a { font-size: 0.88rem; font-weight: 600; color: #6b7280; }
+.rp-a--ok { color: #15803d; }
+
+.rp-score-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--bg);
+  border-top: 2px solid var(--border);
+}
+.rp-score-lbl { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 600; }
+.rp-score-num {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 480px) {
   .app-title { font-size: 1.1rem; }
@@ -489,4 +649,7 @@ body {
   .question-nav { flex-wrap: wrap; }
   .nav-center { width: 100%; justify-content: center; }
   #btn-first, #btn-last { flex: 1; }
+  .report-paper { padding: 1.25rem 1rem; }
+  .rp-doc-meta { flex-direction: column; gap: 0.75rem; }
+  .results-action-row { flex-direction: column; align-items: stretch; }
 }

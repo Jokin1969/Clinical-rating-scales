@@ -16,6 +16,7 @@ const App = (() => {
     home:          document.getElementById('view-home'),
     questionnaire: document.getElementById('view-questionnaire'),
     results:       document.getElementById('view-results'),
+    report:        document.getElementById('view-report'),
   };
 
   // ── View switching ────────────────────────────────────────
@@ -38,6 +39,21 @@ const App = (() => {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
     updateScaleButtons();
+  }
+
+  // ── Helpers ───────────────────────────────────────────────
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function computeScore(scaleId, answers) {
+    let score = 0;
+    SCALES[scaleId].questions.forEach((q, i) => {
+      if (answers[i] !== undefined) score += q.options[answers[i]].value;
+    });
+    return score;
   }
 
   // ── Scale buttons ─────────────────────────────────────────
@@ -69,16 +85,40 @@ const App = (() => {
       const scoreEl = btn.querySelector('.scale-score');
       if (scoreEl) {
         if (completed) {
-          let score = 0;
-          scale.questions.forEach((q, i) => {
-            if (answers[i] !== undefined) score += q.options[answers[i]].value;
-          });
-          scoreEl.textContent = t('score', state.lang) + ': ' + score;
+          scoreEl.textContent = t('score', state.lang) + ': ' + computeScore(id, answers);
         } else {
           scoreEl.textContent = '';
         }
       }
+
+      // Mini report button (only when completed)
+      let miniBtn = btn.querySelector('.scale-report-mini');
+      if (completed) {
+        if (!miniBtn) {
+          miniBtn = document.createElement('button');
+          miniBtn.className = 'scale-report-mini';
+          btn.appendChild(miniBtn);
+          miniBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            showReport([id], 'home');
+          });
+        }
+        miniBtn.textContent = '📋 ' + t('reportBtnLabel', state.lang);
+      } else if (miniBtn) {
+        miniBtn.remove();
+      }
     });
+
+    // Full report button: show when ALL scales are completed
+    const allIds = Object.keys(SCALES);
+    const allCompleted = codeActive && allIds.every(id => {
+      const saved = state.savedProgress && state.savedProgress[id];
+      const ans = saved && saved.answers ? saved.answers : {};
+      return Object.keys(ans).length >= SCALES[id].questions.length;
+    });
+    document.getElementById('full-report-row').style.display = allCompleted ? '' : 'none';
+    const fullBtn = document.getElementById('btn-full-report');
+    if (fullBtn) fullBtn.textContent = '📋 ' + t('fullReport', state.lang);
   }
 
   // ── Patient code ──────────────────────────────────────────
@@ -229,6 +269,121 @@ const App = (() => {
     document.getElementById('modal-help').classList.remove('hidden');
   }
 
+  // ── Report ────────────────────────────────────────────────
+  function buildReportHTML(scaleIds) {
+    const lang = state.lang;
+    const locales = { es: 'es-ES', en: 'en-GB', de: 'de-DE', it: 'it-IT' };
+    const date = new Date().toLocaleDateString(locales[lang] || 'es-ES', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    });
+
+    let html = `
+      <div class="rp-doc-header">
+        <p class="rp-app-label">${escHtml(t('appTitle', lang))}</p>
+        <h1 class="rp-doc-title">${escHtml(t('reportTitle', lang))}</h1>
+        <div class="rp-doc-meta">
+          <div class="rp-meta-row">
+            <span class="rp-meta-k">${escHtml(t('patientCode', lang))}</span>
+            <span class="rp-meta-v">${escHtml(state.patientCode)}</span>
+          </div>
+          <div class="rp-meta-row">
+            <span class="rp-meta-k">${escHtml(t('reportDate', lang))}</span>
+            <span class="rp-meta-v">${date}</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    scaleIds.forEach(id => {
+      const scale = SCALES[id];
+      const answers = (state.savedProgress && state.savedProgress[id] && state.savedProgress[id].answers) || {};
+      const score = computeScore(id, answers);
+
+      html += `
+        <div class="rp-scale-block">
+          <div class="rp-scale-id-bar">
+            <span class="rp-scale-id">${escHtml(id)}</span>
+            <span class="rp-scale-fullname">${escHtml(t('scaleName_' + id, lang))}</span>
+          </div>
+          <ol class="rp-qa-list">
+      `;
+
+      scale.questions.forEach((q, i) => {
+        const qText   = q.text[lang] || q.text['es'];
+        const sel     = answers[i] !== undefined;
+        const aLabel  = sel ? (q.options[answers[i]].label[lang] || q.options[answers[i]].label['es']) : '—';
+        html += `
+          <li class="rp-qa${sel ? '' : ' rp-qa--unanswered'}">
+            <div class="rp-qa-num">${i + 1}</div>
+            <div class="rp-qa-body">
+              <p class="rp-q">${escHtml(qText)}</p>
+              <p class="rp-a${sel ? ' rp-a--ok' : ''}">${sel ? '✓ ' : ''}${escHtml(aLabel)}</p>
+            </div>
+          </li>
+        `;
+      });
+
+      html += `
+          </ol>
+          <div class="rp-score-footer">
+            <span class="rp-score-lbl">${escHtml(t('totalScore', lang))}</span>
+            <span class="rp-score-num">${score}</span>
+          </div>
+        </div>
+      `;
+    });
+
+    return html;
+  }
+
+  function showReport(scaleIds, returnTo) {
+    state.reportScaleIds = scaleIds;
+    state.reportReturnTo = returnTo;
+    document.getElementById('report-paper').innerHTML = buildReportHTML(scaleIds);
+    document.getElementById('report-back-label').textContent =
+      returnTo === 'results' ? t('backToResults', state.lang) : t('backToMenu', state.lang);
+    showView('report');
+  }
+
+  async function shareReport() {
+    const btn = document.getElementById('btn-report-share');
+    const origHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.textContent = t('generatingPDF', state.lang);
+
+    try {
+      const element = document.getElementById('report-paper');
+      const filename = 'informe-' + state.patientCode + '.pdf';
+      const opt = {
+        margin: [10, 12, 10, 12],
+        filename,
+        image:      { type: 'jpeg', quality: 0.97 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+        jsPDF:      { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      };
+
+      const pdfBlob = await html2pdf().set(opt).from(element).outputPdf('blob');
+      const file    = new File([pdfBlob], filename, { type: 'application/pdf' });
+
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: t('reportTitle', state.lang) });
+      } else {
+        // Fallback: auto-download
+        const url = URL.createObjectURL(pdfBlob);
+        const a   = document.createElement('a');
+        a.href = url; a.download = filename;
+        document.body.appendChild(a); a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+      }
+    } catch (err) {
+      if (err && err.name !== 'AbortError') console.error('PDF share error:', err);
+    } finally {
+      btn.disabled  = false;
+      btn.innerHTML = origHTML;
+    }
+  }
+
   // ── Init ──────────────────────────────────────────────────
   function init() {
     // Language buttons
@@ -273,6 +428,25 @@ const App = (() => {
     };
     document.getElementById('btn-back-menu').addEventListener('click', backToHome);
     document.getElementById('btn-back-to-menu').addEventListener('click', backToHome);
+
+    // View report (from results)
+    document.getElementById('btn-view-report').addEventListener('click', () => {
+      showReport([state.currentScale], 'results');
+    });
+
+    // Full report (from home)
+    document.getElementById('btn-full-report').addEventListener('click', () => {
+      showReport(Object.keys(SCALES), 'home');
+    });
+
+    // Report view — back button
+    document.getElementById('btn-report-back').addEventListener('click', () => {
+      if (state.reportReturnTo === 'results') showView('results');
+      else backToHome();
+    });
+
+    // Report view — share/email
+    document.getElementById('btn-report-share').addEventListener('click', shareReport);
 
     // Help
     document.getElementById('btn-help').addEventListener('click', showHelp);

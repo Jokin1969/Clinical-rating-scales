@@ -151,7 +151,8 @@ body {
   transition: border-color 0.2s;
 }
 .input-code:focus { border-color: var(--primary); }
-.code-status { margin-top: 0.5rem; font-size: 0.85rem; color: var(--success); min-height: 1.2em; }
+.code-hint { margin-top: 0.4rem; font-size: 0.78rem; color: #94a3b8; }
+.code-status { margin-top: 0.25rem; font-size: 0.85rem; color: var(--success); min-height: 1.2em; }
 .code-status.error { color: var(--danger); }
 
 /* ===== SECTION TITLE ===== */

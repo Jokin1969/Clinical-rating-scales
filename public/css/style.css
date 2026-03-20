@@ -49,6 +49,23 @@ body {
 .header-left, .header-right { min-width: 120px; }
 .header-right { display: flex; justify-content: flex-end; }
 
+/* Logo bar */
+.logo-bar {
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
 /* Language selector */
 .lang-selector { display: flex; gap: 4px; }
 .lang-btn {

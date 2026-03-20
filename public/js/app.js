@@ -13,6 +13,7 @@ const App = (() => {
 
   // ── DOM refs ──────────────────────────────────────────────
   const views = {
+    landing:       document.getElementById('view-landing'),
     home:          document.getElementById('view-home'),
     questionnaire: document.getElementById('view-questionnaire'),
     results:       document.getElementById('view-results'),
@@ -521,6 +522,10 @@ const App = (() => {
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', () => applyLang(btn.dataset.lang));
     });
+
+    // Landing — mode selection
+    document.getElementById('btn-symptomatic').addEventListener('click', () => showView('home'));
+    document.getElementById('btn-back-landing').addEventListener('click', () => showView('landing'));
 
     // Load patient code
     document.getElementById('btn-load-code').addEventListener('click', () => {

@@ -27,9 +27,33 @@
 
   <!-- ===== VIEWS ===== -->
 
-  <!-- VIEW: HOME -->
-  <div id="view-home" class="view active">
+  <!-- VIEW: LANDING -->
+  <div id="view-landing" class="view active">
     <div class="container">
+      <h2 class="section-title landing-title" data-i18n="selectMode">Seleccione el tipo de evaluación</h2>
+      <div class="landing-grid">
+        <button id="btn-symptomatic" class="mode-card">
+          <span class="mode-card__icon">🩺</span>
+          <span class="mode-card__title" data-i18n="symptomatic">Sintomático</span>
+          <span class="mode-card__desc" data-i18n="symptomaticDesc">Con sintomatología activa</span>
+        </button>
+        <div class="mode-card mode-card--disabled">
+          <span class="mode-card__icon">💚</span>
+          <span class="mode-card__title" data-i18n="asymptomatic">Asintomático</span>
+          <span class="mode-card__desc" data-i18n="asymptomaticDesc">Sin sintomatología</span>
+          <span class="mode-card__badge" data-i18n="comingSoon">Próximamente</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW: HOME -->
+  <div id="view-home" class="view">
+    <div class="container">
+      <div class="mode-bar">
+        <button id="btn-back-landing" class="btn btn-outline btn-sm">&#8592; <span data-i18n="backToSelection">Cambiar selección</span></button>
+        <span class="mode-bar__label">🩺 <span data-i18n="symptomatic">Sintomático</span></span>
+      </div>
       <div class="patient-code-box card">
         <label for="patient-code" class="label" data-i18n="patientCode">Código de Paciente</label>
         <div class="input-row">

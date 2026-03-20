@@ -156,19 +156,24 @@ const App = (() => {
   }
 
   function updateNavButtons() {
-    const total = SCALES[state.currentScale].questions.length;
-    document.getElementById('btn-prev').disabled  = state.currentIndex === 0;
-    document.getElementById('btn-next').disabled  = state.currentIndex === total - 1;
-    document.getElementById('btn-first').disabled = state.currentIndex === 0;
-    document.getElementById('btn-last').disabled  = state.currentIndex === total - 1;
+    const total   = SCALES[state.currentScale].questions.length;
+    const isFirst = state.currentIndex === 0;
+    const isLast  = state.currentIndex === total - 1;
+    const btnPrev = document.getElementById('btn-prev');
+    btnPrev.style.display  = isFirst ? 'none' : '';
+    document.getElementById('btn-next').disabled  = isLast;
+    document.getElementById('btn-first').disabled = isFirst;
+    document.getElementById('btn-last').disabled  = isLast;
   }
 
   function updateFinishButton() {
     const total    = SCALES[state.currentScale].questions.length;
     const answered = Object.keys(state.answers).length;
+    const allDone  = answered >= total;
     const btn      = document.getElementById('btn-finish');
-    btn.classList.toggle('disabled', answered < total);
-    btn.disabled = answered < total;
+    btn.classList.toggle('disabled', !allDone);
+    btn.disabled = !allDone;
+    document.getElementById('btn-next').style.display = allDone ? 'none' : '';
   }
 
   // ── Navigation ────────────────────────────────────────────

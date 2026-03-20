@@ -47,6 +47,8 @@ const I18N = {
     reportBtnLabel:         'Informe',
     generatingPDF:          'Generando PDF...',
     backToResults:          'Volver a Resultados',
+    questionsBtnLabel:      'Preguntas',
+    maxScore:               'Puntuación máxima',
   },
   en: {
     appTitle:               'Clinical Rating Scales',
@@ -92,6 +94,8 @@ const I18N = {
     reportBtnLabel:         'Report',
     generatingPDF:          'Generating PDF...',
     backToResults:          'Back to Results',
+    questionsBtnLabel:      'Questions',
+    maxScore:               'Maximum score',
   },
   de: {
     appTitle:               'Klinische Bewertungsskalen',
@@ -137,6 +141,8 @@ const I18N = {
     reportBtnLabel:         'Bericht',
     generatingPDF:          'PDF wird erstellt...',
     backToResults:          'Zurück zu Ergebnissen',
+    questionsBtnLabel:      'Fragen',
+    maxScore:               'Höchstpunktzahl',
   },
   it: {
     appTitle:               'Scale di Valutazione Clinica',
@@ -182,6 +188,8 @@ const I18N = {
     reportBtnLabel:         'Rapporto',
     generatingPDF:          'Generazione PDF...',
     backToResults:          'Torna ai Risultati',
+    questionsBtnLabel:      'Domande',
+    maxScore:               'Punteggio massimo',
   }
 };
 

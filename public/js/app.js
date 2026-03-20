@@ -44,11 +44,16 @@ const App = (() => {
       document.getElementById('code-status').textContent = t(state.codeStatusKey, lang);
     }
 
-    // Re-render report if currently viewing it
-    if (views.report.classList.contains('active') && state.reportScaleIds) {
-      document.getElementById('report-paper').innerHTML = buildReportHTML(state.reportScaleIds);
-      document.getElementById('report-back-label').textContent =
-        state.reportReturnTo === 'results' ? t('backToResults', lang) : t('backToMenu', lang);
+    // Re-render report/questions if currently viewing that view
+    if (views.report.classList.contains('active')) {
+      if (state.reportMode === 'questions' && state.questionsScaleId) {
+        document.getElementById('report-paper').innerHTML = buildQuestionsHTML(state.questionsScaleId);
+        document.getElementById('report-back-label').textContent = t('backToMenu', lang);
+      } else if (state.reportMode === 'report' && state.reportScaleIds) {
+        document.getElementById('report-paper').innerHTML = buildReportHTML(state.reportScaleIds);
+        document.getElementById('report-back-label').textContent =
+          state.reportReturnTo === 'results' ? t('backToResults', lang) : t('backToMenu', lang);
+      }
     }
 
     updateScaleButtons();
@@ -102,6 +107,23 @@ const App = (() => {
         } else {
           scoreEl.textContent = '';
         }
+      }
+
+      // Mini questions button (top-right, shown when code is active)
+      let qBtn = btn.querySelector('.scale-questions-mini');
+      if (codeActive) {
+        if (!qBtn) {
+          qBtn = document.createElement('button');
+          qBtn.className = 'scale-questions-mini';
+          btn.appendChild(qBtn);
+          qBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            showQuestions(id);
+          });
+        }
+        qBtn.textContent = '📄 ' + t('questionsBtnLabel', state.lang);
+      } else if (qBtn) {
+        qBtn.remove();
       }
 
       // Mini report button (only when completed)
@@ -282,6 +304,80 @@ const App = (() => {
     document.getElementById('modal-help').classList.remove('hidden');
   }
 
+  // ── Questions preview ─────────────────────────────────────
+  function buildQuestionsHTML(scaleId) {
+    const lang = state.lang;
+    const scale = SCALES[scaleId];
+    let maxScore = 0;
+    scale.questions.forEach(q => {
+      maxScore += Math.max(...q.options.map(o => o.value));
+    });
+
+    let html = `
+      <div class="rp-doc-header">
+        <p class="rp-app-label">${escHtml(t('appTitle', lang))}</p>
+        <h1 class="rp-doc-title">${escHtml(t('scaleName_' + scaleId, lang))}</h1>
+        <div class="rp-doc-meta">
+          <div class="rp-meta-row">
+            <span class="rp-meta-k">${escHtml(t('patientCode', lang))}</span>
+            <span class="rp-meta-v">${escHtml(state.patientCode)}</span>
+          </div>
+        </div>
+      </div>
+      <div class="rp-scale-block">
+        <ol class="rp-qa-list">
+    `;
+
+    scale.questions.forEach((q, i) => {
+      const qText  = q.text[lang] || q.text['es'];
+      const values = q.options.map(o => o.value);
+      const minVal = Math.min(...values);
+      const maxVal = Math.max(...values);
+      const range  = minVal === maxVal ? String(minVal) : minVal + '–' + maxVal;
+
+      html += `
+        <li class="rp-qa">
+          <div class="rp-qa-num">${i + 1}</div>
+          <div class="rp-qa-body">
+            <div class="rq-q-row">
+              <p class="rp-q">${escHtml(qText)}</p>
+              <span class="rq-range">${escHtml(range)}</span>
+            </div>
+            <ul class="rq-opts">
+      `;
+      q.options.forEach(opt => {
+        const label = opt.label[lang] || opt.label['es'];
+        html += `<li class="rq-opt"><span class="rq-opt-val">${opt.value}</span>${escHtml(label)}</li>`;
+      });
+      html += `
+            </ul>
+          </div>
+        </li>
+      `;
+    });
+
+    html += `
+        </ol>
+        <div class="rp-score-footer">
+          <span class="rp-score-lbl">${escHtml(t('maxScore', lang))}</span>
+          <span class="rp-score-num">${maxScore}</span>
+        </div>
+      </div>
+    `;
+    return html;
+  }
+
+  function showQuestions(scaleId) {
+    state.questionsScaleId = scaleId;
+    state.reportScaleIds   = null;
+    state.reportMode       = 'questions';
+    state.reportReturnTo   = 'home';
+    document.getElementById('report-paper').innerHTML = buildQuestionsHTML(scaleId);
+    document.getElementById('report-back-label').textContent = t('backToMenu', state.lang);
+    document.getElementById('btn-report-share').style.display = 'none';
+    showView('report');
+  }
+
   // ── Report ────────────────────────────────────────────────
   function buildReportHTML(scaleIds) {
     const lang = state.lang;
@@ -350,11 +446,14 @@ const App = (() => {
   }
 
   function showReport(scaleIds, returnTo) {
-    state.reportScaleIds = scaleIds;
-    state.reportReturnTo = returnTo;
+    state.reportScaleIds   = scaleIds;
+    state.questionsScaleId = null;
+    state.reportMode       = 'report';
+    state.reportReturnTo   = returnTo;
     document.getElementById('report-paper').innerHTML = buildReportHTML(scaleIds);
     document.getElementById('report-back-label').textContent =
       returnTo === 'results' ? t('backToResults', state.lang) : t('backToMenu', state.lang);
+    document.getElementById('btn-report-share').style.display = '';
     showView('report');
   }
 

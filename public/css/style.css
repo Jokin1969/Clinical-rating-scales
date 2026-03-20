@@ -174,11 +174,13 @@ body {
   border: 2px solid var(--border);
   border-radius: var(--radius);
   padding: 1rem 1.2rem;
+  padding-top: 2.2rem;
   cursor: pointer;
   text-align: left;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
+  position: relative;
   transition: border-color 0.2s, box-shadow 0.2s, transform 0.1s;
   box-shadow: var(--shadow);
 }
@@ -508,6 +510,24 @@ body {
 }
 .btn-full-report:hover { background: var(--primary); color: #fff; transform: translateY(-1px); }
 
+/* ===== MINI QUESTIONS BUTTON (inside scale-btn, top-right) ===== */
+.scale-questions-mini {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  pointer-events: all;
+}
+.scale-questions-mini:hover { background: var(--primary); color: #fff; }
+
 /* ===== MINI REPORT BUTTON (inside scale-btn) ===== */
 .scale-report-mini {
   align-self: flex-start;
@@ -640,6 +660,53 @@ body {
   font-weight: 800;
   color: var(--primary);
   line-height: 1;
+}
+
+/* ===== QUESTIONS PREVIEW (inside report-paper) ===== */
+.rq-q-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  justify-content: space-between;
+}
+.rq-range {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--highlight);
+  border: 1px solid #bfdbfe;
+  border-radius: 4px;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+.rq-opts {
+  list-style: none;
+  padding: 0;
+  margin: 0.3rem 0 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.7rem;
+}
+.rq-opt {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.rq-opt-val {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.3em;
+  height: 1.3em;
+  background: var(--border);
+  border-radius: 3px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text);
+  padding: 0 3px;
 }
 
 /* ===== RESPONSIVE ===== */

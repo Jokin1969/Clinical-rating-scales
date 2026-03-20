@@ -49,6 +49,7 @@ const I18N = {
     backToResults:          'Volver a Resultados',
     questionsBtnLabel:      'Preguntas',
     maxScore:               'Puntuación máxima',
+    emailBodyHint:          'Por favor, adjunte el archivo PDF descargado a este correo.',
   },
   en: {
     appTitle:               'Clinical Rating Scales',
@@ -96,6 +97,7 @@ const I18N = {
     backToResults:          'Back to Results',
     questionsBtnLabel:      'Questions',
     maxScore:               'Maximum score',
+    emailBodyHint:          'Please attach the downloaded PDF file to this email.',
   },
   de: {
     appTitle:               'Klinische Bewertungsskalen',
@@ -143,6 +145,7 @@ const I18N = {
     backToResults:          'Zurück zu Ergebnissen',
     questionsBtnLabel:      'Fragen',
     maxScore:               'Höchstpunktzahl',
+    emailBodyHint:          'Bitte hängen Sie die heruntergeladene PDF-Datei an diese E-Mail an.',
   },
   it: {
     appTitle:               'Scale di Valutazione Clinica',
@@ -190,6 +193,7 @@ const I18N = {
     backToResults:          'Torna ai Risultati',
     questionsBtnLabel:      'Domande',
     maxScore:               'Punteggio massimo',
+    emailBodyHint:          'Si prega di allegare il file PDF scaricato a questa email.',
   }
 };
 

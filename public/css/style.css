@@ -708,6 +708,13 @@ body {
   color: var(--text);
   padding: 0 3px;
 }
+.rq-start-row {
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem;
+  border-top: 2px solid var(--border);
+}
+.rq-start-btn { font-size: 1rem; padding: 0.65rem 2rem; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 480px) {

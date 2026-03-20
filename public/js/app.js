@@ -47,7 +47,7 @@ const App = (() => {
     // Re-render report/questions if currently viewing that view
     if (views.report.classList.contains('active')) {
       if (state.reportMode === 'questions' && state.questionsScaleId) {
-        document.getElementById('report-paper').innerHTML = buildQuestionsHTML(state.questionsScaleId);
+        renderQuestions(state.questionsScaleId);
         document.getElementById('report-back-label').textContent = t('backToMenu', lang);
       } else if (state.reportMode === 'report' && state.reportScaleIds) {
         document.getElementById('report-paper').innerHTML = buildReportHTML(state.reportScaleIds);
@@ -362,9 +362,20 @@ const App = (() => {
           <span class="rp-score-lbl">${escHtml(t('maxScore', lang))}</span>
           <span class="rp-score-num">${maxScore}</span>
         </div>
+        <div class="rq-start-row">
+          <button class="btn btn-primary rq-start-btn" id="rq-start-btn">
+            ▶ ${escHtml(t('startQuestionnaire', lang))}
+          </button>
+        </div>
       </div>
     `;
     return html;
+  }
+
+  function renderQuestions(scaleId) {
+    document.getElementById('report-paper').innerHTML = buildQuestionsHTML(scaleId);
+    const startBtn = document.getElementById('rq-start-btn');
+    if (startBtn) startBtn.addEventListener('click', () => startScale(scaleId));
   }
 
   function showQuestions(scaleId) {
@@ -372,7 +383,7 @@ const App = (() => {
     state.reportScaleIds   = null;
     state.reportMode       = 'questions';
     state.reportReturnTo   = 'home';
-    document.getElementById('report-paper').innerHTML = buildQuestionsHTML(scaleId);
+    renderQuestions(scaleId);
     document.getElementById('report-back-label').textContent = t('backToMenu', state.lang);
     document.getElementById('btn-report-share').style.display = 'none';
     showView('report');
@@ -478,15 +489,23 @@ const App = (() => {
       const file    = new File([pdfBlob], filename, { type: 'application/pdf' });
 
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        // Mobile: native share sheet (handles email + attachment natively)
         await navigator.share({ files: [file], title: t('reportTitle', state.lang) });
       } else {
-        // Fallback: auto-download
+        // Desktop: download PDF first, then open email client
         const url = URL.createObjectURL(pdfBlob);
         const a   = document.createElement('a');
         a.href = url; a.download = filename;
         document.body.appendChild(a); a.click();
         document.body.removeChild(a);
         setTimeout(() => URL.revokeObjectURL(url), 1500);
+
+        // Open email client with pre-filled subject and body hint
+        const subject = encodeURIComponent(
+          t('reportTitle', state.lang) + ' – ' + state.patientCode
+        );
+        const body = encodeURIComponent(t('emailBodyHint', state.lang));
+        window.open('mailto:?subject=' + subject + '&body=' + body, '_self');
       }
     } catch (err) {
       if (err && err.name !== 'AbortError') console.error('PDF share error:', err);

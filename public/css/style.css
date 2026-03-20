@@ -202,6 +202,12 @@ body {
 }
 .scale-name { font-size: 0.85rem; color: var(--text); }
 .scale-questions { font-size: 0.78rem; color: var(--text-muted); }
+.scale-score {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #15803d;
+  min-height: 1em;
+}
 
 /* Scale button progress indicators */
 .scale-btn.completed {

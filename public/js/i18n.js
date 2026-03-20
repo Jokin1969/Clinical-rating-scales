@@ -38,6 +38,7 @@ const I18N = {
     questions_NPI:          '7 preguntas',
     questions_BISAD:        '8 preguntas',
     questions_IQCODE:       '7 preguntas',
+    score:                  'Puntuación',
   },
   en: {
     appTitle:               'Clinical Rating Scales',
@@ -74,6 +75,7 @@ const I18N = {
     questions_NPI:          '7 questions',
     questions_BISAD:        '8 questions',
     questions_IQCODE:       '7 questions',
+    score:                  'Score',
   },
   de: {
     appTitle:               'Klinische Bewertungsskalen',
@@ -110,6 +112,7 @@ const I18N = {
     questions_NPI:          '7 Fragen',
     questions_BISAD:        '8 Fragen',
     questions_IQCODE:       '7 Fragen',
+    score:                  'Punkte',
   },
   it: {
     appTitle:               'Scale di Valutazione Clinica',
@@ -146,6 +149,7 @@ const I18N = {
     questions_NPI:          '7 domande',
     questions_BISAD:        '8 domande',
     questions_IQCODE:       '7 domande',
+    score:                  'Punteggio',
   }
 };
 

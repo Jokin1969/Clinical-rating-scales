@@ -42,19 +42,42 @@ const App = (() => {
 
   // ── Scale buttons ─────────────────────────────────────────
   function updateScaleButtons() {
+    // The code is only "active" if the input field still matches the loaded code.
+    const inputVal = (document.getElementById('patient-code').value || '').trim();
+    const codeActive = !!state.patientCode && inputVal === state.patientCode;
+
     document.querySelectorAll('.scale-btn').forEach(btn => {
       const id = btn.dataset.scale;
       btn.querySelector('.scale-name').textContent  = t('scaleName_' + id, state.lang);
       btn.querySelector('.scale-questions').textContent = t('questions_' + id, state.lang);
-      const locked = !state.patientCode;
-      btn.classList.toggle('disabled', locked);
-      btn.disabled = locked;
-      // Completion indicator
-      const saved = state.savedProgress && state.savedProgress[id];
-      const answeredCount = saved && saved.answers ? Object.keys(saved.answers).length : 0;
-      const total = SCALES[id] ? SCALES[id].questions.length : 0;
-      btn.classList.toggle('completed', total > 0 && answeredCount >= total);
+
+      btn.classList.toggle('disabled', !codeActive);
+      btn.disabled = !codeActive;
+
+      // Completion / progress indicators
+      const saved = codeActive && state.savedProgress && state.savedProgress[id];
+      const answers = saved && saved.answers ? saved.answers : {};
+      const answeredCount = Object.keys(answers).length;
+      const scale = SCALES[id];
+      const total = scale ? scale.questions.length : 0;
+      const completed = total > 0 && answeredCount >= total;
+
+      btn.classList.toggle('completed', completed);
       btn.classList.toggle('has-progress', answeredCount > 0 && answeredCount < total);
+
+      // Score (only when completed)
+      const scoreEl = btn.querySelector('.scale-score');
+      if (scoreEl) {
+        if (completed) {
+          let score = 0;
+          scale.questions.forEach((q, i) => {
+            if (answers[i] !== undefined) score += q.options[answers[i]].value;
+          });
+          scoreEl.textContent = t('score', state.lang) + ': ' + score;
+        } else {
+          scoreEl.textContent = '';
+        }
+      }
     });
   }
 
@@ -215,6 +238,8 @@ const App = (() => {
     document.getElementById('patient-code').addEventListener('keydown', e => {
       if (e.key === 'Enter') loadPatientCode(e.target.value.trim());
     });
+    // Reactively lock/unlock buttons as the user edits the code field
+    document.getElementById('patient-code').addEventListener('input', updateScaleButtons);
 
     // Scale buttons
     document.querySelectorAll('.scale-btn').forEach(btn => {

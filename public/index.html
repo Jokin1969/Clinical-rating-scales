@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="appTitle">Escalas de Valoración Clínica</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="app-header">
+    <div class="header-left">
+      <button id="btn-menu" class="btn-icon" title="Menú" aria-label="Menú">
+        <span class="icon-menu">&#9776;</span>
+      </button>
+    </div>
+    <div class="header-center">
+      <h1 class="app-title" data-i18n="appTitle">Escalas de Valoración Clínica</h1>
+    </div>
+    <div class="header-right lang-selector">
+      <button class="lang-btn" data-lang="es" title="Español">🇪🇸</button>
+      <button class="lang-btn" data-lang="en" title="English">🇬🇧</button>
+      <button class="lang-btn" data-lang="de" title="Deutsch">🇩🇪</button>
+      <button class="lang-btn" data-lang="it" title="Italiano">🇮🇹</button>
+    </div>
+  </header>
+
+  <!-- ===== VIEWS ===== -->
+
+  <!-- VIEW: HOME -->
+  <div id="view-home" class="view active">
+    <div class="container">
+      <div class="patient-code-box card">
+        <label for="patient-code" class="label" data-i18n="patientCode">Código de Paciente</label>
+        <div class="input-row">
+          <input type="text" id="patient-code" class="input-code"
+            data-i18n-placeholder="patientCodePlaceholder"
+            placeholder="Ingrese el código del paciente"
+            autocomplete="off" />
+          <button id="btn-load-code" class="btn btn-secondary" data-i18n="loadCode">Cargar</button>
+        </div>
+        <p id="code-status" class="code-status"></p>
+      </div>
+
+      <h2 class="section-title" data-i18n="selectScale">Seleccione una escala clínica</h2>
+
+      <div class="scales-grid">
+        <button class="scale-btn disabled" data-scale="MRC">
+          <span class="scale-abbr">MRC</span>
+          <span class="scale-name" data-i18n="scaleName_MRC">Modified Ranking for Caregivers</span>
+          <span class="scale-questions" data-i18n-count="MRC">11 preguntas</span>
+        </button>
+        <button class="scale-btn disabled" data-scale="ATX">
+          <span class="scale-abbr">ATX</span>
+          <span class="scale-name" data-i18n="scaleName_ATX">Escala de Ataxia</span>
+          <span class="scale-questions" data-i18n-count="ATX">2 preguntas</span>
+        </button>
+        <button class="scale-btn disabled" data-scale="NPI">
+          <span class="scale-abbr">NPI</span>
+          <span class="scale-name" data-i18n="scaleName_NPI">Neuropsychiatric Inventory</span>
+          <span class="scale-questions" data-i18n-count="NPI">7 preguntas</span>
+        </button>
+        <button class="scale-btn disabled" data-scale="BISAD">
+          <span class="scale-abbr">BISAD</span>
+          <span class="scale-name" data-i18n="scaleName_BISAD">Behavioral Indicators of Somatic Anxiety</span>
+          <span class="scale-questions" data-i18n-count="BISAD">8 preguntas</span>
+        </button>
+        <button class="scale-btn disabled" data-scale="IQCODE">
+          <span class="scale-abbr">IQCODE</span>
+          <span class="scale-name" data-i18n="scaleName_IQCODE">Informant Questionnaire on Cognitive Decline</span>
+          <span class="scale-questions" data-i18n-count="IQCODE">7 preguntas</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW: QUESTIONNAIRE -->
+  <div id="view-questionnaire" class="view">
+    <div class="container">
+      <div class="question-header card">
+        <div class="question-meta">
+          <span id="scale-label" class="scale-label"></span>
+          <span id="question-counter" class="question-counter"></span>
+        </div>
+        <div class="progress-bar-wrap">
+          <div id="progress-bar" class="progress-bar"></div>
+        </div>
+      </div>
+
+      <div class="question-body card">
+        <div class="question-top-row">
+          <p id="question-text" class="question-text"></p>
+          <button id="btn-help" class="btn-help" aria-label="Ayuda">
+            <span>?</span>
+          </button>
+        </div>
+        <div id="responses-list" class="responses-list"></div>
+      </div>
+
+      <div class="question-nav">
+        <button id="btn-first" class="btn btn-outline" data-i18n="first">Inicio</button>
+        <div class="nav-center">
+          <button id="btn-prev" class="btn btn-outline" data-i18n="previous">Anterior</button>
+          <button id="btn-next" class="btn btn-primary" data-i18n="next">Siguiente</button>
+        </div>
+        <button id="btn-last" class="btn btn-outline" data-i18n="last">Final</button>
+      </div>
+
+      <div class="finish-row">
+        <button id="btn-finish" class="btn btn-success disabled" data-i18n="finish">Finalizar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW: RESULTS -->
+  <div id="view-results" class="view">
+    <div class="container">
+      <div class="results-card card">
+        <div class="results-icon">✓</div>
+        <h2 class="results-title" data-i18n="completedTitle">¡Cuestionario completado!</h2>
+        <p class="results-subtitle" data-i18n="completedMessage">Ha completado todas las preguntas.</p>
+        <div class="results-info">
+          <div class="results-row">
+            <span data-i18n="patientCode">Código de Paciente</span>
+            <strong id="results-patient-code"></strong>
+          </div>
+          <div class="results-row">
+            <span data-i18n="scale">Escala</span>
+            <strong id="results-scale-name"></strong>
+          </div>
+          <div class="results-row highlight">
+            <span data-i18n="totalScore">Puntuación Total</span>
+            <strong id="results-score" class="score-value"></strong>
+          </div>
+        </div>
+        <button id="btn-back-menu" class="btn btn-primary" data-i18n="backToMenu">Volver al Menú</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: HELP -->
+  <div id="modal-help" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 data-i18n="help">Ayuda</h3>
+        <button id="btn-close-modal" class="btn-icon" aria-label="Cerrar">&#10005;</button>
+      </div>
+      <div id="modal-help-content" class="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="/js/i18n.js"></script>
+  <script src="/js/data.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

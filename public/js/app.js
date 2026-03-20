@@ -38,6 +38,19 @@ const App = (() => {
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
+
+    // Re-translate code-status message (set dynamically, no data-i18n attribute)
+    if (state.codeStatusKey) {
+      document.getElementById('code-status').textContent = t(state.codeStatusKey, lang);
+    }
+
+    // Re-render report if currently viewing it
+    if (views.report.classList.contains('active') && state.reportScaleIds) {
+      document.getElementById('report-paper').innerHTML = buildReportHTML(state.reportScaleIds);
+      document.getElementById('report-back-label').textContent =
+        state.reportReturnTo === 'results' ? t('backToResults', lang) : t('backToMenu', lang);
+    }
+
     updateScaleButtons();
   }
 
@@ -130,11 +143,11 @@ const App = (() => {
       const res = await fetch('/api/progress/' + encodeURIComponent(code));
       const data = await res.json();
       state.savedProgress = data;
-      status.textContent = Object.keys(data).length
-        ? t('codeLoaded', state.lang)
-        : t('codeNew', state.lang);
+      state.codeStatusKey = Object.keys(data).length ? 'codeLoaded' : 'codeNew';
+      status.textContent = t(state.codeStatusKey, state.lang);
     } catch {
       state.savedProgress = {};
+      state.codeStatusKey = 'codeNew';
       status.textContent = t('codeNew', state.lang);
     }
     updateScaleButtons();

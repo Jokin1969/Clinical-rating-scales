@@ -49,6 +49,12 @@ const App = (() => {
       const locked = !state.patientCode;
       btn.classList.toggle('disabled', locked);
       btn.disabled = locked;
+      // Completion indicator
+      const saved = state.savedProgress && state.savedProgress[id];
+      const answeredCount = saved && saved.answers ? Object.keys(saved.answers).length : 0;
+      const total = SCALES[id] ? SCALES[id].questions.length : 0;
+      btn.classList.toggle('completed', total > 0 && answeredCount >= total);
+      btn.classList.toggle('has-progress', answeredCount > 0 && answeredCount < total);
     });
   }
 
@@ -152,6 +158,11 @@ const App = (() => {
   // ── Save progress ─────────────────────────────────────────
   async function saveProgress() {
     if (!state.patientCode || !state.currentScale) return;
+    // Keep in-memory savedProgress up to date so returning to menu
+    // without re-entering the code still restores answers correctly.
+    if (!state.savedProgress) state.savedProgress = {};
+    state.savedProgress[state.currentScale] = { answers: { ...state.answers } };
+    updateScaleButtons();
     try {
       await fetch('/api/progress/' + encodeURIComponent(state.patientCode), {
         method: 'POST',
@@ -226,12 +237,12 @@ const App = (() => {
     });
 
     // Back to menu (results view and questionnaire view)
-    document.getElementById('btn-back-menu').addEventListener('click', () => {
+    const backToHome = () => {
+      document.getElementById('patient-code').value = state.patientCode;
       showView('home');
-    });
-    document.getElementById('btn-back-to-menu').addEventListener('click', () => {
-      showView('home');
-    });
+    };
+    document.getElementById('btn-back-menu').addEventListener('click', backToHome);
+    document.getElementById('btn-back-to-menu').addEventListener('click', backToHome);
 
     // Help
     document.getElementById('btn-help').addEventListener('click', showHelp);

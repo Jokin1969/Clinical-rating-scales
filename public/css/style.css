@@ -203,11 +203,21 @@ body {
 .scale-name { font-size: 0.85rem; color: var(--text); }
 .scale-questions { font-size: 0.78rem; color: var(--text-muted); }
 
-/* Scale button saved indicator */
-.scale-btn.has-progress .scale-abbr::after {
+/* Scale button progress indicators */
+.scale-btn.completed {
+  border-color: #15803d;
+}
+.scale-btn.completed .scale-abbr {
+  color: #15803d;
+}
+.scale-btn.completed .scale-abbr::after {
   content: ' ✓';
   font-size: 0.9rem;
-  color: var(--success);
+}
+.scale-btn.has-progress .scale-abbr::after {
+  content: ' …';
+  font-size: 0.9rem;
+  color: #b45309;
 }
 
 /* ===== QUESTION HEADER ===== */

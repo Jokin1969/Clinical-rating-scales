@@ -69,8 +69,10 @@ const App = (() => {
   }
 
   function computeScore(scaleId, answers) {
+    const scale = SCALES[scaleId];
+    if (scale.scoreFunction) return scale.scoreFunction(answers, scale.questions);
     let score = 0;
-    SCALES[scaleId].questions.forEach((q, i) => {
+    scale.questions.forEach((q, i) => {
       if (answers[i] !== undefined) score += q.options[answers[i]].value;
     });
     return score;
@@ -342,13 +344,7 @@ const App = (() => {
 
   // ── Finish ────────────────────────────────────────────────
   function finishScale() {
-    const scale = SCALES[state.currentScale];
-    let score = 0;
-    scale.questions.forEach((q, i) => {
-      if (state.answers[i] !== undefined) {
-        score += q.options[state.answers[i]].value;
-      }
-    });
+    const score = computeScore(state.currentScale, state.answers);
 
     document.getElementById('results-patient-code').textContent = state.patientCode;
     document.getElementById('results-scale-name').textContent =
@@ -371,10 +367,9 @@ const App = (() => {
   function buildQuestionsHTML(scaleId) {
     const lang = state.lang;
     const scale = SCALES[scaleId];
-    let maxScore = 0;
-    scale.questions.forEach(q => {
-      maxScore += Math.max(...q.options.map(o => o.value));
-    });
+    const maxScore = scale.maxScore !== undefined
+      ? scale.maxScore
+      : scale.questions.reduce((s, q) => s + Math.max(...q.options.map(o => o.value)), 0);
 
     const doi = scale.doi;
     const doiLink = doi
@@ -420,13 +415,14 @@ const App = (() => {
           <div class="rp-qa-body">
             <div class="rq-q-row">
               <p class="rp-q">${escHtml(qText)}</p>
-              <span class="rq-range">${escHtml(range)}</span>
+              ${q.noScore ? '' : `<span class="rq-range">${escHtml(range)}</span>`}
             </div>
             <ul class="rq-opts">
       `;
       q.options.forEach(opt => {
         const label = opt.label[lang] || opt.label['es'];
-        html += `<li class="rq-opt"><span class="rq-opt-val">${opt.value}</span>${escHtml(label)}</li>`;
+        const valBadge = q.noScore ? '' : `<span class="rq-opt-val">${opt.value}</span>`;
+        html += `<li class="rq-opt">${valBadge}${escHtml(label)}</li>`;
       });
       html += `
             </ul>

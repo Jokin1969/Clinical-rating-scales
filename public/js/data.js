@@ -2015,4 +2015,442 @@ const SCALES = {
       },
     ],
   },
+
+  PSQI: {
+    group: 'asymptomatic',
+    doi: '10.1016/0165-1781(89)90047-4',
+    maxScore: 21,
+    scoreFunction: function(answers, questions) {
+      function getVal(idx) {
+        if (answers[idx] === undefined) return 0;
+        return questions[idx].options[answers[idx]].value;
+      }
+      function getData(idx) {
+        if (answers[idx] === undefined) return null;
+        return questions[idx].options[answers[idx]].data;
+      }
+      // Component 1: sleep quality (Q0)
+      var c1 = getVal(0);
+      // Component 2: sleep latency — sum Q1+Q2, convert 0-6→0-3
+      var sum2 = getVal(1) + getVal(2);
+      var c2 = sum2 === 0 ? 0 : sum2 <= 2 ? 1 : sum2 <= 4 ? 2 : 3;
+      // Component 3: sleep duration (Q3)
+      var c3 = getVal(3);
+      // Component 4: sleep efficiency — bedtime(Q4 data) + waketime(Q5 data) + hoursSlept(Q3 data)
+      var bedtime    = getData(4);
+      var waketime   = getData(5);
+      var hoursSlept = getData(3);
+      var c4 = 0;
+      if (bedtime !== null && waketime !== null && hoursSlept !== null) {
+        var hoursInBed = (waketime + 24) - bedtime;
+        var efficiency = (hoursSlept / hoursInBed) * 100;
+        c4 = efficiency >= 85 ? 0 : efficiency >= 75 ? 1 : efficiency >= 65 ? 2 : 3;
+      }
+      // Component 5: sleep disturbances — sum Q6-Q14, convert 0-27→0-3
+      var sum5 = 0;
+      for (var i = 6; i <= 14; i++) sum5 += getVal(i);
+      var c5 = sum5 === 0 ? 0 : sum5 <= 9 ? 1 : sum5 <= 18 ? 2 : 3;
+      // Component 6: sleep medication (Q15)
+      var c6 = getVal(15);
+      // Component 7: daytime dysfunction — sum Q16+Q17, convert 0-6→0-3
+      var sum7 = getVal(16) + getVal(17);
+      var c7 = sum7 === 0 ? 0 : sum7 <= 2 ? 1 : sum7 <= 4 ? 2 : 3;
+      return c1 + c2 + c3 + c4 + c5 + c6 + c7;
+    },
+    questions: [
+      // ── C1: Calidad subjetiva del sueño ──────────────────────
+      {
+        domain: {
+          es: 'C1: Calidad Subjetiva del Sueño',
+          en: 'C1: Subjective Sleep Quality',
+          de: 'K1: Subjektive Schlafqualität',
+          it: 'C1: Qualità Soggettiva del Sonno',
+        },
+        text: {
+          es: 'Durante el último mes, ¿cómo calificaría la calidad general de su sueño?',
+          en: 'During the past month, how would you rate your sleep quality overall?',
+          de: 'Wie würden Sie die Qualität Ihres Schlafs im letzten Monat insgesamt beurteilen?',
+          it: 'Nell\'ultimo mese, come giudica complessivamente la qualità del Suo sonno?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Muy buena', en: 'Very good', de: 'Sehr gut', it: 'Molto buona' }, value: 0 },
+          { label: { es: 'Bastante buena', en: 'Fairly good', de: 'Ziemlich gut', it: 'Abbastanza buona' }, value: 1 },
+          { label: { es: 'Bastante mala', en: 'Fairly bad', de: 'Ziemlich schlecht', it: 'Abbastanza cattiva' }, value: 2 },
+          { label: { es: 'Muy mala', en: 'Very bad', de: 'Sehr schlecht', it: 'Molto cattiva' }, value: 3 },
+        ],
+      },
+      // ── C2: Latencia del sueño ───────────────────────────────
+      {
+        domain: {
+          es: 'C2: Latencia del Sueño',
+          en: 'C2: Sleep Latency',
+          de: 'K2: Einschlaflatenz',
+          it: 'C2: Latenza del Sonno',
+        },
+        text: {
+          es: 'Durante el último mes, ¿cuánto tiempo le ha costado normalmente quedarse dormido cada noche?',
+          en: 'During the past month, how long (in minutes) has it usually taken you to fall asleep each night?',
+          de: 'Wie lange hat es im letzten Monat normalerweise gedauert, bis Sie eingeschlafen sind?',
+          it: 'Nell\'ultimo mese, quanti minuti le ci sono voluti di solito per addormentarsi ogni notte?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: '15 minutos o menos', en: '15 minutes or less', de: '15 Minuten oder weniger', it: '15 minuti o meno' }, value: 0, data: 10 },
+          { label: { es: '16-30 minutos', en: '16-30 minutes', de: '16-30 Minuten', it: '16-30 minuti' }, value: 1, data: 23 },
+          { label: { es: '31-60 minutos', en: '31-60 minutes', de: '31-60 Minuten', it: '31-60 minuti' }, value: 2, data: 45 },
+          { label: { es: 'Más de 60 minutos', en: 'More than 60 minutes', de: 'Mehr als 60 Minuten', it: 'Più di 60 minuti' }, value: 3, data: 75 },
+        ],
+      },
+      {
+        domain: {
+          es: 'C2: Latencia del Sueño',
+          en: 'C2: Sleep Latency',
+          de: 'K2: Einschlaflatenz',
+          it: 'C2: Latenza del Sonno',
+        },
+        text: {
+          es: 'Durante el último mes, ¿con qué frecuencia ha tenido problemas para dormir porque no podía conciliar el sueño en 30 minutos?',
+          en: 'During the past month, how often have you had trouble sleeping because you couldn\'t get to sleep within 30 minutes?',
+          de: 'Wie oft hatten Sie im letzten Monat Einschlafschwierigkeiten, weil Sie nicht innerhalb von 30 Minuten einschlafen konnten?',
+          it: 'Nell\'ultimo mese, con quale frequenza ha avuto difficoltà ad addormentarsi entro 30 minuti?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Nunca durante el último mes', en: 'Not during the past month', de: 'Nicht im letzten Monat', it: 'Mai nell\'ultimo mese' }, value: 0 },
+          { label: { es: 'Menos de una vez a la semana', en: 'Less than once a week', de: 'Weniger als einmal pro Woche', it: 'Meno di una volta a settimana' }, value: 1 },
+          { label: { es: 'Una o dos veces a la semana', en: 'Once or twice a week', de: 'Ein- oder zweimal pro Woche', it: 'Una o due volte a settimana' }, value: 2 },
+          { label: { es: 'Tres o más veces a la semana', en: 'Three or more times a week', de: 'Dreimal oder häufiger pro Woche', it: 'Tre o più volte a settimana' }, value: 3 },
+        ],
+      },
+      // ── C3: Duración del sueño ───────────────────────────────
+      {
+        domain: {
+          es: 'C3: Duración del Sueño',
+          en: 'C3: Sleep Duration',
+          de: 'K3: Schlafdauer',
+          it: 'C3: Durata del Sonno',
+        },
+        text: {
+          es: 'Durante el último mes, ¿cuántas horas de sueño real ha dormido normalmente cada noche?',
+          en: 'During the past month, how many hours of actual sleep did you usually get at night?',
+          de: 'Wie viele Stunden haben Sie im letzten Monat tatsächlich pro Nacht geschlafen?',
+          it: 'Nell\'ultimo mese, quante ore ha dormito effettivamente di notte?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Más de 7 horas', en: 'More than 7 hours', de: 'Mehr als 7 Stunden', it: 'Più di 7 ore' }, value: 0, data: 7.5 },
+          { label: { es: '6-7 horas', en: '6-7 hours', de: '6-7 Stunden', it: '6-7 ore' }, value: 1, data: 6.5 },
+          { label: { es: '5-6 horas', en: '5-6 hours', de: '5-6 Stunden', it: '5-6 ore' }, value: 2, data: 5.5 },
+          { label: { es: 'Menos de 5 horas', en: 'Less than 5 hours', de: 'Weniger als 5 Stunden', it: 'Meno di 5 ore' }, value: 3, data: 4.5 },
+        ],
+      },
+      // ── C4: Eficiencia habitual del sueño ────────────────────
+      {
+        domain: {
+          es: 'C4: Eficiencia Habitual del Sueño',
+          en: 'C4: Habitual Sleep Efficiency',
+          de: 'K4: Habituelle Schlafeffizienz',
+          it: 'C4: Efficienza Abituale del Sonno',
+        },
+        noScore: true,
+        text: {
+          es: 'Durante el último mes, ¿a qué hora se ha acostado habitualmente por la noche?',
+          en: 'During the past month, what time have you usually gone to bed at night?',
+          de: 'Wann sind Sie im letzten Monat normalerweise abends ins Bett gegangen?',
+          it: 'Nell\'ultimo mese, a che ora è andato a letto di solito la sera?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Antes de las 22:00 h', en: 'Before 10 pm', de: 'Vor 22:00 Uhr', it: 'Prima delle 22:00' }, value: 0, data: 21 },
+          { label: { es: 'Entre las 22:00 y las 23:00 h', en: 'Between 10 pm and 11 pm', de: 'Zwischen 22:00 und 23:00 Uhr', it: 'Tra le 22:00 e le 23:00' }, value: 0, data: 22.5 },
+          { label: { es: 'Entre las 23:00 y las 00:00 h', en: 'Between 11 pm and midnight', de: 'Zwischen 23:00 und 00:00 Uhr', it: 'Tra le 23:00 e mezzanotte' }, value: 0, data: 23.5 },
+          { label: { es: 'Después de las 00:00 h', en: 'After midnight', de: 'Nach Mitternacht', it: 'Dopo mezzanotte' }, value: 0, data: 24.5 },
+        ],
+      },
+      {
+        domain: {
+          es: 'C4: Eficiencia Habitual del Sueño',
+          en: 'C4: Habitual Sleep Efficiency',
+          de: 'K4: Habituelle Schlafeffizienz',
+          it: 'C4: Efficienza Abituale del Sonno',
+        },
+        noScore: true,
+        text: {
+          es: 'Durante el último mes, ¿a qué hora se ha levantado habitualmente por la mañana?',
+          en: 'During the past month, what time have you usually gotten up in the morning?',
+          de: 'Wann sind Sie im letzten Monat normalerweise morgens aufgestanden?',
+          it: 'Nell\'ultimo mese, a che ora si è alzato di solito al mattino?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Antes de las 6:00 h', en: 'Before 6 am', de: 'Vor 6:00 Uhr', it: 'Prima delle 6:00' }, value: 0, data: 5 },
+          { label: { es: 'Entre las 6:00 y las 7:00 h', en: 'Between 6 am and 7 am', de: 'Zwischen 6:00 und 7:00 Uhr', it: 'Tra le 6:00 e le 7:00' }, value: 0, data: 6.5 },
+          { label: { es: 'Entre las 7:00 y las 8:00 h', en: 'Between 7 am and 8 am', de: 'Zwischen 7:00 und 8:00 Uhr', it: 'Tra le 7:00 e le 8:00' }, value: 0, data: 7.5 },
+          { label: { es: 'Entre las 8:00 y las 9:00 h', en: 'Between 8 am and 9 am', de: 'Zwischen 8:00 und 9:00 Uhr', it: 'Tra le 8:00 e le 9:00' }, value: 0, data: 8.5 },
+          { label: { es: 'Después de las 9:00 h', en: 'After 9 am', de: 'Nach 9:00 Uhr', it: 'Dopo le 9:00' }, value: 0, data: 9.5 },
+        ],
+      },
+      // ── C5: Alteraciones del sueño ───────────────────────────
+      {
+        domain: {
+          es: 'C5: Alteraciones del Sueño',
+          en: 'C5: Sleep Disturbances',
+          de: 'K5: Schlafstörungen',
+          it: 'C5: Alterazioni del Sonno',
+        },
+        text: {
+          es: 'Durante el último mes, ¿con qué frecuencia ha tenido problemas para dormir porque se despertaba durante la noche o de madrugada?',
+          en: 'During the past month, how often have you had trouble sleeping because you woke up in the middle of the night or early morning?',
+          de: 'Wie oft hatten Sie im letzten Monat Schlafprobleme, weil Sie mitten in der Nacht oder frühmorgens aufgewacht sind?',
+          it: 'Nell\'ultimo mese, con quale frequenza ha avuto difficoltà a dormire perché si svegliava di notte o nelle prime ore del mattino?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Nunca durante el último mes', en: 'Not during the past month', de: 'Nicht im letzten Monat', it: 'Mai nell\'ultimo mese' }, value: 0 },
+          { label: { es: 'Menos de una vez a la semana', en: 'Less than once a week', de: 'Weniger als einmal pro Woche', it: 'Meno di una volta a settimana' }, value: 1 },
+          { label: { es: 'Una o dos veces a la semana', en: 'Once or twice a week', de: 'Ein- oder zweimal pro Woche', it: 'Una o due volte a settimana' }, value: 2 },
+          { label: { es: 'Tres o más veces a la semana', en: 'Three or more times a week', de: 'Dreimal oder häufiger pro Woche', it: 'Tre o più volte a settimana' }, value: 3 },
+        ],
+      },
+      {
+        domain: {
+          es: 'C5: Alteraciones del Sueño',
+          en: 'C5: Sleep Disturbances',
+          de: 'K5: Schlafstörungen',
+          it: 'C5: Alterazioni del Sonno',
+        },
+        text: {
+          es: 'Durante el último mes, ¿con qué frecuencia ha tenido problemas para dormir porque tenía que levantarse para ir al baño?',
+          en: 'During the past month, how often have you had trouble sleeping because you had to get up to use the bathroom?',
+          de: 'Wie oft hatten Sie im letzten Monat Schlafprobleme, weil Sie aufstehen mussten, um die Toilette zu benutzen?',
+          it: 'Nell\'ultimo mese, con quale frequenza ha avuto difficoltà a dormire perché doveva alzarsi per andare in bagno?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Nunca durante el último mes', en: 'Not during the past month', de: 'Nicht im letzten Monat', it: 'Mai nell\'ultimo mese' }, value: 0 },
+          { label: { es: 'Menos de una vez a la semana', en: 'Less than once a week', de: 'Weniger als einmal pro Woche', it: 'Meno di una volta a settimana' }, value: 1 },
+          { label: { es: 'Una o dos veces a la semana', en: 'Once or twice a week', de: 'Ein- oder zweimal pro Woche', it: 'Una o due volte a settimana' }, value: 2 },
+          { label: { es: 'Tres o más veces a la semana', en: 'Three or more times a week', de: 'Dreimal oder häufiger pro Woche', it: 'Tre o più volte a settimana' }, value: 3 },
+        ],
+      },
+      {
+        domain: {
+          es: 'C5: Alteraciones del Sueño',
+          en: 'C5: Sleep Disturbances',
+          de: 'K5: Schlafstörungen',
+          it: 'C5: Alterazioni del Sonno',
+        },
+        text: {
+          es: 'Durante el último mes, ¿con qué frecuencia ha tenido problemas para dormir porque no podía respirar bien?',
+          en: 'During the past month, how often have you had trouble sleeping because you couldn\'t breathe comfortably?',
+          de: 'Wie oft hatten Sie im letzten Monat Schlafprobleme, weil Sie nicht gut atmen konnten?',
+          it: 'Nell\'ultimo mese, con quale frequenza ha avuto difficoltà a dormire perché non riusciva a respirare comodamente?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Nunca durante el último mes', en: 'Not during the past month', de: 'Nicht im letzten Monat', it: 'Mai nell\'ultimo mese' }, value: 0 },
+          { label: { es: 'Menos de una vez a la semana', en: 'Less than once a week', de: 'Weniger als einmal pro Woche', it: 'Meno di una volta a settimana' }, value: 1 },
+          { label: { es: 'Una o dos veces a la semana', en: 'Once or twice a week', de: 'Ein- oder zweimal pro Woche', it: 'Una o due volte a settimana' }, value: 2 },
+          { label: { es: 'Tres o más veces a la semana', en: 'Three or more times a week', de: 'Dreimal oder häufiger pro Woche', it: 'Tre o più volte a settimana' }, value: 3 },
+        ],
+      },
+      {
+        domain: {
+          es: 'C5: Alteraciones del Sueño',
+          en: 'C5: Sleep Disturbances',
+          de: 'K5: Schlafstörungen',
+          it: 'C5: Alterazioni del Sonno',
+        },
+        text: {
+          es: 'Durante el último mes, ¿con qué frecuencia ha tenido problemas para dormir porque tosía o roncaba ruidosamente?',
+          en: 'During the past month, how often have you had trouble sleeping because you coughed or snored loudly?',
+          de: 'Wie oft hatten Sie im letzten Monat Schlafprobleme, weil Sie gehustet oder laut geschnarcht haben?',
+          it: 'Nell\'ultimo mese, con quale frequenza ha avuto difficoltà a dormire perché tossiva o russava rumorosamente?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Nunca durante el último mes', en: 'Not during the past month', de: 'Nicht im letzten Monat', it: 'Mai nell\'ultimo mese' }, value: 0 },
+          { label: { es: 'Menos de una vez a la semana', en: 'Less than once a week', de: 'Weniger als einmal pro Woche', it: 'Meno di una volta a settimana' }, value: 1 },
+          { label: { es: 'Una o dos veces a la semana', en: 'Once or twice a week', de: 'Ein- oder zweimal pro Woche', it: 'Una o due volte a settimana' }, value: 2 },
+          { label: { es: 'Tres o más veces a la semana', en: 'Three or more times a week', de: 'Dreimal oder häufiger pro Woche', it: 'Tre o più volte a settimana' }, value: 3 },
+        ],
+      },
+      {
+        domain: {
+          es: 'C5: Alteraciones del Sueño',
+          en: 'C5: Sleep Disturbances',
+          de: 'K5: Schlafstörungen',
+          it: 'C5: Alterazioni del Sonno',
+        },
+        text: {
+          es: 'Durante el último mes, ¿con qué frecuencia ha tenido problemas para dormir porque sentía frío?',
+          en: 'During the past month, how often have you had trouble sleeping because you felt too cold?',
+          de: 'Wie oft hatten Sie im letzten Monat Schlafprobleme, weil Ihnen zu kalt war?',
+          it: 'Nell\'ultimo mese, con quale frequenza ha avuto difficoltà a dormire perché sentiva freddo?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Nunca durante el último mes', en: 'Not during the past month', de: 'Nicht im letzten Monat', it: 'Mai nell\'ultimo mese' }, value: 0 },
+          { label: { es: 'Menos de una vez a la semana', en: 'Less than once a week', de: 'Weniger als einmal pro Woche', it: 'Meno di una volta a settimana' }, value: 1 },
+          { label: { es: 'Una o dos veces a la semana', en: 'Once or twice a week', de: 'Ein- oder zweimal pro Woche', it: 'Una o due volte a settimana' }, value: 2 },
+          { label: { es: 'Tres o más veces a la semana', en: 'Three or more times a week', de: 'Dreimal oder häufiger pro Woche', it: 'Tre o più volte a settimana' }, value: 3 },
+        ],
+      },
+      {
+        domain: {
+          es: 'C5: Alteraciones del Sueño',
+          en: 'C5: Sleep Disturbances',
+          de: 'K5: Schlafstörungen',
+          it: 'C5: Alterazioni del Sonno',
+        },
+        text: {
+          es: 'Durante el último mes, ¿con qué frecuencia ha tenido problemas para dormir porque sentía calor?',
+          en: 'During the past month, how often have you had trouble sleeping because you felt too hot?',
+          de: 'Wie oft hatten Sie im letzten Monat Schlafprobleme, weil Ihnen zu warm war?',
+          it: 'Nell\'ultimo mese, con quale frequenza ha avuto difficoltà a dormire perché sentiva caldo?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Nunca durante el último mes', en: 'Not during the past month', de: 'Nicht im letzten Monat', it: 'Mai nell\'ultimo mese' }, value: 0 },
+          { label: { es: 'Menos de una vez a la semana', en: 'Less than once a week', de: 'Weniger als einmal pro Woche', it: 'Meno di una volta a settimana' }, value: 1 },
+          { label: { es: 'Una o dos veces a la semana', en: 'Once or twice a week', de: 'Ein- oder zweimal pro Woche', it: 'Una o due volte a settimana' }, value: 2 },
+          { label: { es: 'Tres o más veces a la semana', en: 'Three or more times a week', de: 'Dreimal oder häufiger pro Woche', it: 'Tre o più volte a settimana' }, value: 3 },
+        ],
+      },
+      {
+        domain: {
+          es: 'C5: Alteraciones del Sueño',
+          en: 'C5: Sleep Disturbances',
+          de: 'K5: Schlafstörungen',
+          it: 'C5: Alterazioni del Sonno',
+        },
+        text: {
+          es: 'Durante el último mes, ¿con qué frecuencia ha tenido problemas para dormir porque tenía pesadillas o malos sueños?',
+          en: 'During the past month, how often have you had trouble sleeping because you had bad dreams?',
+          de: 'Wie oft hatten Sie im letzten Monat Schlafprobleme, weil Sie schlechte Träume hatten?',
+          it: 'Nell\'ultimo mese, con quale frequenza ha avuto difficoltà a dormire a causa di brutti sogni?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Nunca durante el último mes', en: 'Not during the past month', de: 'Nicht im letzten Monat', it: 'Mai nell\'ultimo mese' }, value: 0 },
+          { label: { es: 'Menos de una vez a la semana', en: 'Less than once a week', de: 'Weniger als einmal pro Woche', it: 'Meno di una volta a settimana' }, value: 1 },
+          { label: { es: 'Una o dos veces a la semana', en: 'Once or twice a week', de: 'Ein- oder zweimal pro Woche', it: 'Una o due volte a settimana' }, value: 2 },
+          { label: { es: 'Tres o más veces a la semana', en: 'Three or more times a week', de: 'Dreimal oder häufiger pro Woche', it: 'Tre o più volte a settimana' }, value: 3 },
+        ],
+      },
+      {
+        domain: {
+          es: 'C5: Alteraciones del Sueño',
+          en: 'C5: Sleep Disturbances',
+          de: 'K5: Schlafstörungen',
+          it: 'C5: Alterazioni del Sonno',
+        },
+        text: {
+          es: 'Durante el último mes, ¿con qué frecuencia ha tenido problemas para dormir porque sufría dolores?',
+          en: 'During the past month, how often have you had trouble sleeping because you had pain?',
+          de: 'Wie oft hatten Sie im letzten Monat Schlafprobleme aufgrund von Schmerzen?',
+          it: 'Nell\'ultimo mese, con quale frequenza ha avuto difficoltà a dormire a causa di dolori?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Nunca durante el último mes', en: 'Not during the past month', de: 'Nicht im letzten Monat', it: 'Mai nell\'ultimo mese' }, value: 0 },
+          { label: { es: 'Menos de una vez a la semana', en: 'Less than once a week', de: 'Weniger als einmal pro Woche', it: 'Meno di una volta a settimana' }, value: 1 },
+          { label: { es: 'Una o dos veces a la semana', en: 'Once or twice a week', de: 'Ein- oder zweimal pro Woche', it: 'Una o due volte a settimana' }, value: 2 },
+          { label: { es: 'Tres o más veces a la semana', en: 'Three or more times a week', de: 'Dreimal oder häufiger pro Woche', it: 'Tre o più volte a settimana' }, value: 3 },
+        ],
+      },
+      {
+        domain: {
+          es: 'C5: Alteraciones del Sueño',
+          en: 'C5: Sleep Disturbances',
+          de: 'K5: Schlafstörungen',
+          it: 'C5: Alterazioni del Sonno',
+        },
+        text: {
+          es: 'Durante el último mes, ¿con qué frecuencia ha tenido problemas para dormir por otras razones (como levantarse, desorientación u otras molestias)?',
+          en: 'During the past month, how often have you had trouble sleeping for other reason(s) (such as getting up, disorientation or other discomforts)?',
+          de: 'Wie oft hatten Sie im letzten Monat aus anderen Gründen Schlafprobleme (z. B. Aufstehen, Desorientierung oder andere Beschwerden)?',
+          it: 'Nell\'ultimo mese, con quale frequenza ha avuto difficoltà a dormire per altre ragioni (come alzarsi, disorientamento o altri disturbi)?',
+        },
+        help: {
+          es: 'Si aplica, describa la razón en la historia clínica.',
+          en: 'If applicable, describe the reason in the clinical record.',
+          de: 'Falls zutreffend, beschreiben Sie den Grund in der Krankenakte.',
+          it: 'Se applicabile, descrivere il motivo nella cartella clinica.',
+        },
+        options: [
+          { label: { es: 'Nunca durante el último mes', en: 'Not during the past month', de: 'Nicht im letzten Monat', it: 'Mai nell\'ultimo mese' }, value: 0 },
+          { label: { es: 'Menos de una vez a la semana', en: 'Less than once a week', de: 'Weniger als einmal pro Woche', it: 'Meno di una volta a settimana' }, value: 1 },
+          { label: { es: 'Una o dos veces a la semana', en: 'Once or twice a week', de: 'Ein- oder zweimal pro Woche', it: 'Una o due volte a settimana' }, value: 2 },
+          { label: { es: 'Tres o más veces a la semana', en: 'Three or more times a week', de: 'Dreimal oder häufiger pro Woche', it: 'Tre o più volte a settimana' }, value: 3 },
+        ],
+      },
+      // ── C6: Uso de medicación para dormir ────────────────────
+      {
+        domain: {
+          es: 'C6: Uso de Medicación para Dormir',
+          en: 'C6: Use of Sleeping Medication',
+          de: 'K6: Schlafmitteleinnahme',
+          it: 'C6: Uso di Farmaci per Dormire',
+        },
+        text: {
+          es: 'Durante el último mes, ¿con qué frecuencia ha tomado medicamentos (con o sin receta) para ayudarle a dormir?',
+          en: 'During the past month, how often have you taken medicine (prescribed or over the counter) to help you sleep?',
+          de: 'Wie oft haben Sie im letzten Monat Medikamente (verschrieben oder rezeptfrei) eingenommen, um schlafen zu können?',
+          it: 'Nell\'ultimo mese, con quale frequenza ha preso farmaci (con o senza prescrizione) per aiutarsi a dormire?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Nunca durante el último mes', en: 'Not during the past month', de: 'Nicht im letzten Monat', it: 'Mai nell\'ultimo mese' }, value: 0 },
+          { label: { es: 'Menos de una vez a la semana', en: 'Less than once a week', de: 'Weniger als einmal pro Woche', it: 'Meno di una volta a settimana' }, value: 1 },
+          { label: { es: 'Una o dos veces a la semana', en: 'Once or twice a week', de: 'Ein- oder zweimal pro Woche', it: 'Una o due volte a settimana' }, value: 2 },
+          { label: { es: 'Tres o más veces a la semana', en: 'Three or more times a week', de: 'Dreimal oder häufiger pro Woche', it: 'Tre o più volte a settimana' }, value: 3 },
+        ],
+      },
+      // ── C7: Disfunción diurna ────────────────────────────────
+      {
+        domain: {
+          es: 'C7: Disfunción Diurna',
+          en: 'C7: Daytime Dysfunction',
+          de: 'K7: Tageszeitliche Dysfunktion',
+          it: 'C7: Disfunzione Diurna',
+        },
+        text: {
+          es: 'Durante el último mes, ¿con qué frecuencia ha tenido problemas para mantenerse despierto mientras conducía, comía o realizaba alguna actividad social?',
+          en: 'During the past month, how often have you had trouble staying awake while driving, eating meals, or engaging in social activity?',
+          de: 'Wie oft hatten Sie im letzten Monat Schwierigkeiten, beim Autofahren, beim Essen oder bei sozialen Aktivitäten wach zu bleiben?',
+          it: 'Nell\'ultimo mese, con quale frequenza ha avuto difficoltà a restare sveglio durante la guida, i pasti o attività sociali?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Nunca', en: 'Never', de: 'Nie', it: 'Mai' }, value: 0 },
+          { label: { es: 'Una o dos veces', en: 'Once or twice', de: 'Ein- oder zweimal', it: 'Una o due volte' }, value: 1 },
+          { label: { es: 'Una o dos veces a la semana', en: 'Once or twice a week', de: 'Ein- oder zweimal pro Woche', it: 'Una o due volte a settimana' }, value: 2 },
+          { label: { es: 'Tres o más veces a la semana', en: 'Three or more times a week', de: 'Dreimal oder häufiger pro Woche', it: 'Tre o più volte a settimana' }, value: 3 },
+        ],
+      },
+      {
+        domain: {
+          es: 'C7: Disfunción Diurna',
+          en: 'C7: Daytime Dysfunction',
+          de: 'K7: Tageszeitliche Dysfunktion',
+          it: 'C7: Disfunzione Diurna',
+        },
+        text: {
+          es: 'Durante el último mes, ¿ha tenido problemas para mantener el entusiasmo necesario para hacer las cosas?',
+          en: 'During the past month, how much of a problem has it been for you to keep up enough enthusiasm to get things done?',
+          de: 'Wie groß war das Problem im letzten Monat, genügend Begeisterung aufzubringen, um Dinge zu erledigen?',
+          it: 'Nell\'ultimo mese, quanto è stato un problema per lei mantenere sufficiente entusiasmo per svolgere le attività?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Ningún problema', en: 'No problem at all', de: 'Überhaupt kein Problem', it: 'Nessun problema' }, value: 0 },
+          { label: { es: 'Solo un problema muy leve', en: 'Only a very slight problem', de: 'Nur ein sehr geringes Problem', it: 'Solo un problema molto lieve' }, value: 1 },
+          { label: { es: 'Algo problemático', en: 'Somewhat of a problem', de: 'Ein gewisses Problem', it: 'Un certo problema' }, value: 2 },
+          { label: { es: 'Un problema muy grave', en: 'A very big problem', de: 'Ein sehr großes Problem', it: 'Un problema grave' }, value: 3 },
+        ],
+      },
+    ],
+  },
 };

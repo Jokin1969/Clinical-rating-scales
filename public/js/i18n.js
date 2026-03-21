@@ -64,6 +64,8 @@ const I18N = {
     questions_MBIC:         '34 preguntas',
     scaleName_HADS:         'Hospital Anxiety and Depression Scale',
     questions_HADS:         '14 preguntas',
+    scaleName_PSQI:         'Pittsburgh Sleep Quality Index',
+    questions_PSQI:         '18 preguntas',
   },
   en: {
     appTitle:               'Clinical Rating Scales',
@@ -126,6 +128,8 @@ const I18N = {
     questions_MBIC:         '34 questions',
     scaleName_HADS:         'Hospital Anxiety and Depression Scale',
     questions_HADS:         '14 questions',
+    scaleName_PSQI:         'Pittsburgh Sleep Quality Index',
+    questions_PSQI:         '18 questions',
   },
   de: {
     appTitle:               'Klinische Bewertungsskalen',
@@ -188,6 +192,8 @@ const I18N = {
     questions_MBIC:         '34 Fragen',
     scaleName_HADS:         'Hospital Anxiety and Depression Scale',
     questions_HADS:         '14 Fragen',
+    scaleName_PSQI:         'Pittsburgh Sleep Quality Index',
+    questions_PSQI:         '18 Fragen',
   },
   it: {
     appTitle:               'Scale di Valutazione Clinica',
@@ -250,6 +256,8 @@ const I18N = {
     questions_MBIC:         '34 domande',
     scaleName_HADS:         'Hospital Anxiety and Depression Scale',
     questions_HADS:         '14 domande',
+    scaleName_PSQI:         'Pittsburgh Sleep Quality Index',
+    questions_PSQI:         '18 domande',
   }
 };
 

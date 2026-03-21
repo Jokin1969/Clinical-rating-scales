@@ -1322,7 +1322,7 @@ const SCALES = {
           es: '¿Tiene estallidos de mal genio o irritabilidad desproporcionados?',
           en: 'Does the patient have disproportionate outbursts of bad temper or irritability?',
           de: 'Hat der Patient unverhältnismäßige Ausbrüche von Jähzorn oder Reizbarkeit?',
-          it: 'Ha scatti d'ira o irritabilità sproporzionati?',
+          it: 'Ha scatti d\'ira o irritabilità sproporzionati?',
         },
         help: { es: '', en: '', de: '', it: '' },
         options: [
@@ -1472,7 +1472,7 @@ const SCALES = {
         },
         text: {
           es: '¿Ha aumentado su apetito o come más compulsivamente que antes?',
-          en: 'Has the patient's appetite increased or do they eat more compulsively than before?',
+          en: 'Has the patient\'s appetite increased or do they eat more compulsively than before?',
           de: 'Hat sich der Appetit des Patienten erhöht oder isst er zwanghafter als zuvor?',
           it: 'È aumentato il suo appetito o mangia in modo più compulsivo di prima?',
         },

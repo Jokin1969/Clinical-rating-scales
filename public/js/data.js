@@ -481,48 +481,190 @@ const SCALES = {
     ],
   },
 
-  // ── ATX ──────────────────────────────────────────────────────────────
-  ATX: {
+  // ── SARA ─────────────────────────────────────────────────────────────
+  SARA: {
     doi: '10.1212/01.wnl.0000219042.60538.92',
     questions: [
+      // 1. Gait / Marcha (0-8)
       {
         text: {
-          es: '¿Presenta el paciente inestabilidad al caminar o tendencia a desviarse?',
-          en: 'Does the patient show instability when walking or tendency to deviate?',
-          de: 'Zeigt der Patient Instabilität beim Gehen oder Tendenz abzuweichen?',
-          it: 'Il paziente mostra instabilità nel camminare o tendenza a deviare?',
+          es: 'Marcha (Gait): ¿Cómo es la estabilidad y la necesidad de apoyo al caminar y girar?',
+          en: 'Gait: How is the stability and need for support when walking and turning?',
+          de: 'Gang (Gait): Wie ist die Stabilität und Stütznotwendigkeit beim Gehen und Drehen?',
+          it: 'Andatura (Gait): Com\'è la stabilità e la necessità di supporto nel camminare e girare?',
         },
         help: {
-          es: 'Observe la marcha en línea recta. Evalúe desviaciones laterales o caídas.',
-          en: 'Observe walking in a straight line. Assess lateral deviations or falls.',
-          de: 'Beobachten Sie das Gehen geradeaus. Seitliche Abweichungen oder Stürze bewerten.',
-          it: 'Osservare la camminata in linea retta. Valutare deviazioni laterali o cadute.',
+          es: 'Observe si su familiar camina en línea recta o si parece "borracho". Fíjese si necesita tocar las paredes para no caerse o si ya es imprescindible que alguien le sujete del brazo o use un andador.',
+          en: 'Observe whether your relative walks in a straight line or appears "drunk". Notice if they need to touch walls to avoid falling or if it is already essential for someone to hold their arm or use a walking aid.',
+          de: 'Beobachten Sie, ob Ihr Angehöriger geradeaus geht oder "betrunken" wirkt. Achten Sie darauf, ob er Wände berühren muss, um nicht zu fallen, oder ob jemand seinen Arm halten oder ein Hilfsmittel nutzen muss.',
+          it: 'Osservi se il suo familiare cammina in linea retta o sembra "ubriaco". Noti se ha bisogno di toccare le pareti per non cadere o se è già necessario che qualcuno lo sorregga o usi un deambulatore.',
         },
         options: [
-          { label: { es: 'Ausente', en: 'Absent', de: 'Abwesend', it: 'Assente' }, value: 0 },
-          { label: { es: 'Leve', en: 'Mild', de: 'Leicht', it: 'Lieve' }, value: 1 },
-          { label: { es: 'Moderada', en: 'Moderate', de: 'Mäßig', it: 'Moderata' }, value: 2 },
-          { label: { es: 'Grave', en: 'Severe', de: 'Schwer', it: 'Grave' }, value: 3 },
+          { label: { es: '0 – Normal', en: '0 – Normal', de: '0 – Normal', it: '0 – Normale' }, value: 0 },
+          { label: { es: '1 – Leve dificultad; marcha en tándem con varios pasos posible', en: '1 – Slight difficulty; tandem gait, several steps possible', de: '1 – Leichte Schwierigkeiten; Tandemgang mit mehreren Schritten möglich', it: '1 – Lieve difficoltà; tandem possibile con alcuni passi' }, value: 1 },
+          { label: { es: '2 – Claramente anormal; marcha en tándem imposible', en: '2 – Clearly abnormal; tandem gait impossible', de: '2 – Deutlich abnormal; Tandemgang unmöglich', it: '2 – Chiaramente anormale; tandem impossibile' }, value: 2 },
+          { label: { es: '3 – Considerablemente atáxico; usa apoyo ocasionalmente', en: '3 – Considerably ataxic; occasionally uses support', de: '3 – Erheblich ataktisch; gelegentlich Stütze erforderlich', it: '3 – Considerevolmente atassico; supporto usato occasionalmente' }, value: 3 },
+          { label: { es: '4 – Marcadamente atáxico; requiere apoyo constante', en: '4 – Markedly ataxic; constant support required', de: '4 – Deutlich ataktisch; ständige Stütze erforderlich', it: '4 – Marcatamente atassico; supporto costante necessario' }, value: 4 },
+          { label: { es: '5 – Solo unos pocos pasos posibles con apoyo', en: '5 – Only a few steps possible with support', de: '5 – Nur wenige Schritte mit Stütze möglich', it: '5 – Solo pochi passi possibili con supporto' }, value: 5 },
+          { label: { es: '6 – Incapaz de caminar sin apoyo; puede mantenerse de pie sin apoyo', en: '6 – Unable to walk without support; standing possible without support', de: '6 – Unfähig ohne Stütze zu gehen; Stehen ohne Stütze möglich', it: '6 – Impossibile camminare senza supporto; in piedi possibile senza supporto' }, value: 6 },
+          { label: { es: '7 – Solo puede estar de pie con apoyo; imposible sin apoyo', en: '7 – Standing only with support; impossible without support', de: '7 – Stehen nur mit Stütze; unmöglich ohne Stütze', it: '7 – In piedi solo con supporto; impossibile senza' }, value: 7 },
+          { label: { es: '8 – Incapaz de caminar e incapaz de mantenerse de pie', en: '8 – Unable to walk and unable to stand', de: '8 – Unfähig zu gehen und zu stehen', it: '8 – Impossibile camminare e stare in piedi' }, value: 8 },
         ],
       },
+      // 2. Stance / Bipedestación (0-6)
       {
         text: {
-          es: '¿Presenta el paciente temblor o movimientos incoordinados en las extremidades?',
-          en: 'Does the patient show tremor or uncoordinated movements in the limbs?',
-          de: 'Zeigt der Patient Zittern oder unkoordinierte Bewegungen in den Gliedmaßen?',
-          it: 'Il paziente mostra tremore o movimenti incoordinati agli arti?',
+          es: 'Bipedestación (Stance): ¿Cuánto tiempo aguanta de pie con los pies juntos antes de perder el equilibrio?',
+          en: 'Stance: How long can they stand with feet together before losing balance?',
+          de: 'Stand (Stance): Wie lange kann der Patient mit zusammengestellten Füßen stehen, bevor er das Gleichgewicht verliert?',
+          it: 'Postura eretta (Stance): Quanto tempo riesce a stare in piedi con i piedi uniti prima di perdere l\'equilibrio?',
         },
         help: {
-          es: 'Prueba dedo-nariz y talón-rodilla para valorar dismetría.',
-          en: 'Finger-nose and heel-knee test to assess dysmetria.',
-          de: 'Finger-Nase- und Hacke-Knie-Test zur Beurteilung von Dysmetrie.',
-          it: 'Test dito-naso e tallone-ginocchio per valutare la dismetria.',
+          es: 'Queremos ver qué tan estable está cuando se queda quieto de pie. Díganos si en casa nota que se tambalea al cepillarse los dientes o si necesita separar mucho las piernas para sentir que no se cae.',
+          en: 'We want to see how stable they are when standing still. Tell us if at home you notice them swaying while brushing their teeth or needing to spread their legs wide to feel stable.',
+          de: 'Wir möchten sehen, wie stabil der Patient beim ruhigen Stehen ist. Sagen Sie uns, ob er zu Hause beim Zähneputzen schwankt oder die Beine weit spreizen muss, um nicht zu fallen.',
+          it: 'Vogliamo vedere quanto è stabile stando fermo in piedi. Ci dica se a casa nota che barcolla mentre si lava i denti o se deve allargare molto le gambe per sentirsi stabile.',
         },
         options: [
-          { label: { es: 'Ausente', en: 'Absent', de: 'Abwesend', it: 'Assente' }, value: 0 },
-          { label: { es: 'Leve', en: 'Mild', de: 'Leicht', it: 'Lieve' }, value: 1 },
-          { label: { es: 'Moderado', en: 'Moderate', de: 'Mäßig', it: 'Moderato' }, value: 2 },
-          { label: { es: 'Grave', en: 'Severe', de: 'Schwer', it: 'Grave' }, value: 3 },
+          { label: { es: '0 – Normal; pies juntos, estable >10 s, ojos abiertos y cerrados', en: '0 – Normal; feet together, stable >10 s, eyes open and closed', de: '0 – Normal; Füße zusammen, stabil >10 s, Augen offen und geschlossen', it: '0 – Normale; piedi uniti, stabile >10 s, occhi aperti e chiusi' }, value: 0 },
+          { label: { es: '1 – Ligeramente inestable; tándem imposible, pero pies juntos posible >10 s', en: '1 – Slightly unstable; tandem impossible, feet together stable >10 s', de: '1 – Leicht instabil; Tandem unmöglich, Füße zusammen stabil >10 s', it: '1 – Leggermente instabile; tandem impossibile, piedi uniti stabili >10 s' }, value: 1 },
+          { label: { es: '2 – Pies juntos >10 s, pero claramente inestable (se tambalea)', en: '2 – Feet together >10 s, but clearly unstable (sways)', de: '2 – Füße zusammen >10 s, aber deutlich instabil (schwankt)', it: '2 – Piedi uniti >10 s, ma chiaramente instabile (oscilla)' }, value: 2 },
+          { label: { es: '3 – Pies juntos solo breve tiempo (<10 s) sin apoyo', en: '3 – Feet together only briefly (<10 s) without support', de: '3 – Füße zusammen nur kurz (<10 s) ohne Stütze', it: '3 – Piedi uniti solo brevemente (<10 s) senza supporto' }, value: 3 },
+          { label: { es: '4 – Pies juntos imposible; base amplia posible <10 s sin apoyo', en: '4 – Feet together impossible; wide base possible <10 s without support', de: '4 – Füße zusammen unmöglich; breite Basis <10 s ohne Stütze', it: '4 – Piedi uniti impossibile; base larga <10 s senza supporto' }, value: 4 },
+          { label: { es: '5 – Imposible mantenerse de pie sin apoyo', en: '5 – Impossible to stand without support', de: '5 – Unmöglich ohne Stütze zu stehen', it: '5 – Impossibile stare in piedi senza supporto' }, value: 5 },
+          { label: { es: '6 – Imposible mantenerse de pie incluso con apoyo; confinado a silla de ruedas', en: '6 – Impossible to stand even with support; confined to wheelchair', de: '6 – Unmöglich zu stehen, auch mit Stütze; auf Rollstuhl angewiesen', it: '6 – Impossibile stare in piedi anche con supporto; in sedia a rotelle' }, value: 6 },
+        ],
+      },
+      // 3. Sitting / Sedestación (0-4)
+      {
+        text: {
+          es: 'Sedestación (Sitting): ¿Puede mantener el tronco erguido sin apoyo de espalda ni brazos?',
+          en: 'Sitting: Can they maintain an upright trunk without back or arm support?',
+          de: 'Sitzen (Sitting): Kann der Patient den Rumpf aufrecht halten ohne Rücken- oder Armstütze?',
+          it: 'Postura seduta (Sitting): Riesce a mantenere il tronco eretto senza supporto dorsale né dei braccioli?',
+        },
+        help: {
+          es: 'Vamos a ver si puede sentarse en el borde de la cama sin agarrarse. Si nota que cuando está sentado en una silla sin brazos el cuerpo se le va hacia los lados o hacia adelante, eso es un signo importante.',
+          en: 'We will see if they can sit on the edge of the bed without holding on. If you notice that when sitting in an armless chair their body tilts to the sides or forwards, that is an important sign.',
+          de: 'Wir schauen, ob der Patient auf dem Bettrand sitzen kann, ohne sich festzuhalten. Wenn er auf einem Stuhl ohne Armlehnen seitlich oder vorwärts kippt, ist das ein wichtiges Zeichen.',
+          it: 'Vedremo se riesce a sedersi sul bordo del letto senza tenersi. Se nota che seduto su una sedia senza braccioli il corpo gli va di lato o in avanti, è un segno importante.',
+        },
+        options: [
+          { label: { es: '0 – Normal; tronco estable sentado sin apoyo de espalda ni brazos', en: '0 – Normal; stable trunk in unsupported sitting', de: '0 – Normal; stabiler Rumpf im ungestützten Sitzen', it: '0 – Normale; tronco stabile seduto senza supporto' }, value: 0 },
+          { label: { es: '1 – Leve inestabilidad; balanceo intermitente del tronco', en: '1 – Slight instability; intermittent trunk swaying', de: '1 – Leichte Instabilität; intermittierendes Rumpfschwanken', it: '1 – Lieve instabilità; oscillazione intermittente del tronco' }, value: 1 },
+          { label: { es: '2 – Inestabilidad moderada; balanceo persistente del tronco', en: '2 – Moderate instability; persistent trunk swaying', de: '2 – Mäßige Instabilität; anhaltendes Rumpfschwanken', it: '2 – Instabilità moderata; oscillazione persistente del tronco' }, value: 2 },
+          { label: { es: '3 – Inestabilidad marcada; solo posible apoyándose en los brazos', en: '3 – Marked instability; only possible with arm support', de: '3 – Deutliche Instabilität; nur mit Armstütze möglich', it: '3 – Instabilità marcata; solo possibile con supporto delle braccia' }, value: 3 },
+          { label: { es: '4 – Imposible sentarse sin apoyo', en: '4 – Impossible to sit without support', de: '4 – Unmöglich ohne Stütze zu sitzen', it: '4 – Impossibile sedersi senza supporto' }, value: 4 },
+        ],
+      },
+      // 4. Speech / Habla (0-4)
+      {
+        text: {
+          es: 'Habla (Speech): ¿Existe disartria (dificultad para articular) o escansión (hablar a sacudidas)?',
+          en: 'Speech: Is there dysarthria (difficulty articulating) or scanning speech (jerky delivery)?',
+          de: 'Sprache (Speech): Liegt Dysarthrie (Artikulationsschwierigkeiten) oder skandierendes Sprechen vor?',
+          it: 'Linguaggio (Speech): È presente disartria (difficoltà di articolazione) o eloquio scandito (a scatti)?',
+        },
+        help: {
+          es: 'Escuchemos cómo pronuncia. A veces las palabras suenan arrastradas o como si le costara separar las sílabas. Díganos si personas extrañas a la familia ya no logran entender lo que dice.',
+          en: 'Let us listen to how they pronounce words. Sometimes words sound slurred or as though it is an effort to separate the syllables. Tell us if strangers can no longer understand what they say.',
+          de: 'Lassen Sie uns hören, wie er ausspricht. Manchmal klingen Wörter verwaschen oder als ob es ihm schwerfällt, Silben zu trennen. Sagen Sie uns, ob Fremde nicht mehr verstehen, was er sagt.',
+          it: 'Ascoltiamo come pronuncia. A volte le parole suonano strascicate o come se facesse fatica a separare le sillabe. Ci dica se persone estranee alla famiglia non riescono più a capire quello che dice.',
+        },
+        options: [
+          { label: { es: '0 – Normal', en: '0 – Normal', de: '0 – Normal', it: '0 – Normale' }, value: 0 },
+          { label: { es: '1 – Leve alteración; fácilmente comprensible', en: '1 – Slight disturbance; easily understood', de: '1 – Leichte Störung; gut verständlich', it: '1 – Lieve alterazione; facilmente comprensibile' }, value: 1 },
+          { label: { es: '2 – Claramente anormal; ocasionalmente difícil de entender', en: '2 – Clearly abnormal; occasionally difficult to understand', de: '2 – Deutlich abnormal; gelegentlich schwer verständlich', it: '2 – Chiaramente anormale; occasionalmente difficile da capire' }, value: 2 },
+          { label: { es: '3 – Disartria marcada; difícil de entender la mayor parte del tiempo', en: '3 – Marked dysarthria; mostly difficult to understand', de: '3 – Ausgeprägte Dysarthrie; meistens schwer verständlich', it: '3 – Disartria marcata; difficile da capire per la maggior parte del tempo' }, value: 3 },
+          { label: { es: '4 – Anartria; imposible entender', en: '4 – Anarthria; impossible to understand', de: '4 – Anarthrie; unmöglich zu verstehen', it: '4 – Anartria; impossibile capire' }, value: 4 },
+        ],
+      },
+      // 5. Finger-to-nose / Dismetría (0-4)
+      {
+        text: {
+          es: 'Dismetría (Finger-to-nose): ¿Llega el dedo al objetivo con precisión o se pasa de largo?',
+          en: 'Dysmetria (Finger-to-nose): Does the finger reach the target precisely or overshoot?',
+          de: 'Dysmetrie (Finger-Nase): Trifft der Finger das Ziel präzise oder geht er vorbei?',
+          it: 'Dismetria (Dito-Naso): Il dito raggiunge il bersaglio con precisione o va oltre?',
+        },
+        help: {
+          es: 'Le pediremos que se toque la nariz. Si nota que su familiar "falla la puntería" al intentar coger un vaso o al abrocharse un botón, es porque la distancia y la dirección del movimiento están afectadas.',
+          en: 'We will ask them to touch their nose. If you notice your relative "misses the target" when trying to pick up a glass or button a shirt, it is because the distance and direction of movement are affected.',
+          de: 'Wir bitten ihn, sich die Nase zu berühren. Wenn er beim Greifen nach einem Glas oder beim Zuknöpfen "danebentrifft", sind Distanz und Richtung der Bewegung beeinträchtigt.',
+          it: 'Gli chiederemo di toccarsi il naso. Se nota che il suo familiare "manca il bersaglio" tentando di prendere un bicchiere o abbottonarsi, è perché la distanza e la direzione del movimento sono compromesse.',
+        },
+        options: [
+          { label: { es: '0 – Sin dismetría', en: '0 – No dysmetria', de: '0 – Keine Dysmetrie', it: '0 – Nessuna dismetria' }, value: 0 },
+          { label: { es: '1 – Leve dismetría', en: '1 – Slight dysmetria', de: '1 – Leichte Dysmetrie', it: '1 – Lieve dismetria' }, value: 1 },
+          { label: { es: '2 – Dismetría claramente presente', en: '2 – Clearly present dysmetria', de: '2 – Deutliche Dysmetrie', it: '2 – Dismetria chiaramente presente' }, value: 2 },
+          { label: { es: '3 – Dismetría marcada', en: '3 – Marked dysmetria', de: '3 – Ausgeprägte Dysmetrie', it: '3 – Dismetria marcata' }, value: 3 },
+          { label: { es: '4 – Dismetría grave; incapaz de realizar el movimiento', en: '4 – Severe dysmetria; unable to perform the movement', de: '4 – Schwere Dysmetrie; Bewegung nicht ausführbar', it: '4 – Dismetria grave; impossibile eseguire il movimento' }, value: 4 },
+        ],
+      },
+      // 6. Finger-chase / Temblor de intención (0-4)
+      {
+        text: {
+          es: 'Temblor de intención (Finger-chase): ¿Aparece un temblor que aumenta justo cuando va a alcanzar un objeto?',
+          en: 'Intention tremor (Finger-chase): Does a tremor appear that increases just as they are about to reach an object?',
+          de: 'Intentionstremor (Finger-Folge): Tritt ein Tremor auf, der zunimmt, kurz bevor der Finger ein Objekt erreicht?',
+          it: 'Tremore intenzionale (Finger-chase): Compare un tremore che aumenta proprio quando sta per raggiungere un oggetto?',
+        },
+        help: {
+          es: 'Observe si la mano le tiembla más justo en el momento final de alcanzar algo (como la cuchara al llegar a la boca). No es un temblor de reposo, es un temblor que aparece con la intención de moverse.',
+          en: 'Observe whether the hand trembles more at the final moment of reaching something (like a spoon reaching the mouth). It is not a resting tremor; it is a tremor that appears with the intention to move.',
+          de: 'Achten Sie darauf, ob die Hand im letzten Moment des Greifens stärker zittert (z. B. Löffel beim Mund). Es ist kein Ruhetremor, sondern ein Tremor der mit der Bewegungsabsicht auftritt.',
+          it: 'Osservi se la mano trema di più nel momento finale di raggiungere qualcosa (come il cucchiaio che arriva alla bocca). Non è un tremore a riposo, ma un tremore che compare con l\'intenzione di muoversi.',
+        },
+        options: [
+          { label: { es: '0 – Sin temblor de intención', en: '0 – No intention tremor', de: '0 – Kein Intentionstremor', it: '0 – Nessun tremore intenzionale' }, value: 0 },
+          { label: { es: '1 – Leve temblor de intención', en: '1 – Slight intention tremor', de: '1 – Leichter Intentionstremor', it: '1 – Lieve tremore intenzionale' }, value: 1 },
+          { label: { es: '2 – Temblor de intención moderado, claramente presente', en: '2 – Moderate, clearly present intention tremor', de: '2 – Mäßiger, deutlicher Intentionstremor', it: '2 – Tremore intenzionale moderato, chiaramente presente' }, value: 2 },
+          { label: { es: '3 – Temblor de intención marcado', en: '3 – Marked intention tremor', de: '3 – Ausgeprägter Intentionstremor', it: '3 – Tremore intenzionale marcato' }, value: 3 },
+          { label: { es: '4 – Temblor de intención grave; imposible completar la tarea', en: '4 – Severe intention tremor; impossible to complete task', de: '4 – Schwerer Intentionstremor; Aufgabe nicht ausführbar', it: '4 – Tremore intenzionale grave; impossibile completare il compito' }, value: 4 },
+        ],
+      },
+      // 7. Fast alternating hand movements / Diadococinesia (0-4)
+      {
+        text: {
+          es: 'Diadococinesia (Fast hands): ¿Puede realizar movimientos rápidos y rítmicos (como "hacer tortitas")?',
+          en: 'Dysdiadochokinesia (Fast hands): Can they perform rapid rhythmic movements (like "clapping hands alternately")?',
+          de: 'Dysdiadochokinese (Schnelle Hände): Kann der Patient schnelle rhythmische Bewegungen ausführen (wie "abwechselndes Klatschen")?',
+          it: 'Disdiadococinesia (Mani veloci): Riesce a eseguire movimenti rapidi e ritmici (come "fare le frittelle")?',
+        },
+        help: {
+          es: 'Le pedimos que gire las manos rápido sobre sus muslos. Si nota que los movimientos de las manos se vuelven torpes, lentos o pierden el ritmo al realizar tareas repetitivas, anótelo.',
+          en: 'We ask them to rapidly rotate their hands on their thighs. If you notice that hand movements become clumsy, slow or lose their rhythm when performing repetitive tasks, note it.',
+          de: 'Wir bitten ihn, die Hände schnell auf den Oberschenkeln zu drehen. Wenn Handbewegungen bei wiederholten Aufgaben ungeschickt, langsam oder rhythmisch unregelmäßig werden, notieren Sie es.',
+          it: 'Gli chiediamo di ruotare rapidamente le mani sulle cosce. Se nota che i movimenti delle mani diventano goffi, lenti o perdono il ritmo nei compiti ripetitivi, lo annoti.',
+        },
+        options: [
+          { label: { es: '0 – Normal; movimientos rítmicos y regulares', en: '0 – Normal; rhythmic and regular movements', de: '0 – Normal; rhythmische und regelmäßige Bewegungen', it: '0 – Normale; movimenti ritmici e regolari' }, value: 0 },
+          { label: { es: '1 – Levemente irregular o lento', en: '1 – Slightly irregular or slow', de: '1 – Leicht unregelmäßig oder langsam', it: '1 – Leggermente irregolare o lento' }, value: 1 },
+          { label: { es: '2 – Claramente irregular o lento; todos los movimientos realizados', en: '2 – Clearly irregular or slow; all movements completed', de: '2 – Deutlich unregelmäßig oder langsam; alle Bewegungen ausgeführt', it: '2 – Chiaramente irregolare o lento; tutti i movimenti completati' }, value: 2 },
+          { label: { es: '3 – Muy irregular; algunos movimientos no pueden realizarse', en: '3 – Very irregular; some movements cannot be performed', de: '3 – Sehr unregelmäßig; einige Bewegungen nicht ausführbar', it: '3 – Molto irregolare; alcuni movimenti non possono essere eseguiti' }, value: 3 },
+          { label: { es: '4 – Imposible realizar los movimientos', en: '4 – Unable to perform the movements', de: '4 – Unmöglich, die Bewegungen auszuführen', it: '4 – Impossibile eseguire i movimenti' }, value: 4 },
+        ],
+      },
+      // 8. Heel-to-shin / Talón-Rodilla (0-4)
+      {
+        text: {
+          es: 'Talón-Rodilla (Heel-to-shin): ¿Puede deslizar el talón por la espinilla de forma recta y fluida?',
+          en: 'Heel-to-shin: Can they slide the heel along the shin in a straight and smooth movement?',
+          de: 'Fersen-Schienbein (Heel-to-shin): Kann der Patient die Ferse gerade und flüssig am Schienbein entlanggleiten lassen?',
+          it: 'Tallone-Ginocchio (Heel-to-shin): Riesce a far scorrere il tallone lungo la tibia in modo retto e fluido?',
+        },
+        help: {
+          es: 'Es una prueba de coordinación para las piernas. Si al vestirse nota que su familiar no puede dirigir el pie correctamente hacia el pantalón o si el talón se le resbala hacia los lados constantemente, es un signo de progresión.',
+          en: 'It is a coordination test for the legs. If when dressing you notice your relative cannot direct their foot properly towards the trouser leg, or if the heel constantly slips sideways, it is a sign of progression.',
+          de: 'Es ist ein Koordinationstest für die Beine. Wenn beim Anziehen der Fuß nicht richtig in die Hose dirigiert werden kann oder die Ferse ständig seitlich wegrutscht, ist das ein Zeichen der Progression.',
+          it: 'È un test di coordinazione per le gambe. Se nel vestirsi nota che il suo familiare non riesce a dirigere il piede correttamente verso il pantalone o il tallone scivola costantemente di lato, è un segno di progressione.',
+        },
+        options: [
+          { label: { es: '0 – Normal; talón desliza recto y fluido por la espinilla', en: '0 – Normal; heel slides straight and smoothly along the shin', de: '0 – Normal; Ferse gleitet gerade und flüssig entlang des Schienbeins', it: '0 – Normale; tallone scorre dritto e fluido lungo la tibia' }, value: 0 },
+          { label: { es: '1 – Leve dismetría o temblor al deslizar el talón', en: '1 – Slight dysmetria or tremor when sliding the heel', de: '1 – Leichte Dysmetrie oder Tremor beim Gleiten der Ferse', it: '1 – Lieve dismetria o tremore nel far scivolare il tallone' }, value: 1 },
+          { label: { es: '2 – Moderada dismetría o temblor; claramente anormal', en: '2 – Moderate dysmetria or tremor; clearly abnormal', de: '2 – Mäßige Dysmetrie oder Tremor; deutlich abnormal', it: '2 – Dismetria o tremore moderato; chiaramente anormale' }, value: 2 },
+          { label: { es: '3 – Marcada dismetría o temblor', en: '3 – Marked dysmetria or tremor', de: '3 – Ausgeprägte Dysmetrie oder Tremor', it: '3 – Dismetria o tremore marcato' }, value: 3 },
+          { label: { es: '4 – Incapaz de realizar el movimiento', en: '4 – Unable to perform the movement', de: '4 – Bewegung nicht ausführbar', it: '4 – Impossibile eseguire il movimento' }, value: 4 },
         ],
       },
     ],

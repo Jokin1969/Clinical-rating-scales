@@ -1712,4 +1712,307 @@ const SCALES = {
       },
     ],
   },
+
+  HADS: {
+    group: 'asymptomatic',
+    doi: '10.1111/j.1600-0447.1983.tb09716.x',
+    questions: [
+      // ── SUBESCALA DE ANSIEDAD ─────────────────────────────────
+      {
+        domain: {
+          es: 'Subescala de Ansiedad',
+          en: 'Anxiety Subscale',
+          de: 'Angst-Subskala',
+          it: 'Subscala Ansia',
+        },
+        text: {
+          es: 'Me siento tenso o nervioso:',
+          en: 'I feel tense or "wound up":',
+          de: 'Ich fühle mich angespannt oder nervös:',
+          it: 'Mi sento teso o "agitato":',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Casi todo el día', en: 'Most of the time', de: 'Meistens', it: 'Quasi sempre' }, value: 3 },
+          { label: { es: 'Gran parte del día', en: 'A lot of the time', de: 'Oft', it: 'Spesso' }, value: 2 },
+          { label: { es: 'De vez en cuando', en: 'From time to time, occasionally', de: 'Gelegentlich', it: 'A volte' }, value: 1 },
+          { label: { es: 'Nunca', en: 'Not at all', de: 'Überhaupt nicht', it: 'Per niente' }, value: 0 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Subescala de Ansiedad',
+          en: 'Anxiety Subscale',
+          de: 'Angst-Subskala',
+          it: 'Subscala Ansia',
+        },
+        text: {
+          es: 'Tengo una sensación de miedo, como si algo horrible fuera a suceder:',
+          en: 'I get a sort of frightened feeling as if something awful is about to happen:',
+          de: 'Ich habe das Gefühl, dass mir etwas Schlimmes passieren wird:',
+          it: 'Ho una sensazione di paura, come se qualcosa di terribile stesse per accadere:',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí, y muy intenso', en: 'Very definitely and quite badly', de: 'Ja, und ziemlich stark', it: 'Sì, e piuttosto forte' }, value: 3 },
+          { label: { es: 'Sí, pero no muy intenso', en: 'Yes, but not too badly', de: 'Ja, aber nicht so stark', it: 'Sì, ma non troppo forte' }, value: 2 },
+          { label: { es: 'Sí, pero no me preocupa demasiado', en: 'A little, but it doesn\'t worry me', de: 'Etwas, aber es macht mir keine Sorgen', it: 'Un po\', ma non mi preoccupa' }, value: 1 },
+          { label: { es: 'No, en absoluto', en: 'Not at all', de: 'Überhaupt nicht', it: 'Per niente' }, value: 0 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Subescala de Ansiedad',
+          en: 'Anxiety Subscale',
+          de: 'Angst-Subskala',
+          it: 'Subscala Ansia',
+        },
+        text: {
+          es: 'Me siento inquieto, como si no pudiera parar de moverme:',
+          en: 'I feel restless, as if I have to be on the move:',
+          de: 'Ich fühle mich unruhig, als ob ich mich ständig bewegen müsste:',
+          it: 'Mi sento irrequieto, come se non potessi smettere di muovermi:',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Mucho', en: 'Very much indeed', de: 'Sehr viel', it: 'Moltissimo' }, value: 3 },
+          { label: { es: 'Bastante', en: 'Quite a lot', de: 'Ziemlich viel', it: 'Abbastanza' }, value: 2 },
+          { label: { es: 'Un poco', en: 'Not very much', de: 'Nicht sehr viel', it: 'Non molto' }, value: 1 },
+          { label: { es: 'Nada en absoluto', en: 'Not at all', de: 'Überhaupt nicht', it: 'Per niente' }, value: 0 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Subescala de Ansiedad',
+          en: 'Anxiety Subscale',
+          de: 'Angst-Subskala',
+          it: 'Subscala Ansia',
+        },
+        text: {
+          es: 'Experimento una sensación de "nervios" o "mariposas" en el estómago:',
+          en: 'I get a sort of frightened feeling like "butterflies" in the stomach:',
+          de: 'Ich habe ein Kribbeln oder "Schmetterlinge" im Bauch:',
+          it: 'Provo una sensazione di "farfalle" o nervosismo nello stomaco:',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Nada en absoluto', en: 'Not at all', de: 'Überhaupt nicht', it: 'Per niente' }, value: 0 },
+          { label: { es: 'Ocasionalmente', en: 'Occasionally', de: 'Gelegentlich', it: 'Occasionalmente' }, value: 1 },
+          { label: { es: 'Con bastante frecuencia', en: 'Quite often', de: 'Ziemlich oft', it: 'Abbastanza spesso' }, value: 2 },
+          { label: { es: 'Muy a menudo', en: 'Very often', de: 'Sehr oft', it: 'Molto spesso' }, value: 3 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Subescala de Ansiedad',
+          en: 'Anxiety Subscale',
+          de: 'Angst-Subskala',
+          it: 'Subscala Ansia',
+        },
+        text: {
+          es: 'Tengo sensación de pánico o de que algo malo va a pasar:',
+          en: 'I get sudden feelings of panic:',
+          de: 'Ich habe plötzliche Panikgefühle:',
+          it: 'Ho sensazioni improvvise di panico:',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Muy a menudo', en: 'Very often indeed', de: 'Sehr oft', it: 'Molto spesso' }, value: 3 },
+          { label: { es: 'Con bastante frecuencia', en: 'Quite often', de: 'Ziemlich oft', it: 'Abbastanza spesso' }, value: 2 },
+          { label: { es: 'Ocasionalmente', en: 'Occasionally', de: 'Gelegentlich', it: 'Occasionalmente' }, value: 1 },
+          { label: { es: 'Nada en absoluto', en: 'Not at all', de: 'Überhaupt nicht', it: 'Per niente' }, value: 0 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Subescala de Ansiedad',
+          en: 'Anxiety Subscale',
+          de: 'Angst-Subskala',
+          it: 'Subscala Ansia',
+        },
+        text: {
+          es: 'Puedo estar sentado tranquilamente y sentirme relajado:',
+          en: 'I can sit at ease and feel relaxed:',
+          de: 'Ich kann ruhig sitzen und mich entspannt fühlen:',
+          it: 'Riesco a stare seduto tranquillamente e sentirmi rilassato:',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Nunca', en: 'Not at all', de: 'Überhaupt nicht', it: 'Per niente' }, value: 0 },
+          { label: { es: 'No muy a menudo', en: 'Not often', de: 'Nicht oft', it: 'Non spesso' }, value: 1 },
+          { label: { es: 'Generalmente', en: 'Usually', de: 'Meistens', it: 'Di solito' }, value: 2 },
+          { label: { es: 'Definitivamente', en: 'Definitely', de: 'Auf jeden Fall', it: 'Decisamente' }, value: 3 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Subescala de Ansiedad',
+          en: 'Anxiety Subscale',
+          de: 'Angst-Subskala',
+          it: 'Subscala Ansia',
+        },
+        text: {
+          es: 'Me siento intranquilo como si tuviera que estar en movimiento:',
+          en: 'I feel restless as if I have to be on the move:',
+          de: 'Ich fühle mich unruhig, als müsste ich in Bewegung sein:',
+          it: 'Mi sento agitato come se dovessi essere in movimento:',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Mucho', en: 'Very much indeed', de: 'Sehr viel', it: 'Moltissimo' }, value: 3 },
+          { label: { es: 'Bastante', en: 'Quite a lot', de: 'Ziemlich viel', it: 'Abbastanza' }, value: 2 },
+          { label: { es: 'No mucho', en: 'Not very much', de: 'Nicht sehr viel', it: 'Non molto' }, value: 1 },
+          { label: { es: 'Nada en absoluto', en: 'Not at all', de: 'Überhaupt nicht', it: 'Per niente' }, value: 0 },
+        ],
+      },
+      // ── SUBESCALA DE DEPRESIÓN ────────────────────────────────
+      {
+        domain: {
+          es: 'Subescala de Depresión',
+          en: 'Depression Subscale',
+          de: 'Depressions-Subskala',
+          it: 'Subscala Depressione',
+        },
+        text: {
+          es: 'Todavía disfruto con lo que antes me gustaba:',
+          en: 'I still enjoy the things I used to enjoy:',
+          de: 'Ich genieße die Dinge noch, die mir früher Freude gemacht haben:',
+          it: 'Mi godo ancora le cose che mi piacevano prima:',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Nada en absoluto', en: 'Hardly at all', de: 'Kaum noch', it: 'Quasi per niente' }, value: 0 },
+          { label: { es: 'No tanto como antes', en: 'Not quite so much', de: 'Nicht ganz so wie früher', it: 'Non così tanto come prima' }, value: 1 },
+          { label: { es: 'Solo un poco', en: 'Only a little', de: 'Nur noch ein wenig', it: 'Solo un po\'' }, value: 2 },
+          { label: { es: 'Tanto como siempre', en: 'As much as I ever did', de: 'Genauso wie früher', it: 'Come sempre' }, value: 3 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Subescala de Depresión',
+          en: 'Depression Subscale',
+          de: 'Depressions-Subskala',
+          it: 'Subscala Depressione',
+        },
+        text: {
+          es: 'Puedo reírme y ver el lado divertido de las cosas:',
+          en: 'I can laugh and see the funny side of things:',
+          de: 'Ich kann lachen und die heitere Seite der Dinge sehen:',
+          it: 'Riesco a ridere e a vedere il lato divertente delle cose:',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Nunca', en: 'Not at all', de: 'Überhaupt nicht', it: 'Per niente' }, value: 0 },
+          { label: { es: 'No tanto como antes', en: 'Not quite so much now', de: 'Nicht ganz so wie früher', it: 'Non così tanto come prima' }, value: 1 },
+          { label: { es: 'Ahora, no tanto', en: 'Definitely not so much now', de: 'Jetzt definitiv weniger', it: 'Decisamente meno di prima' }, value: 2 },
+          { label: { es: 'Tanto como siempre', en: 'As much as I always could', de: 'Genauso wie immer', it: 'Come sempre' }, value: 3 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Subescala de Depresión',
+          en: 'Depression Subscale',
+          de: 'Depressions-Subskala',
+          it: 'Subscala Depressione',
+        },
+        text: {
+          es: 'Me siento alegre:',
+          en: 'I feel cheerful:',
+          de: 'Ich fühle mich heiter:',
+          it: 'Mi sento allegro:',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Nunca', en: 'Not at all', de: 'Überhaupt nicht', it: 'Per niente' }, value: 0 },
+          { label: { es: 'No muy a menudo', en: 'Not often', de: 'Nicht oft', it: 'Non spesso' }, value: 1 },
+          { label: { es: 'A veces', en: 'Sometimes', de: 'Manchmal', it: 'A volte' }, value: 2 },
+          { label: { es: 'Casi siempre', en: 'Most of the time', de: 'Meistens', it: 'Quasi sempre' }, value: 3 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Subescala de Depresión',
+          en: 'Depression Subscale',
+          de: 'Depressions-Subskala',
+          it: 'Subscala Depressione',
+        },
+        text: {
+          es: 'Me siento como si cada día fuera más lento:',
+          en: 'I feel as if I am slowed down:',
+          de: 'Ich fühle mich, als ob ich langsamer werde:',
+          it: 'Mi sento come se ogni giorno fossi più lento:',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Casi siempre', en: 'Nearly all the time', de: 'Fast immer', it: 'Quasi sempre' }, value: 3 },
+          { label: { es: 'Muy a menudo', en: 'Very often', de: 'Sehr oft', it: 'Molto spesso' }, value: 2 },
+          { label: { es: 'A veces', en: 'Sometimes', de: 'Manchmal', it: 'A volte' }, value: 1 },
+          { label: { es: 'Nunca', en: 'Not at all', de: 'Überhaupt nicht', it: 'Per niente' }, value: 0 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Subescala de Depresión',
+          en: 'Depression Subscale',
+          de: 'Depressions-Subskala',
+          it: 'Subscala Depressione',
+        },
+        text: {
+          es: 'He perdido interés en mi aspecto personal:',
+          en: 'I have lost interest in my appearance:',
+          de: 'Ich habe das Interesse an meinem äußeren Erscheinungsbild verloren:',
+          it: 'Ho perso interesse per il mio aspetto personale:',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Completamente', en: 'Definitely', de: 'Auf jeden Fall', it: 'Decisamente' }, value: 3 },
+          { label: { es: 'No me cuido como debería', en: 'I don\'t take as much care as I should', de: 'Ich achte nicht so sehr darauf wie ich sollte', it: 'Non mi curo come dovrei' }, value: 2 },
+          { label: { es: 'Puede que no tanto como antes', en: 'I may not take quite as much care', de: 'Vielleicht nicht ganz so wie früher', it: 'Forse non così tanto come prima' }, value: 1 },
+          { label: { es: 'Me cuido como siempre', en: 'I take just as much care as ever', de: 'Ich achte genauso darauf wie immer', it: 'Mi curo come sempre' }, value: 0 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Subescala de Depresión',
+          en: 'Depression Subscale',
+          de: 'Depressions-Subskala',
+          it: 'Subscala Depressione',
+        },
+        text: {
+          es: 'Espero las cosas con ilusión:',
+          en: 'I look forward with enjoyment to things:',
+          de: 'Ich freue mich auf Dinge:',
+          it: 'Aspetto le cose con entusiasmo:',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Casi nunca', en: 'Hardly at all', de: 'Kaum', it: 'Quasi mai' }, value: 0 },
+          { label: { es: 'Menos que antes', en: 'Rather less than I used to', de: 'Weniger als früher', it: 'Meno di prima' }, value: 1 },
+          { label: { es: 'Algo menos que antes', en: 'Somewhat less than I used to', de: 'Etwas weniger als früher', it: 'Un po\' meno di prima' }, value: 2 },
+          { label: { es: 'Tanto como siempre', en: 'As much as I ever did', de: 'Genauso wie früher', it: 'Come sempre' }, value: 3 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Subescala de Depresión',
+          en: 'Depression Subscale',
+          de: 'Depressions-Subskala',
+          it: 'Subscala Depressione',
+        },
+        text: {
+          es: 'Puedo disfrutar con un buen libro, la radio o un programa de televisión:',
+          en: 'I can enjoy a good book or radio or TV programme:',
+          de: 'Ich kann ein gutes Buch, Radio oder Fernsehen genießen:',
+          it: 'Riesco a godermi un buon libro, la radio o un programma televisivo:',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Muy raramente', en: 'Very seldom', de: 'Sehr selten', it: 'Molto raramente' }, value: 0 },
+          { label: { es: 'No muy a menudo', en: 'Not often', de: 'Nicht oft', it: 'Non spesso' }, value: 1 },
+          { label: { es: 'A veces', en: 'Sometimes', de: 'Manchmal', it: 'A volte' }, value: 2 },
+          { label: { es: 'A menudo', en: 'Often', de: 'Oft', it: 'Spesso' }, value: 3 },
+        ],
+      },
+    ],
+  },
 };

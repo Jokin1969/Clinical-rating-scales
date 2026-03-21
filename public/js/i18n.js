@@ -62,6 +62,8 @@ const I18N = {
     questions_RBD1Q:        '1 pregunta',
     scaleName_MBIC:         'Mild Behavioral Impairment Checklist',
     questions_MBIC:         '34 preguntas',
+    scaleName_HADS:         'Hospital Anxiety and Depression Scale',
+    questions_HADS:         '14 preguntas',
   },
   en: {
     appTitle:               'Clinical Rating Scales',
@@ -122,6 +124,8 @@ const I18N = {
     questions_RBD1Q:        '1 question',
     scaleName_MBIC:         'Mild Behavioral Impairment Checklist',
     questions_MBIC:         '34 questions',
+    scaleName_HADS:         'Hospital Anxiety and Depression Scale',
+    questions_HADS:         '14 questions',
   },
   de: {
     appTitle:               'Klinische Bewertungsskalen',
@@ -182,6 +186,8 @@ const I18N = {
     questions_RBD1Q:        '1 Frage',
     scaleName_MBIC:         'Mild Behavioral Impairment Checklist',
     questions_MBIC:         '34 Fragen',
+    scaleName_HADS:         'Hospital Anxiety and Depression Scale',
+    questions_HADS:         '14 Fragen',
   },
   it: {
     appTitle:               'Scale di Valutazione Clinica',
@@ -242,6 +248,8 @@ const I18N = {
     questions_RBD1Q:        '1 domanda',
     scaleName_MBIC:         'Mild Behavioral Impairment Checklist',
     questions_MBIC:         '34 domande',
+    scaleName_HADS:         'Hospital Anxiety and Depression Scale',
+    questions_HADS:         '14 domande',
   }
 };
 

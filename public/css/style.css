@@ -839,8 +839,9 @@ body {
   border: 1px solid #bfdbfe;
   border-radius: 4px;
   padding: 0.2rem 0.6rem;
-  margin-bottom: 0.5rem;
-  display: inline-block;
+  margin-bottom: 0.6rem;
+  display: block;
+  width: fit-content;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }

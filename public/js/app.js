@@ -183,7 +183,7 @@ const App = (() => {
           bottomRow.appendChild(refBtn);
           refBtn.addEventListener('click', e => {
             e.stopPropagation();
-            window.open('https://doi.org/' + scaleDoi, '_blank');
+            window.open('/references/' + id.toLowerCase() + '.pdf', '_blank');
           });
         }
         refBtn.textContent = '📖 ' + t('referenceBtnLabel', state.lang);
@@ -254,20 +254,12 @@ const App = (() => {
     document.getElementById('question-text').textContent =
       q.text[lang] || q.text['es'];
 
-    // Domain badge (for scales like MBI-C with domain groupings)
-    let domainEl = document.getElementById('question-domain');
+    // Domain badge (shown above the question row when present)
+    const domainEl = document.getElementById('question-domain');
     if (q.domain) {
-      const domainText = q.domain[lang] || q.domain['es'];
-      if (!domainEl) {
-        domainEl = document.createElement('div');
-        domainEl.id = 'question-domain';
-        domainEl.className = 'question-domain';
-        const questionText = document.getElementById('question-text');
-        questionText.parentNode.insertBefore(domainEl, questionText);
-      }
-      domainEl.textContent = domainText;
+      domainEl.textContent = q.domain[lang] || q.domain['es'];
       domainEl.style.display = '';
-    } else if (domainEl) {
+    } else {
       domainEl.style.display = 'none';
     }
 
@@ -373,7 +365,7 @@ const App = (() => {
 
     const doi = scale.doi;
     const doiLink = doi
-      ? `<a class="rp-doi-link" href="https://doi.org/${escHtml(doi)}" target="_blank" rel="noopener">doi:${escHtml(doi)}</a>`
+      ? `<a class="rp-doi-link" href="/references/${scaleId.toLowerCase()}.pdf" target="_blank" rel="noopener">doi:${escHtml(doi)}</a>`
       : '';
 
     let html = `

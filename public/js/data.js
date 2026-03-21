@@ -10,6 +10,7 @@ const SCALES = {
 
   // ── MRC ──────────────────────────────────────────────────────────────
   MRC: {
+    group: 'symptomatic',
     doi: '10.1093/brain/awt048',
     questions: [
       // 1. Bowel function (max 1)
@@ -483,6 +484,7 @@ const SCALES = {
 
   // ── SARA ─────────────────────────────────────────────────────────────
   SARA: {
+    group: 'symptomatic',
     doi: '10.1212/01.wnl.0000219042.60538.92',
     questions: [
       // 1. Gait / Marcha (0-8)
@@ -672,6 +674,7 @@ const SCALES = {
 
   // ── NPI ──────────────────────────────────────────────────────────────
   NPI: {
+    group: 'symptomatic',
     doi: '10.1212/wnl.44.12.2308',
     questions: [
       {
@@ -784,6 +787,7 @@ const SCALES = {
 
   // ── BISAD ─────────────────────────────────────────────────────────────
   BISAD: {
+    group: 'symptomatic',
     doi: '10.1097/00004583-199705000-00017',
     questions: [
       {
@@ -911,6 +915,7 @@ const SCALES = {
 
   // ── IQCODE ────────────────────────────────────────────────────────────
   IQCODE: {
+    group: 'symptomatic',
     doi: '10.1017/s0033291700005742',
     questions: [
       {
@@ -1023,6 +1028,686 @@ const SCALES = {
           { label: { es: 'No hay cambio', en: 'No change', de: 'Keine Veränderung', it: 'Nessun cambiamento' }, value: 3 },
           { label: { es: 'Un poco peor', en: 'A bit worse', de: 'Etwas schlechter', it: 'Un po\' peggio' }, value: 4 },
           { label: { es: 'Mucho peor', en: 'Much worse', de: 'Viel schlechter', it: 'Molto peggio' }, value: 5 },
+        ],
+      },
+    ],
+  },
+
+  // ── RBD1Q ─────────────────────────────────────────────────────────────
+  RBD1Q: {
+    group: 'asymptomatic',
+    doi: '10.1002/mds.25037',
+    questions: [
+      {
+        text: {
+          es: '¿Alguna vez le han dicho, o ha sospechado usted mismo, que parece "actuar en sus sueños" mientras duerme (por ejemplo, dar puñetazos, agitar los brazos en el aire, hacer movimientos de correr, etc.)?',
+          en: 'Have you ever been told, or suspected yourself, that you seem to "act out your dreams" while asleep (e.g. punching, swinging your arms in the air, making running movements, etc.)?',
+          de: 'Wurde Ihnen jemals gesagt oder haben Sie selbst vermutet, dass Sie Ihre Träume im Schlaf "ausagieren" (z. B. schlagen, Arme schwingen, Laufbewegungen machen usw.)?',
+          it: 'Le è mai stato detto, o lo ha sospettato lei stesso, che sembra "agire i suoi sogni" mentre dorme (ad es. dare pugni, agitare le braccia in aria, fare movimenti di corsa, ecc.)?',
+        },
+        help: {
+          es: 'Respondiente: Paciente y/o compañero/a de cama. Frecuencia: Anual (reducir a 6 meses si hay cambio). Una respuesta positiva indica un posible trastorno de conducta durante el sueño REM, marcador temprano de enfermedades neurodegenerativas.',
+          en: 'Respondent: Patient and/or bed partner. Frequency: Annual (reduce to 6 months if change occurs). A positive answer indicates a possible REM sleep behaviour disorder, an early marker of neurodegenerative diseases.',
+          de: 'Befragter: Patient und/oder Bettpartner. Häufigkeit: Jährlich (auf 6 Monate reduzieren bei Änderung). Eine positive Antwort weist auf eine mögliche REM-Schlafverhaltensstörung hin, ein früher Marker neurodegenerativer Erkrankungen.',
+          it: 'Rispondente: Paziente e/o partner di letto. Frequenza: Annuale (ridurre a 6 mesi in caso di cambiamento). Una risposta positiva indica un possibile disturbo comportamentale del sonno REM, marcatore precoce di malattie neurodegenerative.',
+        },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+    ],
+  },
+
+  // ── MBI-C ─────────────────────────────────────────────────────────────
+  MBIC: {
+    group: 'asymptomatic',
+    doi: '10.1002/mds.25037',
+    questions: [
+      {
+        domain: {
+          es: 'Dominio A: Motivación disminuida (Apatía)',
+          en: 'Domain A: Decreased Motivation (Apathy)',
+          de: 'Domäne A: Verminderte Motivation (Apathie)',
+          it: 'Dominio A: Motivazione ridotta (Apatia)',
+        },
+        text: {
+          es: '¿Ha perdido interés en sus aficiones o actividades habituales?',
+          en: 'Has the patient lost interest in their hobbies or usual activities?',
+          de: 'Hat der Patient das Interesse an seinen Hobbys oder üblichen Aktivitäten verloren?',
+          it: 'Ha perso interesse per i suoi hobby o le attività abituali?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio A: Motivación disminuida (Apatía)',
+          en: 'Domain A: Decreased Motivation (Apathy)',
+          de: 'Domäne A: Verminderte Motivation (Apathie)',
+          it: 'Dominio A: Motivazione ridotta (Apatia)',
+        },
+        text: {
+          es: '¿Ha perdido interés en pasar tiempo con familia o amigos?',
+          en: 'Has the patient lost interest in spending time with family or friends?',
+          de: 'Hat der Patient das Interesse verloren, Zeit mit Familie oder Freunden zu verbringen?',
+          it: 'Ha perso interesse nel trascorrere tempo con la famiglia o gli amici?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio A: Motivación disminuida (Apatía)',
+          en: 'Domain A: Decreased Motivation (Apathy)',
+          de: 'Domäne A: Verminderte Motivation (Apathie)',
+          it: 'Dominio A: Motivazione ridotta (Apatia)',
+        },
+        text: {
+          es: '¿Muestra menos entusiasmo por sus intereses habituales?',
+          en: 'Does the patient show less enthusiasm for their usual interests?',
+          de: 'Zeigt der Patient weniger Begeisterung für seine üblichen Interessen?',
+          it: 'Mostra meno entusiasmo per i suoi interessi abituali?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio A: Motivación disminuida (Apatía)',
+          en: 'Domain A: Decreased Motivation (Apathy)',
+          de: 'Domäne A: Verminderte Motivation (Apathie)',
+          it: 'Dominio A: Motivazione ridotta (Apatia)',
+        },
+        text: {
+          es: '¿Parece menos motivado para iniciar actividades por sí mismo?',
+          en: 'Does the patient seem less motivated to start activities on their own?',
+          de: 'Scheint der Patient weniger motiviert, Aktivitäten selbstständig zu beginnen?',
+          it: 'Sembra meno motivato ad avviare attività da solo?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio A: Motivación disminuida (Apatía)',
+          en: 'Domain A: Decreased Motivation (Apathy)',
+          de: 'Domäne A: Verminderte Motivation (Apathie)',
+          it: 'Dominio A: Motivazione ridotta (Apatia)',
+        },
+        text: {
+          es: '¿Le cuesta más tomar decisiones o planificar cosas?',
+          en: 'Does the patient have more difficulty making decisions or planning things?',
+          de: 'Fällt es dem Patienten schwerer, Entscheidungen zu treffen oder Dinge zu planen?',
+          it: 'Ha più difficoltà a prendere decisioni o pianificare le cose?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio A: Motivación disminuida (Apatía)',
+          en: 'Domain A: Decreased Motivation (Apathy)',
+          de: 'Domäne A: Verminderte Motivation (Apathie)',
+          it: 'Dominio A: Motivazione ridotta (Apatia)',
+        },
+        text: {
+          es: '¿Parece emocionalmente más distante o indiferente a lo que sucede a su alrededor?',
+          en: 'Does the patient seem emotionally more distant or indifferent to what happens around them?',
+          de: 'Scheint der Patient emotional distanzierter oder gleichgültiger gegenüber dem, was um ihn herum passiert?',
+          it: 'Sembra emotivamente più distante o indifferente a ciò che succede intorno a lui/lei?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio B: Desregulación afectiva (Estado de ánimo / Ansiedad)',
+          en: 'Domain B: Affective Dysregulation (Mood / Anxiety)',
+          de: 'Domäne B: Affektive Dysregulation (Stimmung / Angst)',
+          it: 'Dominio B: Disregolazione affettiva (Umore / Ansia)',
+        },
+        text: {
+          es: '¿Se siente más triste o con bajo estado de ánimo que antes?',
+          en: 'Does the patient feel sadder or have a lower mood than before?',
+          de: 'Fühlt sich der Patient trauriger oder hat er eine niedrigere Stimmung als zuvor?',
+          it: 'Si sente più triste o di umore basso rispetto a prima?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio B: Desregulación afectiva (Estado de ánimo / Ansiedad)',
+          en: 'Domain B: Affective Dysregulation (Mood / Anxiety)',
+          de: 'Domäne B: Affektive Dysregulation (Stimmung / Angst)',
+          it: 'Dominio B: Disregolazione affettiva (Umore / Ansia)',
+        },
+        text: {
+          es: '¿Ha perdido el placer o la capacidad de disfrutar de actividades que antes le gustaban?',
+          en: 'Has the patient lost pleasure or the ability to enjoy activities they previously liked?',
+          de: 'Hat der Patient die Freude oder Fähigkeit verloren, Aktivitäten zu genießen, die ihm früher gefallen haben?',
+          it: 'Ha perso il piacere o la capacità di godere di attività che prima gli/le piacevano?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio B: Desregulación afectiva (Estado de ánimo / Ansiedad)',
+          en: 'Domain B: Affective Dysregulation (Mood / Anxiety)',
+          de: 'Domäne B: Affektive Dysregulation (Stimmung / Angst)',
+          it: 'Dominio B: Disregolazione affettiva (Umore / Ansia)',
+        },
+        text: {
+          es: '¿Muestra sentimientos de desesperanza sobre el futuro?',
+          en: 'Does the patient show feelings of hopelessness about the future?',
+          de: 'Zeigt der Patient Gefühle der Hoffnungslosigkeit bezüglich der Zukunft?',
+          it: 'Mostra sentimenti di disperazione riguardo al futuro?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio B: Desregulación afectiva (Estado de ánimo / Ansiedad)',
+          en: 'Domain B: Affective Dysregulation (Mood / Anxiety)',
+          de: 'Domäne B: Affektive Dysregulation (Stimmung / Angst)',
+          it: 'Dominio B: Disregolazione affettiva (Umore / Ansia)',
+        },
+        text: {
+          es: '¿Expresa sentimientos de culpa o autocrítica excesiva?',
+          en: 'Does the patient express feelings of guilt or excessive self-criticism?',
+          de: 'Äußert der Patient Schuldgefühle oder übermäßige Selbstkritik?',
+          it: 'Esprime sentimenti di colpa o autocritica eccessiva?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio B: Desregulación afectiva (Estado de ánimo / Ansiedad)',
+          en: 'Domain B: Affective Dysregulation (Mood / Anxiety)',
+          de: 'Domäne B: Affektive Dysregulation (Stimmung / Angst)',
+          it: 'Dominio B: Disregolazione affettiva (Umore / Ansia)',
+        },
+        text: {
+          es: '¿Está más ansioso o preocupado que antes sin razón aparente?',
+          en: 'Is the patient more anxious or worried than before without apparent reason?',
+          de: 'Ist der Patient ängstlicher oder besorgter als zuvor ohne ersichtlichen Grund?',
+          it: 'È più ansioso/a o preoccupato/a di prima senza ragione apparente?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio B: Desregulación afectiva (Estado de ánimo / Ansiedad)',
+          en: 'Domain B: Affective Dysregulation (Mood / Anxiety)',
+          de: 'Domäne B: Affektive Dysregulation (Stimmung / Angst)',
+          it: 'Dominio B: Disregolazione affettiva (Umore / Ansia)',
+        },
+        text: {
+          es: '¿Tiene ataques de pánico o momentos de angustia intensa?',
+          en: 'Does the patient have panic attacks or moments of intense distress?',
+          de: 'Hat der Patient Panikattacken oder Momente intensiver Angst?',
+          it: 'Ha attacchi di panico o momenti di angoscia intensa?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio C: Descontrol de impulsos (Agitación / Impulsividad)',
+          en: 'Domain C: Impulse Dyscontrol (Agitation / Impulsivity)',
+          de: 'Domäne C: Impulskontrollstörung (Agitation / Impulsivität)',
+          it: 'Dominio C: Discontrollo degli impulsi (Agitazione / Impulsività)',
+        },
+        text: {
+          es: '¿Se muestra más agitado, inquieto o nervioso que antes?',
+          en: 'Is the patient more agitated, restless or nervous than before?',
+          de: 'Ist der Patient unruhiger, rastloser oder nervöser als zuvor?',
+          it: 'È più agitato/a, irrequieto/a o nervoso/a di prima?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio C: Descontrol de impulsos (Agitación / Impulsividad)',
+          en: 'Domain C: Impulse Dyscontrol (Agitation / Impulsivity)',
+          de: 'Domäne C: Impulskontrollstörung (Agitation / Impulsivität)',
+          it: 'Dominio C: Discontrollo degli impulsi (Agitazione / Impulsività)',
+        },
+        text: {
+          es: '¿Tiene estallidos de mal genio o irritabilidad desproporcionados?',
+          en: 'Does the patient have disproportionate outbursts of bad temper or irritability?',
+          de: 'Hat der Patient unverhältnismäßige Ausbrüche von Jähzorn oder Reizbarkeit?',
+          it: 'Ha scatti d'ira o irritabilità sproporzionati?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio C: Descontrol de impulsos (Agitación / Impulsividad)',
+          en: 'Domain C: Impulse Dyscontrol (Agitation / Impulsivity)',
+          de: 'Domäne C: Impulskontrollstörung (Agitation / Impulsivität)',
+          it: 'Dominio C: Discontrollo degli impulsi (Agitazione / Impulsività)',
+        },
+        text: {
+          es: '¿Muestra comportamientos agresivos verbales (gritos, insultos)?',
+          en: 'Does the patient show verbal aggressive behaviour (shouting, insults)?',
+          de: 'Zeigt der Patient verbale Aggressionen (Schreien, Beleidigungen)?',
+          it: 'Mostra comportamenti aggressivi verbali (urla, insulti)?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio C: Descontrol de impulsos (Agitación / Impulsividad)',
+          en: 'Domain C: Impulse Dyscontrol (Agitation / Impulsivity)',
+          de: 'Domäne C: Impulskontrollstörung (Agitation / Impulsivität)',
+          it: 'Dominio C: Discontrollo degli impulsi (Agitazione / Impulsività)',
+        },
+        text: {
+          es: '¿Muestra comportamientos agresivos físicos hacia personas u objetos?',
+          en: 'Does the patient show physical aggressive behaviour towards people or objects?',
+          de: 'Zeigt der Patient körperliche Aggressionen gegenüber Personen oder Gegenständen?',
+          it: 'Mostra comportamenti aggressivi fisici verso persone o oggetti?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio C: Descontrol de impulsos (Agitación / Impulsividad)',
+          en: 'Domain C: Impulse Dyscontrol (Agitation / Impulsivity)',
+          de: 'Domäne C: Impulskontrollstörung (Agitation / Impulsivität)',
+          it: 'Dominio C: Discontrollo degli impulsi (Agitazione / Impulsività)',
+        },
+        text: {
+          es: '¿Actúa impulsivamente sin pensar en las consecuencias?',
+          en: 'Does the patient act impulsively without thinking of the consequences?',
+          de: 'Handelt der Patient impulsiv, ohne an die Folgen zu denken?',
+          it: 'Agisce impulsivamente senza pensare alle conseguenze?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio C: Descontrol de impulsos (Agitación / Impulsividad)',
+          en: 'Domain C: Impulse Dyscontrol (Agitation / Impulsivity)',
+          de: 'Domäne C: Impulskontrollstörung (Agitation / Impulsivität)',
+          it: 'Dominio C: Discontrollo degli impulsi (Agitazione / Impulsività)',
+        },
+        text: {
+          es: '¿Toma decisiones apresuradas o arriesgadas (compras innecesarias, apuestas, gastos)?',
+          en: 'Does the patient make hasty or risky decisions (unnecessary purchases, gambling, spending)?',
+          de: 'Trifft der Patient übereilte oder riskante Entscheidungen (unnötige Käufe, Glücksspiel, Ausgaben)?',
+          it: 'Prende decisioni affrettate o rischiose (acquisti inutili, scommesse, spese)?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio C: Descontrol de impulsos (Agitación / Impulsividad)',
+          en: 'Domain C: Impulse Dyscontrol (Agitation / Impulsivity)',
+          de: 'Domäne C: Impulskontrollstörung (Agitation / Impulsivität)',
+          it: 'Dominio C: Discontrollo degli impulsi (Agitazione / Impulsività)',
+        },
+        text: {
+          es: '¿Tiene comportamientos repetitivos o compulsivos (verificar, ordenar, limpiar)?',
+          en: 'Does the patient have repetitive or compulsive behaviours (checking, ordering, cleaning)?',
+          de: 'Hat der Patient repetitive oder zwanghafte Verhaltensweisen (Überprüfen, Ordnen, Putzen)?',
+          it: 'Ha comportamenti ripetitivi o compulsivi (verificare, ordinare, pulire)?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio C: Descontrol de impulsos (Agitación / Impulsividad)',
+          en: 'Domain C: Impulse Dyscontrol (Agitation / Impulsivity)',
+          de: 'Domäne C: Impulskontrollstörung (Agitation / Impulsivität)',
+          it: 'Dominio C: Discontrollo degli impulsi (Agitazione / Impulsività)',
+        },
+        text: {
+          es: '¿Muestra rigidez o se resiste a cambios en las rutinas?',
+          en: 'Does the patient show rigidity or resistance to changes in routine?',
+          de: 'Zeigt der Patient Starrheit oder Widerstand gegen Veränderungen in den Routinen?',
+          it: 'Mostra rigidità o resistenza ai cambiamenti nelle routine?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio C: Descontrol de impulsos (Agitación / Impulsividad)',
+          en: 'Domain C: Impulse Dyscontrol (Agitation / Impulsivity)',
+          de: 'Domäne C: Impulskontrollstörung (Agitation / Impulsivität)',
+          it: 'Dominio C: Discontrollo degli impulsi (Agitazione / Impulsività)',
+        },
+        text: {
+          es: '¿Realiza actividades repetitivas sin propósito (caminar de un lado a otro, mover objetos)?',
+          en: 'Does the patient perform purposeless repetitive activities (pacing, moving objects)?',
+          de: 'Führt der Patient zwecklose repetitive Aktivitäten durch (Auf-und-ab-Gehen, Gegenstände verschieben)?',
+          it: 'Esegue attività ripetitive senza scopo (camminare avanti e indietro, spostare oggetti)?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio C: Descontrol de impulsos (Agitación / Impulsividad)',
+          en: 'Domain C: Impulse Dyscontrol (Agitation / Impulsivity)',
+          de: 'Domäne C: Impulskontrollstörung (Agitation / Impulsivität)',
+          it: 'Dominio C: Discontrollo degli impulsi (Agitazione / Impulsività)',
+        },
+        text: {
+          es: '¿Ha aumentado su apetito o come más compulsivamente que antes?',
+          en: 'Has the patient's appetite increased or do they eat more compulsively than before?',
+          de: 'Hat sich der Appetit des Patienten erhöht oder isst er zwanghafter als zuvor?',
+          it: 'È aumentato il suo appetito o mangia in modo più compulsivo di prima?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio C: Descontrol de impulsos (Agitación / Impulsividad)',
+          en: 'Domain C: Impulse Dyscontrol (Agitation / Impulsivity)',
+          de: 'Domäne C: Impulskontrollstörung (Agitation / Impulsivität)',
+          it: 'Dominio C: Discontrollo degli impulsi (Agitazione / Impulsività)',
+        },
+        text: {
+          es: '¿Ha habido cambios en sus preferencias alimentarias (comer solo dulces, alimentos específicos)?',
+          en: 'Have there been changes in food preferences (eating only sweets, specific foods)?',
+          de: 'Gab es Veränderungen in den Nahrungsmittelpräferenzen (nur Süßes essen, bestimmte Lebensmittel)?',
+          it: 'Ci sono stati cambiamenti nelle preferenze alimentari (mangiare solo dolci, alimenti specifici)?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio C: Descontrol de impulsos (Agitación / Impulsividad)',
+          en: 'Domain C: Impulse Dyscontrol (Agitation / Impulsivity)',
+          de: 'Domäne C: Impulskontrollstörung (Agitation / Impulsivität)',
+          it: 'Dominio C: Discontrollo degli impulsi (Agitazione / Impulsività)',
+        },
+        text: {
+          es: '¿Busca recompensas o gratificaciones de forma excesiva?',
+          en: 'Does the patient seek rewards or gratification excessively?',
+          de: 'Sucht der Patient exzessiv nach Belohnungen oder Befriedigung?',
+          it: 'Cerca ricompense o gratificazioni in modo eccessivo?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio D: Inadecuación social (Pérdida de tacto social)',
+          en: 'Domain D: Social Inappropriateness (Loss of Social Tact)',
+          de: 'Domäne D: Soziale Unangemessenheit (Verlust sozialer Kompetenz)',
+          it: 'Dominio D: Inadeguatezza sociale (Perdita del tatto sociale)',
+        },
+        text: {
+          es: '¿Hace comentarios inapropiados o socialmente inadecuados?',
+          en: 'Does the patient make inappropriate or socially inadequate comments?',
+          de: 'Macht der Patient unangemessene oder sozial unpassende Kommentare?',
+          it: 'Fa commenti inappropriati o socialmente inadeguati?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio D: Inadecuación social (Pérdida de tacto social)',
+          en: 'Domain D: Social Inappropriateness (Loss of Social Tact)',
+          de: 'Domäne D: Soziale Unangemessenheit (Verlust sozialer Kompetenz)',
+          it: 'Dominio D: Inadeguatezza sociale (Perdita del tatto sociale)',
+        },
+        text: {
+          es: '¿Ha perdido sensibilidad hacia los sentimientos de los demás?',
+          en: 'Has the patient lost sensitivity towards the feelings of others?',
+          de: 'Hat der Patient die Sensibilität für die Gefühle anderer verloren?',
+          it: 'Ha perso sensibilità verso i sentimenti degli altri?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio D: Inadecuación social (Pérdida de tacto social)',
+          en: 'Domain D: Social Inappropriateness (Loss of Social Tact)',
+          de: 'Domäne D: Soziale Unangemessenheit (Verlust sozialer Kompetenz)',
+          it: 'Dominio D: Inadeguatezza sociale (Perdita del tatto sociale)',
+        },
+        text: {
+          es: '¿Muestra menos empatía o preocupación por otros?',
+          en: 'Does the patient show less empathy or concern for others?',
+          de: 'Zeigt der Patient weniger Empathie oder Sorge für andere?',
+          it: 'Mostra meno empatia o preoccupazione per gli altri?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio D: Inadecuación social (Pérdida de tacto social)',
+          en: 'Domain D: Social Inappropriateness (Loss of Social Tact)',
+          de: 'Domäne D: Soziale Unangemessenheit (Verlust sozialer Kompetenz)',
+          it: 'Dominio D: Inadeguatezza sociale (Perdita del tatto sociale)',
+        },
+        text: {
+          es: '¿Se comporta de manera socialmente inapropiada (acercarse demasiado a extraños, tocar)?',
+          en: 'Does the patient behave in socially inappropriate ways (approaching strangers too closely, touching)?',
+          de: 'Verhält sich der Patient sozial unangemessen (Fremde zu nahe treten, berühren)?',
+          it: 'Si comporta in modo socialmente inappropriato (avvicinarsi troppo agli estranei, toccare)?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio D: Inadecuación social (Pérdida de tacto social)',
+          en: 'Domain D: Social Inappropriateness (Loss of Social Tact)',
+          de: 'Domäne D: Soziale Unangemessenheit (Verlust sozialer Kompetenz)',
+          it: 'Dominio D: Inadeguatezza sociale (Perdita del tatto sociale)',
+        },
+        text: {
+          es: '¿Ha perdido el tacto o la diplomacia en situaciones sociales?',
+          en: 'Has the patient lost tact or diplomacy in social situations?',
+          de: 'Hat der Patient Takt oder Diplomatie in sozialen Situationen verloren?',
+          it: 'Ha perso il tatto o la diplomazia nelle situazioni sociali?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio E: Alteraciones perceptuales o del pensamiento',
+          en: 'Domain E: Perceptual or Thought Disturbances',
+          de: 'Domäne E: Wahrnehmungs- oder Denkstörungen',
+          it: 'Dominio E: Alterazioni percettive o del pensiero',
+        },
+        text: {
+          es: '¿Muestra suspicacia o desconfianza exagerada hacia otros?',
+          en: 'Does the patient show exaggerated suspiciousness or distrust of others?',
+          de: 'Zeigt der Patient übertriebenes Misstrauen oder Argwohn gegenüber anderen?',
+          it: 'Mostra sospettosità o sfiducia esagerata verso gli altri?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio E: Alteraciones perceptuales o del pensamiento',
+          en: 'Domain E: Perceptual or Thought Disturbances',
+          de: 'Domäne E: Wahrnehmungs- oder Denkstörungen',
+          it: 'Dominio E: Alterazioni percettive o del pensiero',
+        },
+        text: {
+          es: '¿Tiene creencias falsas sobre que le roban o le persiguen?',
+          en: 'Does the patient have false beliefs about being robbed or persecuted?',
+          de: 'Hat der Patient falsche Überzeugungen, bestohlen oder verfolgt zu werden?',
+          it: 'Ha false credenze di essere derubato/a o perseguitato/a?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio E: Alteraciones perceptuales o del pensamiento',
+          en: 'Domain E: Perceptual or Thought Disturbances',
+          de: 'Domäne E: Wahrnehmungs- oder Denkstörungen',
+          it: 'Dominio E: Alterazioni percettive o del pensiero',
+        },
+        text: {
+          es: '¿Tiene ideas de grandeza o se siente especialmente importante?',
+          en: 'Does the patient have grandiose ideas or feel particularly important?',
+          de: 'Hat der Patient Größenideen oder fühlt er sich besonders wichtig?',
+          it: 'Ha idee di grandiosità o si sente particolarmente importante?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio E: Alteraciones perceptuales o del pensamiento',
+          en: 'Domain E: Perceptual or Thought Disturbances',
+          de: 'Domäne E: Wahrnehmungs- oder Denkstörungen',
+          it: 'Dominio E: Alterazioni percettive o del pensiero',
+        },
+        text: {
+          es: '¿Escucha voces o sonidos que otros no escuchan?',
+          en: 'Does the patient hear voices or sounds that others do not hear?',
+          de: 'Hört der Patient Stimmen oder Geräusche, die andere nicht hören?',
+          it: 'Sente voci o suoni che gli altri non sentono?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+        ],
+      },
+      {
+        domain: {
+          es: 'Dominio E: Alteraciones perceptuales o del pensamiento',
+          en: 'Domain E: Perceptual or Thought Disturbances',
+          de: 'Domäne E: Wahrnehmungs- oder Denkstörungen',
+          it: 'Dominio E: Alterazioni percettive o del pensiero',
+        },
+        text: {
+          es: '¿Ve cosas que otros no ven (sombras, personas, animales)?',
+          en: 'Does the patient see things that others do not see (shadows, people, animals)?',
+          de: 'Sieht der Patient Dinge, die andere nicht sehen (Schatten, Personen, Tiere)?',
+          it: 'Vede cose che gli altri non vedono (ombre, persone, animali)?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
         ],
       },
     ],

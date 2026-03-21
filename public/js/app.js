@@ -5,6 +5,7 @@
 const App = (() => {
   let state = {
     lang: 'es',
+    mode: 'symptomatic',
     patientCode: '',
     currentScale: null,
     currentIndex: 0,
@@ -81,8 +82,22 @@ const App = (() => {
     const inputVal = (document.getElementById('patient-code').value || '').trim();
     const codeActive = !!state.patientCode && inputVal === state.patientCode;
 
+    // Update mode-bar label
+    const modeIcon = state.mode === 'symptomatic' ? '🩺' : '💚';
+    const modeKey  = state.mode === 'symptomatic' ? 'symptomatic' : 'asymptomatic';
+    const modeBarLabel = document.getElementById('mode-bar-label');
+    if (modeBarLabel) modeBarLabel.innerHTML = modeIcon + ' <span id="mode-bar-text">' + t(modeKey, state.lang) + '</span>';
+
     document.querySelectorAll('.scale-btn').forEach(btn => {
       const id = btn.dataset.scale;
+
+      // Show/hide based on current mode
+      const scaleGroup = SCALES[id] && SCALES[id].group;
+      if (scaleGroup && scaleGroup !== state.mode) {
+        btn.style.display = 'none';
+        return;
+      }
+      btn.style.display = '';
       btn.querySelector('.scale-name').textContent  = t('scaleName_' + id, state.lang);
       btn.querySelector('.scale-questions').textContent = t('questions_' + id, state.lang);
 
@@ -175,9 +190,9 @@ const App = (() => {
       }
     });
 
-    // Full report button: show when ALL scales are completed
-    const allIds = Object.keys(SCALES);
-    const allCompleted = codeActive && allIds.every(id => {
+    // Full report button: show when ALL scales in current mode are completed
+    const allIds = Object.keys(SCALES).filter(id => SCALES[id].group === state.mode);
+    const allCompleted = codeActive && allIds.length > 0 && allIds.every(id => {
       const saved = state.savedProgress && state.savedProgress[id];
       const ans = saved && saved.answers ? saved.answers : {};
       return Object.keys(ans).length >= SCALES[id].questions.length;
@@ -236,6 +251,23 @@ const App = (() => {
       t('questionOf', lang, { current: idx + 1, total });
     document.getElementById('question-text').textContent =
       q.text[lang] || q.text['es'];
+
+    // Domain badge (for scales like MBI-C with domain groupings)
+    let domainEl = document.getElementById('question-domain');
+    if (q.domain) {
+      const domainText = q.domain[lang] || q.domain['es'];
+      if (!domainEl) {
+        domainEl = document.createElement('div');
+        domainEl.id = 'question-domain';
+        domainEl.className = 'question-domain';
+        const questionText = document.getElementById('question-text');
+        questionText.parentNode.insertBefore(domainEl, questionText);
+      }
+      domainEl.textContent = domainText;
+      domainEl.style.display = '';
+    } else if (domainEl) {
+      domainEl.style.display = 'none';
+    }
 
     const bar = document.getElementById('progress-bar');
     bar.style.width = ((idx + 1) / total * 100) + '%';
@@ -365,12 +397,22 @@ const App = (() => {
         <ol class="rp-qa-list">
     `;
 
+    let lastDomain = null;
     scale.questions.forEach((q, i) => {
       const qText  = q.text[lang] || q.text['es'];
       const values = q.options.map(o => o.value);
       const minVal = Math.min(...values);
       const maxVal = Math.max(...values);
       const range  = minVal === maxVal ? String(minVal) : minVal + '–' + maxVal;
+
+      // Domain header (MBI-C style)
+      if (q.domain) {
+        const domainText = q.domain[lang] || q.domain['es'];
+        if (domainText !== lastDomain) {
+          lastDomain = domainText;
+          html += `<li class="rp-domain-header">${escHtml(domainText)}</li>`;
+        }
+      }
 
       html += `
         <li class="rp-qa">
@@ -560,7 +602,16 @@ const App = (() => {
     });
 
     // Landing — mode selection
-    document.getElementById('btn-symptomatic').addEventListener('click', () => showView('home'));
+    document.getElementById('btn-symptomatic').addEventListener('click', () => {
+      state.mode = 'symptomatic';
+      showView('home');
+      updateScaleButtons();
+    });
+    document.getElementById('btn-asymptomatic').addEventListener('click', () => {
+      state.mode = 'asymptomatic';
+      showView('home');
+      updateScaleButtons();
+    });
     document.getElementById('btn-back-landing').addEventListener('click', () => showView('landing'));
 
     // Load patient code
@@ -608,7 +659,8 @@ const App = (() => {
 
     // Full report (from home)
     document.getElementById('btn-full-report').addEventListener('click', () => {
-      showReport(Object.keys(SCALES), 'home');
+      const ids = Object.keys(SCALES).filter(id => SCALES[id].group === state.mode);
+      showReport(ids, 'home');
     });
 
     // Report view — back button

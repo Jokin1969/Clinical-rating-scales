@@ -37,12 +37,11 @@
           <span class="mode-card__title" data-i18n="symptomatic">Sintomático</span>
           <span class="mode-card__desc" data-i18n="symptomaticDesc">Con sintomatología activa</span>
         </button>
-        <div class="mode-card mode-card--disabled">
+        <button id="btn-asymptomatic" class="mode-card">
           <span class="mode-card__icon">💚</span>
           <span class="mode-card__title" data-i18n="asymptomatic">Asintomático</span>
           <span class="mode-card__desc" data-i18n="asymptomaticDesc">Sin sintomatología</span>
-          <span class="mode-card__badge" data-i18n="comingSoon">Próximamente</span>
-        </div>
+        </button>
       </div>
     </div>
   </div>
@@ -52,7 +51,7 @@
     <div class="container">
       <div class="mode-bar">
         <button id="btn-back-landing" class="btn btn-outline btn-sm">&#8592; <span data-i18n="backToSelection">Cambiar selección</span></button>
-        <span class="mode-bar__label">🩺 <span data-i18n="symptomatic">Sintomático</span></span>
+        <span class="mode-bar__label" id="mode-bar-label">🩺 <span id="mode-bar-text">Sintomático</span></span>
       </div>
       <div class="patient-code-box card">
         <label for="patient-code" class="label" data-i18n="patientCode">Código de Paciente</label>
@@ -98,6 +97,18 @@
           <span class="scale-abbr">IQCODE</span>
           <span class="scale-name" data-i18n="scaleName_IQCODE">Informant Questionnaire on Cognitive Decline</span>
           <span class="scale-questions" data-i18n-count="IQCODE">7 preguntas</span>
+          <span class="scale-score"></span>
+        </button>
+        <button class="scale-btn disabled" data-scale="RBD1Q">
+          <span class="scale-abbr">RBD1Q</span>
+          <span class="scale-name" data-i18n="scaleName_RBD1Q">RBD Single Question Screen</span>
+          <span class="scale-questions" data-i18n-count="RBD1Q">1 pregunta</span>
+          <span class="scale-score"></span>
+        </button>
+        <button class="scale-btn disabled" data-scale="MBIC">
+          <span class="scale-abbr">MBI-C</span>
+          <span class="scale-name" data-i18n="scaleName_MBIC">Mild Behavioral Impairment Checklist</span>
+          <span class="scale-questions" data-i18n-count="MBIC">34 preguntas</span>
           <span class="scale-score"></span>
         </button>
       </div>

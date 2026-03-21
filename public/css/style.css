@@ -815,6 +815,36 @@ body {
 }
 .rq-start-btn { font-size: 1rem; padding: 0.65rem 2rem; }
 
+/* Domain header in questions preview list */
+.rp-domain-header {
+  list-style: none;
+  background: var(--highlight);
+  border-left: 3px solid var(--primary);
+  border-radius: 4px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.75rem;
+}
+
+/* Domain badge in questionnaire view */
+.question-domain {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--highlight);
+  border: 1px solid #bfdbfe;
+  border-radius: 4px;
+  padding: 0.2rem 0.6rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 480px) {
   .app-title { font-size: 1.1rem; }

@@ -58,6 +58,10 @@ const I18N = {
     asymptomaticDesc:       'Sin sintomatología',
     comingSoon:             'Próximamente',
     backToSelection:        'Cambiar selección',
+    scaleName_RBD1Q:        'RBD Single Question Screen',
+    questions_RBD1Q:        '1 pregunta',
+    scaleName_MBIC:         'Mild Behavioral Impairment Checklist',
+    questions_MBIC:         '34 preguntas',
   },
   en: {
     appTitle:               'Clinical Rating Scales',
@@ -114,6 +118,10 @@ const I18N = {
     asymptomaticDesc:       'Without symptoms',
     comingSoon:             'Coming soon',
     backToSelection:        'Change selection',
+    scaleName_RBD1Q:        'RBD Single Question Screen',
+    questions_RBD1Q:        '1 question',
+    scaleName_MBIC:         'Mild Behavioral Impairment Checklist',
+    questions_MBIC:         '34 questions',
   },
   de: {
     appTitle:               'Klinische Bewertungsskalen',
@@ -170,6 +178,10 @@ const I18N = {
     asymptomaticDesc:       'Ohne Symptome',
     comingSoon:             'Demnächst',
     backToSelection:        'Auswahl ändern',
+    scaleName_RBD1Q:        'RBD Single Question Screen',
+    questions_RBD1Q:        '1 Frage',
+    scaleName_MBIC:         'Mild Behavioral Impairment Checklist',
+    questions_MBIC:         '34 Fragen',
   },
   it: {
     appTitle:               'Scale di Valutazione Clinica',
@@ -226,6 +238,10 @@ const I18N = {
     asymptomaticDesc:       'Senza sintomatologia',
     comingSoon:             'Prossimamente',
     backToSelection:        'Cambia selezione',
+    scaleName_RBD1Q:        'RBD Single Question Screen',
+    questions_RBD1Q:        '1 domanda',
+    scaleName_MBIC:         'Mild Behavioral Impairment Checklist',
+    questions_MBIC:         '34 domande',
   }
 };
 

@@ -11,179 +11,470 @@ const SCALES = {
   // ── MRC ──────────────────────────────────────────────────────────────
   MRC: {
     questions: [
+      // 1. Bowel function (max 1)
       {
         text: {
-          es: '¿Puede el paciente bañarse o ducharse de forma independiente?',
-          en: 'Can the patient bathe or shower independently?',
-          de: 'Kann der Patient selbstständig duschen oder baden?',
-          it: 'Il paziente può fare il bagno o la doccia in modo indipendente?',
+          es: 'Función intestinal',
+          en: 'Bowel function',
+          de: 'Darmfunktion',
+          it: 'Funzione intestinale',
         },
         help: {
-          es: 'Considere la capacidad de entrar/salir de la bañera y lavarse sin ayuda.',
-          en: 'Consider ability to get in/out of the tub and wash without help.',
-          de: 'Berücksichtigen Sie das Ein-/Aussteigen aus der Badewanne ohne Hilfe.',
-          it: 'Considerare la capacità di entrare/uscire dalla vasca senza aiuto.',
+          es: 'Evalúe si ha habido algún episodio de incontinencia fecal en los últimos 7 días.',
+          en: 'Assess whether there has been any episode of faecal incontinence in the last 7 days.',
+          de: 'Beurteilen Sie, ob es in den letzten 7 Tagen Episoden von Stuhlinkontinenz gab.',
+          it: 'Valutare se ci sono stati episodi di incontinenza fecale negli ultimi 7 giorni.',
         },
         options: [
-          { label: { es: 'Independiente', en: 'Independent', de: 'Selbstständig', it: 'Indipendente' }, value: 0 },
-          { label: { es: 'Necesita supervisión', en: 'Needs supervision', de: 'Benötigt Aufsicht', it: 'Necessita supervisione' }, value: 1 },
-          { label: { es: 'Necesita ayuda parcial', en: 'Needs partial help', de: 'Benötigt teilweise Hilfe', it: 'Necessita aiuto parziale' }, value: 2 },
-          { label: { es: 'Dependiente', en: 'Dependent', de: 'Abhängig', it: 'Dipendente' }, value: 3 },
+          {
+            label: {
+              es: 'Al menos un episodio de incontinencia en los últimos 7 días',
+              en: 'At least one episode of incontinence in the last 7 days',
+              de: 'Mindestens eine Inkontinenzepisode in den letzten 7 Tagen',
+              it: 'Almeno un episodio di incontinenza negli ultimi 7 giorni',
+            },
+            value: 0,
+          },
+          {
+            label: {
+              es: 'Continente durante los últimos 7 días',
+              en: 'Continent for last 7 days',
+              de: 'Kontinent in den letzten 7 Tagen',
+              it: 'Continente negli ultimi 7 giorni',
+            },
+            value: 1,
+          },
         ],
       },
+      // 2. Bladder function (max 1)
       {
         text: {
-          es: '¿Puede el paciente vestirse y desvestirse solo?',
-          en: 'Can the patient dress and undress alone?',
-          de: 'Kann der Patient sich alleine an- und ausziehen?',
-          it: 'Il paziente può vestirsi e svestirsi da solo?',
+          es: 'Función vesical',
+          en: 'Bladder function',
+          de: 'Blasenfunktion',
+          it: 'Funzione vescicale',
         },
         help: {
-          es: 'Incluye ponerse y quitarse ropa, abrocharse botones, zapatos.',
-          en: 'Includes putting on and removing clothing, fastening buttons, shoes.',
-          de: 'Beinhaltet An- und Ausziehen, Knöpfe schließen, Schuhe.',
-          it: 'Include indossare e togliere vestiti, abbottonare, scarpe.',
+          es: 'Evalúe el control de la vejiga, incluyendo cateterismo permanente.',
+          en: 'Assess bladder control, including permanent catheterisation.',
+          de: 'Blasenkontrolle beurteilen, einschließlich Dauerkatheter.',
+          it: 'Valutare il controllo vescicale, incluso il catetere permanente.',
         },
         options: [
-          { label: { es: 'Independiente', en: 'Independent', de: 'Selbstständig', it: 'Indipendente' }, value: 0 },
-          { label: { es: 'Necesita supervisión', en: 'Needs supervision', de: 'Benötigt Aufsicht', it: 'Necessita supervisione' }, value: 1 },
-          { label: { es: 'Necesita ayuda parcial', en: 'Needs partial help', de: 'Benötigt teilweise Hilfe', it: 'Necessita aiuto parziale' }, value: 2 },
-          { label: { es: 'Dependiente', en: 'Dependent', de: 'Abhängig', it: 'Dipendente' }, value: 3 },
+          {
+            label: {
+              es: 'Siempre incontinente o cateterizado/a',
+              en: 'Always incontinent or catheterised',
+              de: 'Immer inkontinent oder katheterisiert',
+              it: 'Sempre incontinente o cateterizzato/a',
+            },
+            value: 0,
+          },
+          {
+            label: {
+              es: 'Continente o accidentes ocasionales',
+              en: 'Continent or occasional accidents',
+              de: 'Kontinent oder gelegentliche Unfälle',
+              it: 'Continente o incidenti occasionali',
+            },
+            value: 1,
+          },
         ],
       },
+      // 3. Toilet use (max 2)
       {
         text: {
-          es: '¿Puede el paciente alimentarse por sí mismo?',
-          en: 'Can the patient feed themselves?',
-          de: 'Kann der Patient selbst essen?',
-          it: 'Il paziente riesce ad alimentarsi da solo?',
+          es: 'Uso del aseo',
+          en: 'Toilet use',
+          de: 'Toilettenbenutzung',
+          it: 'Uso del bagno',
         },
         help: {
-          es: 'Considere si puede cortar la comida, usar cubiertos y llevar la comida a la boca.',
-          en: 'Consider whether they can cut food, use utensils and bring food to mouth.',
-          de: 'Berücksichtigen Sie Schneiden, Besteck benutzen, Essen zum Mund führen.',
-          it: 'Considerare se riesce a tagliare, usare le posate e portare il cibo alla bocca.',
+          es: 'Incluye trasladarse al baño, sentarse, limpiarse y vestirse.',
+          en: 'Includes getting to bathroom, sitting, cleaning and dressing.',
+          de: 'Beinhaltet Toilettengang, Setzen, Säubern und Ankleiden.',
+          it: 'Include raggiungere il bagno, sedersi, pulirsi e rivestirsi.',
         },
         options: [
-          { label: { es: 'Independiente', en: 'Independent', de: 'Selbstständig', it: 'Indipendente' }, value: 0 },
-          { label: { es: 'Necesita supervisión', en: 'Needs supervision', de: 'Benötigt Aufsicht', it: 'Necessita supervisione' }, value: 1 },
-          { label: { es: 'Necesita ayuda parcial', en: 'Needs partial help', de: 'Benötigt teilweise Hilfe', it: 'Necessita aiuto parziale' }, value: 2 },
-          { label: { es: 'Dependiente', en: 'Dependent', de: 'Abhängig', it: 'Dipendente' }, value: 3 },
+          {
+            label: {
+              es: 'Totalmente dependiente',
+              en: 'Fully dependent',
+              de: 'Vollständig abhängig',
+              it: 'Completamente dipendente',
+            },
+            value: 0,
+          },
+          {
+            label: {
+              es: 'Necesita algo de ayuda',
+              en: 'Needs some help',
+              de: 'Benötigt etwas Hilfe',
+              it: 'Necessita di qualche aiuto',
+            },
+            value: 1,
+          },
+          {
+            label: {
+              es: 'Independiente',
+              en: 'Independent',
+              de: 'Selbstständig',
+              it: 'Indipendente',
+            },
+            value: 2,
+          },
         ],
       },
+      // 4. Bathing (max 1)
       {
         text: {
-          es: '¿Puede el paciente trasladarse de la cama al sillón?',
-          en: 'Can the patient transfer from bed to chair?',
-          de: 'Kann der Patient vom Bett zum Stuhl wechseln?',
-          it: 'Il paziente riesce a trasferirsi dal letto alla sedia?',
+          es: 'Baño / Ducha',
+          en: 'Bathing',
+          de: 'Baden / Duschen',
+          it: 'Bagno / Doccia',
         },
-        help: { es: 'Transferencia cama-sillón sin ayuda física de otra persona.', en: 'Bed-chair transfer without physical help from another person.', de: 'Bett-Stuhl-Transfer ohne körperliche Hilfe einer anderen Person.', it: 'Trasferimento letto-sedia senza aiuto fisico.' },
+        help: {
+          es: 'Incluye entrar y salir de la bañera o ducha y lavarse.',
+          en: 'Includes getting in and out of the bath or shower and washing.',
+          de: 'Beinhaltet Ein- und Aussteigen aus Badewanne/Dusche und Waschen.',
+          it: 'Include entrare e uscire dalla vasca o dalla doccia e lavarsi.',
+        },
         options: [
-          { label: { es: 'Independiente', en: 'Independent', de: 'Selbstständig', it: 'Indipendente' }, value: 0 },
-          { label: { es: 'Necesita supervisión', en: 'Needs supervision', de: 'Benötigt Aufsicht', it: 'Necessita supervisione' }, value: 1 },
-          { label: { es: 'Necesita ayuda parcial', en: 'Needs partial help', de: 'Benötigt teilweise Hilfe', it: 'Necessita aiuto parziale' }, value: 2 },
-          { label: { es: 'Dependiente', en: 'Dependent', de: 'Abhängig', it: 'Dipendente' }, value: 3 },
+          {
+            label: {
+              es: 'Totalmente dependiente o necesita algo de ayuda',
+              en: 'Fully dependent or needs some help',
+              de: 'Vollständig abhängig oder benötigt etwas Hilfe',
+              it: 'Completamente dipendente o necessita di qualche aiuto',
+            },
+            value: 0,
+          },
+          {
+            label: {
+              es: 'Independiente',
+              en: 'Independent',
+              de: 'Selbstständig',
+              it: 'Indipendente',
+            },
+            value: 1,
+          },
         ],
       },
+      // 5. Feeding (max 2)
       {
         text: {
-          es: '¿Puede el paciente controlar el intestino?',
-          en: 'Can the patient control their bowels?',
-          de: 'Kann der Patient den Darm kontrollieren?',
-          it: 'Il paziente riesce a controllare l\'intestino?',
+          es: 'Alimentación',
+          en: 'Feeding',
+          de: 'Nahrungsaufnahme',
+          it: 'Alimentazione',
         },
-        help: { es: 'Sin episodios de incontinencia fecal en la última semana.', en: 'No fecal incontinence episodes in the last week.', de: 'Keine Stuhlinkontinenz in der letzten Woche.', it: 'Nessun episodio di incontinenza fecale nell\'ultima settimana.' },
+        help: {
+          es: 'Incluye alimentación por sonda (NG/PEG/RIG) si el paciente no puede tragar.',
+          en: 'Includes tube feeding (NG/PEG/RIG) if the patient cannot swallow.',
+          de: 'Beinhaltet Sondenernährung (NG/PEG/RIG) wenn der Patient nicht schlucken kann.',
+          it: 'Include nutrizione enterale (NG/PEG/RIG) se il paziente non riesce a deglutire.',
+        },
         options: [
-          { label: { es: 'Continente', en: 'Continent', de: 'Kontinent', it: 'Continente' }, value: 0 },
-          { label: { es: 'Accidente ocasional', en: 'Occasional accident', de: 'Gelegentlicher Unfall', it: 'Incidente occasionale' }, value: 1 },
-          { label: { es: 'Incontinente', en: 'Incontinent', de: 'Inkontinent', it: 'Incontinente' }, value: 2 },
+          {
+            label: {
+              es: 'Incapaz o alimentado por sonda NG/PEG/RIG (no ingiere nada por boca)',
+              en: 'Unable or NG/PEG/RIG fed (takes nothing by mouth)',
+              de: 'Unfähig oder Sondenernährung NG/PEG/RIG (nimmt nichts oral auf)',
+              it: 'Incapace o alimentato per sonda NG/PEG/RIG (non assume nulla per bocca)',
+            },
+            value: 0,
+          },
+          {
+            label: {
+              es: 'Necesita ayuda pero puede tragar (aunque sea de forma insegura)',
+              en: 'Needs help but can swallow (even if unsafe)',
+              de: 'Benötigt Hilfe, kann aber schlucken (auch wenn unsicher)',
+              it: 'Necessita di aiuto ma riesce a deglutire (anche se in modo non sicuro)',
+            },
+            value: 1,
+          },
+          {
+            label: {
+              es: 'Independiente',
+              en: 'Independent',
+              de: 'Selbstständig',
+              it: 'Indipendente',
+            },
+            value: 2,
+          },
         ],
       },
+      // 6. Transfer and mobility (max 2)
       {
         text: {
-          es: '¿Puede el paciente controlar la vejiga?',
-          en: 'Can the patient control their bladder?',
-          de: 'Kann der Patient die Blase kontrollieren?',
-          it: 'Il paziente riesce a controllare la vescica?',
+          es: 'Transferencia y movilidad',
+          en: 'Transfer and mobility',
+          de: 'Transfer und Mobilität',
+          it: 'Trasferimento e mobilità',
         },
-        help: { es: 'Sin episodios de incontinencia urinaria en la última semana.', en: 'No urinary incontinence episodes in the last week.', de: 'Keine Harninkontinenz in der letzten Woche.', it: 'Nessun episodio di incontinenza urinaria nell\'ultima settimana.' },
+        help: {
+          es: 'Evalúe la capacidad de sentarse, transferirse y moverse de forma independiente.',
+          en: 'Assess ability to sit up, transfer and move independently.',
+          de: 'Fähigkeit zum Aufsetzen, Transfer und selbstständigem Bewegen beurteilen.',
+          it: 'Valutare la capacità di sedersi, trasferirsi e muoversi in modo indipendente.',
+        },
         options: [
-          { label: { es: 'Continente', en: 'Continent', de: 'Kontinent', it: 'Continente' }, value: 0 },
-          { label: { es: 'Accidente ocasional', en: 'Occasional accident', de: 'Gelegentlicher Unfall', it: 'Incidente occasionale' }, value: 1 },
-          { label: { es: 'Incontinente', en: 'Incontinent', de: 'Inkontinent', it: 'Incontinente' }, value: 2 },
+          {
+            label: {
+              es: 'En cama, incapaz de sentarse',
+              en: 'Bedbound, unable to sit',
+              de: 'Bettlägerig, nicht in der Lage aufzusitzen',
+              it: 'Allettato, incapace di sedersi',
+            },
+            value: 0,
+          },
+          {
+            label: {
+              es: 'Puede sentarse pero no puede desplazarse ni transferirse sin ayuda (de persona o ayuda técnica)',
+              en: 'Can sit but cannot mobilise or transfer without help (from person or walking aid)',
+              de: 'Kann sitzen, aber nicht ohne Hilfe mobilisieren oder transferieren (Person oder Gehhilfe)',
+              it: 'Riesce a sedersi ma non a spostarsi o trasferirsi senza aiuto (di persona o ausilio deambulatorio)',
+            },
+            value: 1,
+          },
+          {
+            label: {
+              es: 'Puede transferirse o desplazarse de forma independiente, o ambas',
+              en: 'Can transfer or mobilise independently or both',
+              de: 'Kann selbstständig transferieren oder mobilisieren oder beides',
+              it: 'Riesce a trasferirsi o spostarsi in modo indipendente, o entrambe',
+            },
+            value: 2,
+          },
         ],
       },
+      // 7. Stairs (max 2)
       {
         text: {
-          es: '¿Puede el paciente ir al aseo de forma independiente?',
-          en: 'Can the patient use the toilet independently?',
-          de: 'Kann der Patient selbstständig die Toilette benutzen?',
-          it: 'Il paziente riesce ad usare il bagno in modo indipendente?',
+          es: 'Escaleras',
+          en: 'Stairs',
+          de: 'Treppen',
+          it: 'Scale',
         },
-        help: { es: 'Incluye trasladarse al baño, sentarse, limpiarse y vestirse.', en: 'Includes getting to bathroom, sitting, cleaning and dressing.', de: 'Beinhaltet Toilettengang, Setzen, Säubern und Ankleiden.', it: 'Include raggiungere il bagno, sedersi, pulirsi e rivestirsi.' },
+        help: {
+          es: 'Evalúe la capacidad de subir y bajar escaleras con o sin ayuda.',
+          en: 'Assess ability to go up and down stairs with or without help.',
+          de: 'Fähigkeit zum Treppensteigen beurteilen, mit oder ohne Hilfe.',
+          it: 'Valutare la capacità di salire e scendere le scale con o senza aiuto.',
+        },
         options: [
-          { label: { es: 'Independiente', en: 'Independent', de: 'Selbstständig', it: 'Indipendente' }, value: 0 },
-          { label: { es: 'Necesita ayuda', en: 'Needs help', de: 'Benötigt Hilfe', it: 'Necessita aiuto' }, value: 1 },
-          { label: { es: 'Dependiente', en: 'Dependent', de: 'Abhängig', it: 'Dipendente' }, value: 2 },
+          {
+            label: {
+              es: 'Incapaz',
+              en: 'Unable',
+              de: 'Nicht in der Lage',
+              it: 'Incapace',
+            },
+            value: 0,
+          },
+          {
+            label: {
+              es: 'Necesita ayuda',
+              en: 'Needs help',
+              de: 'Benötigt Hilfe',
+              it: 'Necessita di aiuto',
+            },
+            value: 1,
+          },
+          {
+            label: {
+              es: 'Independiente',
+              en: 'Independent',
+              de: 'Selbstständig',
+              it: 'Indipendente',
+            },
+            value: 2,
+          },
         ],
       },
+      // 8. Best verbal response (max 4)
       {
         text: {
-          es: '¿Puede el paciente desplazarse por la casa o la calle?',
-          en: 'Can the patient move around the house or street?',
-          de: 'Kann der Patient sich im Haus oder auf der Straße bewegen?',
-          it: 'Il paziente riesce a spostarsi in casa o per strada?',
+          es: 'Mejor respuesta verbal',
+          en: 'Best verbal response',
+          de: 'Beste verbale Reaktion',
+          it: 'Migliore risposta verbale',
         },
-        help: { es: 'Movilidad con o sin ayuda técnica (andador, silla de ruedas).', en: 'Mobility with or without technical aid (walker, wheelchair).', de: 'Mobilität mit oder ohne Hilfsmittel (Rollator, Rollstuhl).', it: 'Mobilità con o senza ausili tecnici (deambulatore, sedia a rotelle).' },
+        help: {
+          es: 'Seleccione la mejor respuesta verbal que el paciente es capaz de producir.',
+          en: 'Select the best verbal response the patient is capable of producing.',
+          de: 'Wählen Sie die beste verbale Reaktion, die der Patient produzieren kann.',
+          it: 'Selezionare la migliore risposta verbale che il paziente è in grado di produrre.',
+        },
         options: [
-          { label: { es: 'Independiente', en: 'Independent', de: 'Selbstständig', it: 'Indipendente' }, value: 0 },
-          { label: { es: 'Necesita supervisión', en: 'Needs supervision', de: 'Benötigt Aufsicht', it: 'Necessita supervisione' }, value: 1 },
-          { label: { es: 'En silla de ruedas', en: 'In wheelchair', de: 'Im Rollstuhl', it: 'In sedia a rotelle' }, value: 2 },
-          { label: { es: 'Encamado', en: 'Bedridden', de: 'Bettlägerig', it: 'Allettato' }, value: 3 },
+          {
+            label: {
+              es: 'Mudo/a',
+              en: 'Mute',
+              de: 'Stumm',
+              it: 'Muto/a',
+            },
+            value: 0,
+          },
+          {
+            label: {
+              es: 'Sonidos incomprensibles',
+              en: 'Incomprehensible sounds',
+              de: 'Unverständliche Laute',
+              it: 'Suoni incomprensibili',
+            },
+            value: 1,
+          },
+          {
+            label: {
+              es: 'Palabras aisladas',
+              en: 'Single words',
+              de: 'Einzelne Wörter',
+              it: 'Parole isolate',
+            },
+            value: 2,
+          },
+          {
+            label: {
+              es: 'Frases pero con dificultad para encontrar palabras, usa palabras incorrectas o está frecuentemente desorientado/confuso',
+              en: 'Sentences but difficulty in finding words, uses incorrect words or is often disoriented / confused',
+              de: 'Sätze, aber Schwierigkeiten beim Wortfinden, verwendet falsche Wörter oder ist häufig desorientiert / verwirrt',
+              it: 'Frasi ma con difficoltà nel trovare le parole, usa parole errate o è spesso disorientato/confuso',
+            },
+            value: 3,
+          },
+          {
+            label: {
+              es: 'Conversación normal',
+              en: 'Normal conversation',
+              de: 'Normale Konversation',
+              it: 'Conversazione normale',
+            },
+            value: 4,
+          },
         ],
       },
+      // 9. Memory and orientation to surroundings (max 3)
       {
         text: {
-          es: '¿Puede el paciente subir y bajar escaleras?',
-          en: 'Can the patient go up and down stairs?',
-          de: 'Kann der Patient Treppen steigen?',
-          it: 'Il paziente riesce a salire e scendere le scale?',
+          es: 'Memoria y orientación en el entorno',
+          en: 'Memory and orientation to surroundings',
+          de: 'Gedächtnis und Orientierung zur Umgebung',
+          it: "Memoria e orientamento nell'ambiente",
         },
-        help: { es: 'Con o sin barandilla o bastón.', en: 'With or without handrail or cane.', de: 'Mit oder ohne Geländer oder Stock.', it: 'Con o senza corrimano o bastone.' },
+        help: {
+          es: 'Evalúe la memoria y la capacidad del paciente para orientarse en su entorno.',
+          en: "Assess the patient's memory and ability to orientate to their surroundings.",
+          de: 'Gedächtnis und Fähigkeit zur Orientierung in der Umgebung beurteilen.',
+          it: 'Valutare la memoria e la capacità del paziente di orientarsi nel proprio ambiente.',
+        },
         options: [
-          { label: { es: 'Independiente', en: 'Independent', de: 'Selbstständig', it: 'Indipendente' }, value: 0 },
-          { label: { es: 'Necesita ayuda', en: 'Needs help', de: 'Benötigt Hilfe', it: 'Necessita aiuto' }, value: 1 },
-          { label: { es: 'Incapaz', en: 'Unable', de: 'Nicht in der Lage', it: 'Non in grado' }, value: 2 },
+          {
+            label: {
+              es: 'Sin consciencia del entorno ni evidencia alguna de memoria',
+              en: 'Shows no awareness of surroundings or any evidence of memory',
+              de: 'Kein Bewusstsein der Umgebung und keinerlei Gedächtnisnachweis',
+              it: "Nessuna consapevolezza dell'ambiente né alcuna evidenza di memoria",
+            },
+            value: 0,
+          },
+          {
+            label: {
+              es: 'Evidencia de retención de material muy aprendido (p. ej., reconocer a personas familiares) o consciencia del entorno, pero sin evidencia de adquirir material nuevo',
+              en: 'Evidence of retaining some highly learned material (e.g. recognising familiar people) or awareness of surroundings but no evidence of acquiring new material',
+              de: 'Nachweis der Beibehaltung hochgelernten Materials (z. B. Erkennen vertrauter Personen) oder Bewusstsein der Umgebung, aber kein Nachweis des Erwerbs neuen Materials',
+              it: "Evidenza di ritenzione di materiale molto appreso (es. riconoscere persone familiari) o consapevolezza dell'ambiente, ma nessuna evidenza di acquisire nuovo materiale",
+            },
+            value: 1,
+          },
+          {
+            label: {
+              es: 'Capaz de retener alguna información nueva, pero la memoria está consistentemente deteriorada',
+              en: 'Able to retain some new information BUT memory consistently impaired',
+              de: 'In der Lage, einige neue Informationen zu behalten, aber Gedächtnis konsistent beeinträchtigt',
+              it: 'In grado di ritenere alcune informazioni nuove MA la memoria è costantemente compromessa',
+            },
+            value: 2,
+          },
+          {
+            label: {
+              es: 'Memoria normal o con algún deterioro ocasional',
+              en: 'Memory normal or some impairment off and on',
+              de: 'Gedächtnis normal oder gelegentliche Beeinträchtigung',
+              it: 'Memoria normale o con qualche deterioramento occasionale',
+            },
+            value: 3,
+          },
         ],
       },
+      // 10. Judgement and problem solving (max 1)
       {
         text: {
-          es: '¿Puede el paciente arreglarse (higiene facial, peinado, afeitado)?',
-          en: 'Can the patient groom themselves (face, hair, shaving)?',
-          de: 'Kann der Patient sich pflegen (Gesicht, Haare, Rasur)?',
-          it: 'Il paziente riesce a curarsi (viso, capelli, rasatura)?',
+          es: 'Juicio y resolución de problemas',
+          en: 'Judgement and problem solving',
+          de: 'Urteilsvermögen und Problemlösung',
+          it: 'Giudizio e risoluzione dei problemi',
         },
-        help: { es: 'Higiene personal básica diaria.', en: 'Basic daily personal hygiene.', de: 'Grundlegende tägliche Körperpflege.', it: 'Igiene personale di base quotidiana.' },
+        help: {
+          es: 'Evalúe la capacidad del paciente para tomar decisiones o resolver problemas sencillos.',
+          en: "Assess the patient's ability to make decisions or solve simple problems.",
+          de: 'Fähigkeit des Patienten zur Entscheidungsfindung oder Lösung einfacher Probleme beurteilen.',
+          it: 'Valutare la capacità del paziente di prendere decisioni o risolvere problemi semplici.',
+        },
         options: [
-          { label: { es: 'Independiente', en: 'Independent', de: 'Selbstständig', it: 'Indipendente' }, value: 0 },
-          { label: { es: 'Necesita ayuda', en: 'Needs help', de: 'Benötigt Hilfe', it: 'Necessita aiuto' }, value: 1 },
+          {
+            label: {
+              es: 'Incapaz de mostrar ningún juicio o resolución de problemas',
+              en: 'Unable to show any judgement or problem-solving',
+              de: 'Nicht in der Lage, Urteilsvermögen oder Problemlösung zu zeigen',
+              it: 'Incapace di mostrare alcun giudizio o capacità di problem solving',
+            },
+            value: 0,
+          },
+          {
+            label: {
+              es: 'Capaz de mostrar algún juicio o resolución de problemas, aunque sea gravemente deteriorado',
+              en: 'Able to show some judgement or problem-solving, even if this is severely impaired',
+              de: 'In der Lage, etwas Urteilsvermögen oder Problemlösung zu zeigen, auch wenn stark beeinträchtigt',
+              it: 'In grado di mostrare qualche giudizio o problem solving, anche se gravemente compromesso',
+            },
+            value: 1,
+          },
         ],
       },
+      // 11. Use of tools (max 1)
       {
         text: {
-          es: '¿Con qué frecuencia necesita el cuidador ayudar al paciente en las actividades diarias?',
-          en: 'How often does the caregiver need to help the patient with daily activities?',
-          de: 'Wie oft muss der Betreuer dem Patienten bei täglichen Aktivitäten helfen?',
-          it: 'Con quale frequenza il caregiver deve assistere il paziente nelle attività quotidiane?',
+          es: 'Uso de herramientas',
+          en: 'Use of tools',
+          de: 'Verwendung von Werkzeugen',
+          it: 'Uso degli strumenti',
         },
-        help: { es: 'Frecuencia media de asistencia en la última semana.', en: 'Average assistance frequency in the last week.', de: 'Durchschnittliche Hilfsfrequenz in der letzten Woche.', it: 'Frequenza media di assistenza nell\'ultima settimana.' },
+        help: {
+          es: 'Evalúe si el paciente puede usar utensilios o herramientas del hogar (p. ej., cubiertos, mando a distancia).',
+          en: 'Assess whether the patient can use household tools or utensils (e.g. cutlery, remote control).',
+          de: 'Beurteilung ob der Patient Haushaltswerkzeuge oder Utensilien verwenden kann.',
+          it: 'Valutare se il paziente riesce a usare utensili o strumenti domestici (es. posate, telecomando).',
+        },
         options: [
-          { label: { es: 'Nunca', en: 'Never', de: 'Nie', it: 'Mai' }, value: 0 },
-          { label: { es: 'Raramente', en: 'Rarely', de: 'Selten', it: 'Raramente' }, value: 1 },
-          { label: { es: 'A veces', en: 'Sometimes', de: 'Manchmal', it: 'A volte' }, value: 2 },
-          { label: { es: 'Frecuentemente', en: 'Frequently', de: 'Häufig', it: 'Frequentemente' }, value: 3 },
-          { label: { es: 'Siempre', en: 'Always', de: 'Immer', it: 'Sempre' }, value: 4 },
+          {
+            label: {
+              es: 'Incapaz de usar ninguna herramienta u objeto',
+              en: 'Unable to use any tools or objects',
+              de: 'Nicht in der Lage, Werkzeuge oder Gegenstände zu benutzen',
+              it: 'Incapace di usare qualsiasi strumento o oggetto',
+            },
+            value: 0,
+          },
+          {
+            label: {
+              es: 'Capaz de usar algunas herramientas u objetos, con ayuda si es necesario',
+              en: 'Able to use some tools or objects, with help if necessary',
+              de: 'In der Lage, einige Werkzeuge oder Gegenstände zu benutzen, mit Hilfe wenn nötig',
+              it: 'In grado di usare alcuni strumenti o oggetti, con aiuto se necessario',
+            },
+            value: 1,
+          },
         ],
       },
     ],

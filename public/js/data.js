@@ -1062,7 +1062,7 @@ const SCALES = {
   // ── MBI-C ─────────────────────────────────────────────────────────────
   MBIC: {
     group: 'asymptomatic',
-    doi: '10.1002/mds.25037',
+    doi: '10.3233/jad-160979',
     questions: [
       {
         domain: {
@@ -2449,6 +2449,433 @@ const SCALES = {
           { label: { es: 'Solo un problema muy leve', en: 'Only a very slight problem', de: 'Nur ein sehr geringes Problem', it: 'Solo un problema molto lieve' }, value: 1 },
           { label: { es: 'Algo problemático', en: 'Somewhat of a problem', de: 'Ein gewisses Problem', it: 'Un certo problema' }, value: 2 },
           { label: { es: 'Un problema muy grave', en: 'A very big problem', de: 'Ein sehr großes Problem', it: 'Un problema grave' }, value: 3 },
+        ],
+      },
+    ],
+  },
+
+  CFI: {
+    group: 'asymptomatic',
+    doi: '10.1001/jamaneurol.2014.3375',
+    questions: [
+      {
+        domain: { es: 'Versión Paciente', en: 'Patient Version', de: 'Patientenversion', it: 'Versione Paziente' },
+        text: {
+          es: '¿Siente que su memoria ha disminuido sustancialmente comparado con hace un año?',
+          en: 'Do you feel your memory has substantially declined compared to one year ago?',
+          de: 'Haben Sie das Gefühl, dass Ihr Gedächtnis im Vergleich zu vor einem Jahr erheblich nachgelassen hat?',
+          it: 'Ha la sensazione che la Sua memoria sia diminuita significativamente rispetto a un anno fa?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Paciente', en: 'Patient Version', de: 'Patientenversion', it: 'Versione Paziente' },
+        text: {
+          es: '¿Otras personas le dicen que tiende a repetir las mismas preguntas una y otra vez?',
+          en: 'Do other people tell you that you tend to repeat the same questions or stories?',
+          de: 'Sagen Ihnen andere Personen, dass Sie dazu neigen, dieselben Fragen oder Geschichten zu wiederholen?',
+          it: 'Altre persone Le dicono che tende a ripetere le stesse domande o storie?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Paciente', en: 'Patient Version', de: 'Patientenversion', it: 'Versione Paziente' },
+        text: {
+          es: '¿Ha estado perdiendo cosas con más frecuencia?',
+          en: 'Have you been losing things more frequently?',
+          de: 'Verlieren Sie Dinge häufiger?',
+          it: 'Ha perso oggetti con maggiore frequenza?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Paciente', en: 'Patient Version', de: 'Patientenversion', it: 'Versione Paziente' },
+        text: {
+          es: '¿Se apoya más en recordatorios escritos (por ejemplo, listas de compras, calendarios)?',
+          en: 'Do you rely more on written reminders (e.g., shopping lists, calendars)?',
+          de: 'Verlassen Sie sich mehr auf schriftliche Erinnerungen (z. B. Einkaufslisten, Kalender)?',
+          it: 'Si affida di più a promemoria scritti (ad esempio, liste della spesa, calendari)?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Paciente', en: 'Patient Version', de: 'Patientenversion', it: 'Versione Paziente' },
+        text: {
+          es: '¿Necesita más ayuda de otros para recordar citas, ocasiones familiares o vacaciones?',
+          en: 'Do you need more help from others to remember appointments, family occasions, or holidays?',
+          de: 'Brauchen Sie mehr Hilfe von anderen, um sich an Termine, Familienfeiern oder Urlaube zu erinnern?',
+          it: 'Ha bisogno di più aiuto dagli altri per ricordare appuntamenti, occasioni familiari o vacanze?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Paciente', en: 'Patient Version', de: 'Patientenversion', it: 'Versione Paziente' },
+        text: {
+          es: '¿Tiene más dificultad para recordar nombres, encontrar la palabra correcta o completar frases?',
+          en: 'Are you having more trouble remembering names, finding the right word, or completing sentences?',
+          de: 'Haben Sie mehr Schwierigkeiten, sich Namen zu merken, das richtige Wort zu finden oder Sätze zu vervollständigen?',
+          it: 'Ha più difficoltà a ricordare nomi, trovare la parola giusta o completare le frasi?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Paciente', en: 'Patient Version', de: 'Patientenversion', it: 'Versione Paziente' },
+        text: {
+          es: '¿Tiene más dificultad al conducir (por ejemplo, conduce más despacio, tiene más problemas por la noche, tiende a perderse, ha tenido accidentes)?',
+          en: 'Are you having more difficulty driving (e.g., driving more slowly, having more trouble at night, tending to get lost, having accidents)?',
+          de: 'Haben Sie mehr Schwierigkeiten beim Autofahren (z. B. fahren Sie langsamer, haben mehr Probleme bei Nacht, tendieren dazu, sich zu verfahren, hatten Unfälle)?',
+          it: 'Ha più difficoltà alla guida (ad esempio, guida più lentamente, ha più problemi di notte, tende a perdersi, ha avuto incidenti)?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Paciente', en: 'Patient Version', de: 'Patientenversion', it: 'Versione Paziente' },
+        text: {
+          es: 'Comparado con hace un año, ¿tiene más dificultad para manejar dinero (por ejemplo, pagar facturas, calcular cambio, completar formularios de impuestos)?',
+          en: 'Compared to one year ago, are you having more difficulty managing money (e.g., paying bills, calculating change, completing tax forms)?',
+          de: 'Haben Sie im Vergleich zu vor einem Jahr mehr Schwierigkeiten beim Umgang mit Geld (z. B. Rechnungen bezahlen, Wechselgeld berechnen, Steuerformulare ausfüllen)?',
+          it: 'Rispetto a un anno fa, ha più difficoltà a gestire il denaro (ad esempio, pagare le bollette, calcolare il resto, compilare moduli fiscali)?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Paciente', en: 'Patient Version', de: 'Patientenversion', it: 'Versione Paziente' },
+        text: {
+          es: '¿Está menos involucrado en actividades sociales?',
+          en: 'Are you less involved in social activities?',
+          de: 'Sind Sie weniger in soziale Aktivitäten eingebunden?',
+          it: 'È meno coinvolto nelle attività sociali?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Paciente', en: 'Patient Version', de: 'Patientenversion', it: 'Versione Paziente' },
+        text: {
+          es: '¿Su desempeño en el trabajo (remunerado o voluntario) ha disminuido significativamente comparado con hace un año?',
+          en: 'Has your job performance (paid or volunteer) significantly declined compared to one year ago?',
+          de: 'Hat Ihre Arbeitsleistung (bezahlt oder ehrenamtlich) im Vergleich zu vor einem Jahr erheblich nachgelassen?',
+          it: 'Le Sue prestazioni lavorative (retribuite o di volontariato) sono diminuite significativamente rispetto a un anno fa?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Paciente', en: 'Patient Version', de: 'Patientenversion', it: 'Versione Paziente' },
+        text: {
+          es: '¿Tiene más dificultad para seguir las noticias, o las tramas de libros, películas o programas de TV, comparado con hace un año?',
+          en: 'Are you having more trouble following the news, or keeping track of the plots of books, movies, or TV shows compared to one year ago?',
+          de: 'Haben Sie im Vergleich zu vor einem Jahr mehr Schwierigkeiten, Nachrichten zu verfolgen oder die Handlung von Büchern, Filmen oder TV-Sendungen zu behalten?',
+          it: 'Ha più difficoltà a seguire le notizie o le trame di libri, film o programmi TV rispetto a un anno fa?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Paciente', en: 'Patient Version', de: 'Patientenversion', it: 'Versione Paziente' },
+        text: {
+          es: '¿Hay actividades (por ejemplo, pasatiempos como juegos de cartas, manualidades) que son sustancialmente más difíciles para usted ahora comparado con hace un año?',
+          en: 'Are there activities (e.g., hobbies such as card games, crafts) that are substantially harder for you now than one year ago?',
+          de: 'Gibt es Aktivitäten (z. B. Hobbys wie Kartenspiele, Handarbeiten), die für Sie jetzt wesentlich schwieriger sind als vor einem Jahr?',
+          it: 'Ci sono attività (ad esempio, hobby come giochi di carte, lavori manuali) che ora sono sostanzialmente più difficili per Lei rispetto a un anno fa?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Paciente', en: 'Patient Version', de: 'Patientenversion', it: 'Versione Paziente' },
+        text: {
+          es: '¿Es más probable que se desoriente o se pierda, por ejemplo al viajar a otra ciudad?',
+          en: 'Are you more likely to get confused or lost, for example when traveling to another town?',
+          de: 'Verlieren Sie öfter die Orientierung oder verirren sich, zum Beispiel beim Reisen in eine andere Stadt?',
+          it: 'È più probabile che si confonda o si perda, ad esempio quando viaggia in un\'altra città?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Paciente', en: 'Patient Version', de: 'Patientenversion', it: 'Versione Paziente' },
+        text: {
+          es: '¿Tiene más dificultad para usar electrodomésticos (como la lavadora, videograbadora o computadora)?',
+          en: 'Are you having more trouble using appliances (such as a washing machine, video recorder, or computer)?',
+          de: 'Haben Sie mehr Schwierigkeiten mit der Bedienung von Haushaltsgeräten (wie Waschmaschine, Videorecorder oder Computer)?',
+          it: 'Ha più difficoltà nell\'uso di elettrodomestici (come lavatrice, videoregistratore o computer)?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Informante', en: 'Informant Version', de: 'Informantenversion', it: 'Versione Informante' },
+        text: {
+          es: '¿Siente que el paciente ha tenido una disminución significativa en la memoria comparado con hace un año?',
+          en: 'Do you feel the patient has had a significant decline in memory compared to one year ago?',
+          de: 'Haben Sie das Gefühl, dass das Gedächtnis des Patienten im Vergleich zu vor einem Jahr erheblich nachgelassen hat?',
+          it: 'Ha la sensazione che la memoria del paziente sia diminuita significativamente rispetto a un anno fa?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Informante', en: 'Informant Version', de: 'Informantenversion', it: 'Versione Informante' },
+        text: {
+          es: '¿El paciente tiende a repetir las mismas preguntas una y otra vez?',
+          en: 'Does the patient tend to repeat the same questions or stories?',
+          de: 'Neigt der Patient dazu, dieselben Fragen oder Geschichten zu wiederholen?',
+          it: 'Il paziente tende a ripetere le stesse domande o storie?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Informante', en: 'Informant Version', de: 'Informantenversion', it: 'Versione Informante' },
+        text: {
+          es: '¿El paciente ha estado perdiendo cosas con más frecuencia?',
+          en: 'Has the patient been losing things more frequently?',
+          de: 'Verliert der Patient Dinge häufiger?',
+          it: 'Il paziente ha perso oggetti con maggiore frequenza?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Informante', en: 'Informant Version', de: 'Informantenversion', it: 'Versione Informante' },
+        text: {
+          es: '¿Le parece que últimamente el paciente se apoya más en recordatorios escritos (por ejemplo, listas de compras, calendarios)?',
+          en: 'Does it seem to you that the patient is relying more on written reminders (e.g., shopping lists, calendars) lately?',
+          de: 'Haben Sie den Eindruck, dass der Patient sich in letzter Zeit mehr auf schriftliche Erinnerungen (z. B. Einkaufslisten, Kalender) verlässt?',
+          it: 'Ha l\'impressione che ultimamente il paziente si affidi di più a promemoria scritti (ad esempio, liste della spesa, calendari)?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Informante', en: 'Informant Version', de: 'Informantenversion', it: 'Versione Informante' },
+        text: {
+          es: '¿El paciente necesita más ayuda de otros para recordar citas, ocasiones familiares o vacaciones?',
+          en: 'Does the patient need more help from others to remember appointments, family occasions, or holidays?',
+          de: 'Braucht der Patient mehr Hilfe von anderen, um sich an Termine, Familienfeiern oder Urlaube zu erinnern?',
+          it: 'Il paziente ha bisogno di più aiuto dagli altri per ricordare appuntamenti, occasioni familiari o vacanze?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Informante', en: 'Informant Version', de: 'Informantenversion', it: 'Versione Informante' },
+        text: {
+          es: '¿El paciente tiene más dificultad para recordar nombres, encontrar la palabra correcta o completar frases?',
+          en: 'Is the patient having more trouble remembering names, finding the right word, or completing sentences?',
+          de: 'Hat der Patient mehr Schwierigkeiten, sich Namen zu merken, das richtige Wort zu finden oder Sätze zu vervollständigen?',
+          it: 'Il paziente ha più difficoltà a ricordare nomi, trovare la parola giusta o completare le frasi?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Informante', en: 'Informant Version', de: 'Informantenversion', it: 'Versione Informante' },
+        text: {
+          es: '¿El paciente tiene más dificultad al conducir (por ejemplo, conduce más despacio, tiene más problemas por la noche, tiende a perderse, ha tenido accidentes)?',
+          en: 'Is the patient having more difficulty driving (e.g., driving more slowly, having more trouble at night, tending to get lost, having accidents)?',
+          de: 'Hat der Patient mehr Schwierigkeiten beim Autofahren (z. B. fährt er langsamer, hat mehr Probleme bei Nacht, tendiert dazu, sich zu verfahren, hatte Unfälle)?',
+          it: 'Il paziente ha più difficoltà alla guida (ad esempio, guida più lentamente, ha più problemi di notte, tende a perdersi, ha avuto incidenti)?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Informante', en: 'Informant Version', de: 'Informantenversion', it: 'Versione Informante' },
+        text: {
+          es: 'Comparado con hace un año, ¿el paciente tiene más dificultad para manejar dinero (por ejemplo, pagar facturas, calcular cambio, completar formularios de impuestos)?',
+          en: 'Compared to one year ago, is the patient having more difficulty managing money (e.g., paying bills, calculating change, completing tax forms)?',
+          de: 'Hat der Patient im Vergleich zu vor einem Jahr mehr Schwierigkeiten beim Umgang mit Geld (z. B. Rechnungen bezahlen, Wechselgeld berechnen, Steuerformulare ausfüllen)?',
+          it: 'Rispetto a un anno fa, il paziente ha più difficoltà a gestire il denaro (ad esempio, pagare le bollette, calcolare il resto, compilare moduli fiscali)?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Informante', en: 'Informant Version', de: 'Informantenversion', it: 'Versione Informante' },
+        text: {
+          es: '¿El paciente está menos involucrado en actividades sociales?',
+          en: 'Is the patient less involved in social activities?',
+          de: 'Ist der Patient weniger in soziale Aktivitäten eingebunden?',
+          it: 'Il paziente è meno coinvolto nelle attività sociali?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Informante', en: 'Informant Version', de: 'Informantenversion', it: 'Versione Informante' },
+        text: {
+          es: '¿Cree usted, basándose en sus propias observaciones o comentarios de compañeros de trabajo del paciente, que el desempeño laboral del paciente (remunerado o voluntario) ha disminuido significativamente comparado con hace un año?',
+          en: 'Do you believe, based on your own observations or comments from coworkers of the patient, that the patient\'s job performance (paid or volunteer) has significantly declined compared to one year ago?',
+          de: 'Glauben Sie, basierend auf Ihren eigenen Beobachtungen oder Kommentaren von Arbeitskollegen des Patienten, dass die Arbeitsleistung des Patienten (bezahlt oder ehrenamtlich) im Vergleich zu vor einem Jahr erheblich nachgelassen hat?',
+          it: 'Crede, in base alle Sue osservazioni o ai commenti dei colleghi di lavoro del paziente, che le prestazioni lavorative del paziente (retribuite o di volontariato) siano diminuite significativamente rispetto a un anno fa?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Informante', en: 'Informant Version', de: 'Informantenversion', it: 'Versione Informante' },
+        text: {
+          es: '¿El paciente tiene más dificultad para seguir las noticias, o las tramas de libros, películas o programas de TV, comparado con hace un año?',
+          en: 'Is the patient having more trouble following the news, or keeping track of the plots of books, movies, or TV shows compared to one year ago?',
+          de: 'Hat der Patient im Vergleich zu vor einem Jahr mehr Schwierigkeiten, Nachrichten zu verfolgen oder die Handlung von Büchern, Filmen oder TV-Sendungen zu behalten?',
+          it: 'Il paziente ha più difficoltà a seguire le notizie o le trame di libri, film o programmi TV rispetto a un anno fa?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Informante', en: 'Informant Version', de: 'Informantenversion', it: 'Versione Informante' },
+        text: {
+          es: '¿Hay actividades (por ejemplo, pasatiempos como juegos de cartas, manualidades) que son sustancialmente más difíciles para el paciente ahora comparado con hace un año?',
+          en: 'Are there activities (e.g., hobbies such as card games, crafts) that are substantially harder for the patient now than one year ago?',
+          de: 'Gibt es Aktivitäten (z. B. Hobbys wie Kartenspiele, Handarbeiten), die für den Patienten jetzt wesentlich schwieriger sind als vor einem Jahr?',
+          it: 'Ci sono attività (ad esempio, hobby come giochi di carte, lavori manuali) che ora sono sostanzialmente più difficili per il paziente rispetto a un anno fa?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Informante', en: 'Informant Version', de: 'Informantenversion', it: 'Versione Informante' },
+        text: {
+          es: '¿Es más probable que el paciente se desoriente o se pierda, por ejemplo al viajar a otra ciudad?',
+          en: 'Is the patient more likely to get confused or lost, for example when traveling to another town?',
+          de: 'Verliert der Patient öfter die Orientierung oder verirrt sich, zum Beispiel beim Reisen in eine andere Stadt?',
+          it: 'È più probabile che il paziente si confonda o si perda, ad esempio quando viaggia in un\'altra città?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
+        ],
+      },
+      {
+        domain: { es: 'Versión Informante', en: 'Informant Version', de: 'Informantenversion', it: 'Versione Informante' },
+        text: {
+          es: '¿El paciente tiene más dificultad para usar electrodomésticos (como la lavadora, videograbadora o computadora)?',
+          en: 'Is the patient having more trouble using appliances (such as a washing machine, video recorder, or computer)?',
+          de: 'Hat der Patient mehr Schwierigkeiten mit der Bedienung von Haushaltsgeräten (wie Waschmaschine, Videorecorder oder Computer)?',
+          it: 'Il paziente ha più difficoltà nell\'uso di elettrodomestici (come lavatrice, videoregistratore o computer)?',
+        },
+        help: { es: '', en: '', de: '', it: '' },
+        options: [
+          { label: { es: 'Sí', en: 'Yes', de: 'Ja', it: 'Sì' }, value: 1 },
+          { label: { es: 'Quizás', en: 'Maybe', de: 'Vielleicht', it: 'Forse' }, value: 0.5 },
+          { label: { es: 'No', en: 'No', de: 'Nein', it: 'No' }, value: 0 },
         ],
       },
     ],

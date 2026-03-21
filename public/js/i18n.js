@@ -66,6 +66,8 @@ const I18N = {
     questions_HADS:         '14 preguntas',
     scaleName_PSQI:         'Pittsburgh Sleep Quality Index',
     questions_PSQI:         '18 preguntas',
+    scaleName_CFI:          'Cognitive Function Instrument',
+    questions_CFI:          '28 preguntas',
   },
   en: {
     appTitle:               'Clinical Rating Scales',
@@ -130,6 +132,8 @@ const I18N = {
     questions_HADS:         '14 questions',
     scaleName_PSQI:         'Pittsburgh Sleep Quality Index',
     questions_PSQI:         '18 questions',
+    scaleName_CFI:          'Cognitive Function Instrument',
+    questions_CFI:          '28 questions',
   },
   de: {
     appTitle:               'Klinische Bewertungsskalen',
@@ -194,6 +198,8 @@ const I18N = {
     questions_HADS:         '14 Fragen',
     scaleName_PSQI:         'Pittsburgh Sleep Quality Index',
     questions_PSQI:         '18 Fragen',
+    scaleName_CFI:          'Cognitive Function Instrument',
+    questions_CFI:          '28 Fragen',
   },
   it: {
     appTitle:               'Scale di Valutazione Clinica',
@@ -258,6 +264,8 @@ const I18N = {
     questions_HADS:         '14 domande',
     scaleName_PSQI:         'Pittsburgh Sleep Quality Index',
     questions_PSQI:         '18 domande',
+    scaleName_CFI:          'Cognitive Function Instrument',
+    questions_CFI:          '28 domande',
   }
 };
 

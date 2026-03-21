@@ -127,13 +127,26 @@ const App = (() => {
         qBtn.remove();
       }
 
+      // Bottom row: Informe + Referencia buttons
+      const scaleDoi = SCALES[id] && SCALES[id].doi;
+      const needsRow = completed || (codeActive && scaleDoi);
+      let bottomRow = btn.querySelector('.scale-mini-row');
+      if (needsRow && !bottomRow) {
+        bottomRow = document.createElement('div');
+        bottomRow.className = 'scale-mini-row';
+        btn.appendChild(bottomRow);
+      } else if (!needsRow && bottomRow) {
+        bottomRow.remove();
+        bottomRow = null;
+      }
+
       // Mini report button (only when completed)
       let miniBtn = btn.querySelector('.scale-report-mini');
-      if (completed) {
+      if (completed && bottomRow) {
         if (!miniBtn) {
           miniBtn = document.createElement('button');
           miniBtn.className = 'scale-report-mini';
-          btn.appendChild(miniBtn);
+          bottomRow.appendChild(miniBtn);
           miniBtn.addEventListener('click', e => {
             e.stopPropagation();
             showReport([id], 'home');
@@ -142,6 +155,23 @@ const App = (() => {
         miniBtn.textContent = '📋 ' + t('reportBtnLabel', state.lang);
       } else if (miniBtn) {
         miniBtn.remove();
+      }
+
+      // Mini reference button (when code active and DOI exists)
+      let refBtn = btn.querySelector('.scale-ref-mini');
+      if (codeActive && scaleDoi && bottomRow) {
+        if (!refBtn) {
+          refBtn = document.createElement('button');
+          refBtn.className = 'scale-ref-mini';
+          bottomRow.appendChild(refBtn);
+          refBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            window.open('https://doi.org/' + scaleDoi, '_blank');
+          });
+        }
+        refBtn.textContent = '📖 ' + t('referenceBtnLabel', state.lang);
+      } else if (refBtn) {
+        refBtn.remove();
       }
     });
 
@@ -314,10 +344,16 @@ const App = (() => {
       maxScore += Math.max(...q.options.map(o => o.value));
     });
 
+    const doi = scale.doi;
+    const doiLink = doi
+      ? `<a class="rp-doi-link" href="https://doi.org/${escHtml(doi)}" target="_blank" rel="noopener">doi:${escHtml(doi)}</a>`
+      : '';
+
     let html = `
       <div class="rp-doc-header">
         <p class="rp-app-label">${escHtml(t('appTitle', lang))}</p>
         <h1 class="rp-doc-title">${escHtml(t('scaleName_' + scaleId, lang))}</h1>
+        ${doiLink}
         <div class="rp-doc-meta">
           <div class="rp-meta-row">
             <span class="rp-meta-k">${escHtml(t('patientCode', lang))}</span>

@@ -595,10 +595,18 @@ body {
 }
 .scale-questions-mini:hover { background: var(--primary); color: #fff; }
 
-/* ===== MINI REPORT BUTTON (inside scale-btn) ===== */
-.scale-report-mini {
+/* ===== BOTTOM BUTTON ROW (Informe + Referencia) ===== */
+.scale-mini-row {
+  display: flex;
+  gap: 0.35rem;
   align-self: flex-start;
   margin-top: 0.35rem;
+  flex-wrap: wrap;
+  pointer-events: all;
+}
+
+/* ===== MINI REPORT BUTTON (inside scale-mini-row) ===== */
+.scale-report-mini {
   background: transparent;
   border: 1px solid #15803d;
   color: #15803d;
@@ -611,6 +619,21 @@ body {
   pointer-events: all;
 }
 .scale-report-mini:hover { background: #15803d; color: #fff; }
+
+/* ===== MINI REFERENCE BUTTON (inside scale-mini-row) ===== */
+.scale-ref-mini {
+  background: transparent;
+  border: 1px solid #7c3aed;
+  color: #7c3aed;
+  border-radius: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  pointer-events: all;
+}
+.scale-ref-mini:hover { background: #7c3aed; color: #fff; }
 
 /* ===== REPORT VIEW ===== */
 .report-toolbar {
@@ -647,8 +670,17 @@ body {
   font-size: 1.6rem;
   font-weight: 800;
   color: var(--primary);
-  margin-bottom: 1rem;
+  margin-bottom: 0.4rem;
 }
+.rp-doi-link {
+  display: inline-block;
+  font-size: 0.78rem;
+  color: #7c3aed;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  font-family: monospace;
+}
+.rp-doi-link:hover { text-decoration: underline; }
 .rp-doc-meta {
   display: flex;
   gap: 2rem;

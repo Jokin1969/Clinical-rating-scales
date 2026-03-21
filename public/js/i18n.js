@@ -68,6 +68,8 @@ const I18N = {
     questions_PSQI:         '18 preguntas',
     scaleName_CFI:          'Cognitive Function Instrument',
     questions_CFI:          '28 preguntas',
+    scaleName_FAQ:          'Functional Activities Questionnaire',
+    questions_FAQ:          '10 preguntas',
   },
   en: {
     appTitle:               'Clinical Rating Scales',
@@ -134,6 +136,8 @@ const I18N = {
     questions_PSQI:         '18 questions',
     scaleName_CFI:          'Cognitive Function Instrument',
     questions_CFI:          '28 questions',
+    scaleName_FAQ:          'Functional Activities Questionnaire',
+    questions_FAQ:          '10 questions',
   },
   de: {
     appTitle:               'Klinische Bewertungsskalen',
@@ -200,6 +204,8 @@ const I18N = {
     questions_PSQI:         '18 Fragen',
     scaleName_CFI:          'Cognitive Function Instrument',
     questions_CFI:          '28 Fragen',
+    scaleName_FAQ:          'Functional Activities Questionnaire',
+    questions_FAQ:          '10 Fragen',
   },
   it: {
     appTitle:               'Scale di Valutazione Clinica',
@@ -266,6 +272,8 @@ const I18N = {
     questions_PSQI:         '18 domande',
     scaleName_CFI:          'Cognitive Function Instrument',
     questions_CFI:          '28 domande',
+    scaleName_FAQ:          'Functional Activities Questionnaire',
+    questions_FAQ:          '10 domande',
   }
 };
 

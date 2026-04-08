@@ -228,12 +228,11 @@
       </a>
 
       <!-- Cuidadores -->
-      <div class="portal-card disabled" id="card-cuidadores">
-        <span class="portal-card__badge" id="badge-soon">Próximamente</span>
+      <a href="/cuidadores" class="portal-card primary" id="card-cuidadores">
         <span class="portal-card__icon">👨‍👩‍👧</span>
         <span class="portal-card__title" id="card-cuidadores-title">Cuidadores</span>
         <span class="portal-card__desc" id="card-cuidadores-desc">Escalas y herramientas de evaluación para cuidadores</span>
-      </div>
+      </a>
 
       <!-- Clínicos -->
       <div class="portal-card disabled" id="card-clinicos">
@@ -320,7 +319,6 @@
       document.getElementById('card-cuidadores-desc').textContent = d.cuidadoresDesc;
       document.getElementById('card-clinicos-title').textContent = d.clinicosTitle;
       document.getElementById('card-clinicos-desc').textContent = d.clinicosDesc;
-      document.getElementById('badge-soon').textContent = d.comingSoon;
       document.getElementById('badge-soon-2').textContent = d.comingSoon;
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);

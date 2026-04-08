@@ -8,6 +8,13 @@ const DATA_DIR = path.join(__dirname, 'data');
 const DATA_FILE = path.join(DATA_DIR, 'progress.json');
 
 app.use(express.json());
+
+// Portal routes — must be before express.static
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'portal.html')));
+app.get('/historia-natural', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
+app.get('/cuidadores', (req, res) => res.sendFile(path.join(__dirname, 'public', 'portal.html')));
+app.get('/clinicos', (req, res) => res.sendFile(path.join(__dirname, 'public', 'portal.html')));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 function loadData() {

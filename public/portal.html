@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Escalas de Valoración Clínica</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f0f4f8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== HEADER ===== */
+    .app-header {
+      background: linear-gradient(135deg, #1a6bb5 0%, #0d4f8a 100%);
+      color: #fff;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    .app-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+    .lang-selector {
+      display: flex;
+      gap: 0.35rem;
+      align-items: center;
+    }
+    .lang-btn {
+      background: rgba(255,255,255,0.15);
+      border: 1.5px solid rgba(255,255,255,0.3);
+      border-radius: 5px;
+      padding: 3px 5px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      line-height: 0;
+    }
+    .lang-btn:hover { background: rgba(255,255,255,0.3); }
+    .lang-btn.active {
+      background: rgba(255,255,255,0.9);
+      border-color: #fff;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.5);
+    }
+    .lang-btn img {
+      width: 28px;
+      height: 20px;
+      object-fit: cover;
+      border-radius: 3px;
+      display: block;
+    }
+
+    /* ===== LOGO BAR ===== */
+    .logo-bar {
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      padding: 0.75rem 1.5rem;
+      border-bottom: 1px solid #dde3ea;
+    }
+    .logo-img {
+      height: 44px;
+      object-fit: contain;
+    }
+
+    /* ===== MAIN ===== */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1rem;
+    }
+    .portal-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    .portal-subtitle {
+      font-size: 1rem;
+      color: #5a7a9a;
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    .portal-grid {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      max-width: 860px;
+    }
+
+    /* ===== PORTAL CARD ===== */
+    .portal-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 18px rgba(26,107,181,0.10);
+      padding: 2rem 1.75rem;
+      width: 240px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.15s, box-shadow 0.15s;
+      position: relative;
+      text-decoration: none;
+    }
+    a.portal-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(26,107,181,0.18);
+    }
+
+    .portal-card.disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .portal-card__icon {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+    .portal-card__title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      margin-bottom: 0.4rem;
+    }
+    .portal-card__desc {
+      font-size: 0.875rem;
+      color: #6a8aaa;
+      line-height: 1.45;
+    }
+    .portal-card__badge {
+      position: absolute;
+      top: 0.7rem;
+      right: 0.8rem;
+      background: #e8a020;
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* Active card highlight (for historia-natural) */
+    a.portal-card.primary {
+      border: 2.5px solid #1a6bb5;
+    }
+    a.portal-card.primary .portal-card__icon {
+      background: #e8f0fb;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.8rem;
+      color: #8aa0b8;
+    }
+
+    @media (max-width: 600px) {
+      .portal-grid { flex-direction: column; align-items: center; }
+      .portal-card { width: 90%; max-width: 320px; }
+      .lang-btn img { width: 24px; height: 17px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="app-header">
+    <h1 class="app-title" id="portal-header-title">Escalas de Valoración Clínica</h1>
+    <div class="lang-selector">
+      <button class="lang-btn" data-lang="es" title="Español"><img src="/assets/flags/es.png" alt="Español" /></button>
+      <button class="lang-btn" data-lang="en" title="English"><img src="/assets/flags/en.png" alt="English" /></button>
+      <button class="lang-btn" data-lang="de" title="Deutsch"><img src="/assets/flags/de.png" alt="Deutsch" /></button>
+      <button class="lang-btn" data-lang="it" title="Italiano"><img src="/assets/flags/it.png" alt="Italiano" /></button>
+    </div>
+  </header>
+
+  <!-- ===== LOGO BAR ===== -->
+  <div class="logo-bar">
+    <img src="/assets/logo-osakidetza.png" alt="Osakidetza" class="logo-img" />
+    <img src="/assets/logo-cicbiogune.png" alt="CIC bioGUNE" class="logo-img" />
+  </div>
+
+  <!-- ===== MAIN PORTAL ===== -->
+  <main>
+    <h2 class="portal-title" id="portal-title">Portal de Evaluación Clínica</h2>
+    <p class="portal-subtitle" id="portal-subtitle">Seleccione el módulo de evaluación</p>
+
+    <div class="portal-grid">
+
+      <!-- Historia Natural -->
+      <a href="/historia-natural" class="portal-card primary" id="card-historia">
+        <span class="portal-card__icon">🧬</span>
+        <span class="portal-card__title" id="card-historia-title">App Historia Natural</span>
+        <span class="portal-card__desc" id="card-historia-desc">Escalas clínicas para el seguimiento de historia natural de la enfermedad</span>
+      </a>
+
+      <!-- Cuidadores -->
+      <div class="portal-card disabled" id="card-cuidadores">
+        <span class="portal-card__badge" id="badge-soon">Próximamente</span>
+        <span class="portal-card__icon">👨‍👩‍👧</span>
+        <span class="portal-card__title" id="card-cuidadores-title">Cuidadores</span>
+        <span class="portal-card__desc" id="card-cuidadores-desc">Escalas y herramientas de evaluación para cuidadores</span>
+      </div>
+
+      <!-- Clínicos -->
+      <div class="portal-card disabled" id="card-clinicos">
+        <span class="portal-card__badge" id="badge-soon-2">Próximamente</span>
+        <span class="portal-card__icon">🩺</span>
+        <span class="portal-card__title" id="card-clinicos-title">Clínicos</span>
+        <span class="portal-card__desc" id="card-clinicos-desc">Herramientas clínicas de evaluación y seguimiento para profesionales</span>
+      </div>
+
+    </div>
+  </main>
+
+  <footer id="portal-footer">
+    &copy; 2025 Osakidetza &mdash; CIC bioGUNE
+  </footer>
+
+  <script>
+    const PORTAL_I18N = {
+      es: {
+        appTitle:    'Escalas de Valoración Clínica',
+        portalTitle: 'Portal de Evaluación Clínica',
+        portalSub:   'Seleccione el módulo de evaluación',
+        historiaTitle: 'App Historia Natural',
+        historiaDesc:  'Escalas clínicas para el seguimiento de historia natural de la enfermedad',
+        cuidadoresTitle: 'Cuidadores',
+        cuidadoresDesc:  'Escalas y herramientas de evaluación para cuidadores',
+        clinicosTitle: 'Clínicos',
+        clinicosDesc:  'Herramientas clínicas de evaluación y seguimiento para profesionales',
+        comingSoon:  'Próximamente',
+      },
+      en: {
+        appTitle:    'Clinical Rating Scales',
+        portalTitle: 'Clinical Evaluation Portal',
+        portalSub:   'Select an evaluation module',
+        historiaTitle: 'Natural History App',
+        historiaDesc:  'Clinical scales for natural history disease follow-up',
+        cuidadoresTitle: 'Caregivers',
+        cuidadoresDesc:  'Assessment scales and tools for caregivers',
+        clinicosTitle: 'Clinicians',
+        clinicosDesc:  'Clinical evaluation and follow-up tools for healthcare professionals',
+        comingSoon:  'Coming soon',
+      },
+      de: {
+        appTitle:    'Klinische Bewertungsskalen',
+        portalTitle: 'Klinisches Bewertungsportal',
+        portalSub:   'Wählen Sie ein Bewertungsmodul',
+        historiaTitle: 'App Natürlicher Verlauf',
+        historiaDesc:  'Klinische Skalen für die Nachverfolgung des natürlichen Krankheitsverlaufs',
+        cuidadoresTitle: 'Pflegepersonen',
+        cuidadoresDesc:  'Bewertungsskalen und Werkzeuge für Pflegepersonen',
+        clinicosTitle: 'Kliniker',
+        clinicosDesc:  'Klinische Bewertungs- und Nachverfolgungstools für Fachkräfte',
+        comingSoon:  'Demnächst',
+      },
+      it: {
+        appTitle:    'Scale di Valutazione Clinica',
+        portalTitle: 'Portale di Valutazione Clinica',
+        portalSub:   'Seleziona un modulo di valutazione',
+        historiaTitle: 'App Storia Naturale',
+        historiaDesc:  'Scale cliniche per il follow-up della storia naturale della malattia',
+        cuidadoresTitle: 'Caregiver',
+        cuidadoresDesc:  'Scale di valutazione e strumenti per i caregiver',
+        clinicosTitle: 'Clinici',
+        clinicosDesc:  'Strumenti di valutazione e follow-up clinico per professionisti',
+        comingSoon:  'Prossimamente',
+      }
+    };
+
+    let currentLang = localStorage.getItem('lang') || 'es';
+
+    function applyLang(lang) {
+      if (!PORTAL_I18N[lang]) lang = 'es';
+      currentLang = lang;
+      localStorage.setItem('lang', lang);
+      const d = PORTAL_I18N[lang];
+      document.documentElement.lang = lang;
+      document.title = d.appTitle;
+      document.getElementById('portal-header-title').textContent = d.appTitle;
+      document.getElementById('portal-title').textContent = d.portalTitle;
+      document.getElementById('portal-subtitle').textContent = d.portalSub;
+      document.getElementById('card-historia-title').textContent = d.historiaTitle;
+      document.getElementById('card-historia-desc').textContent = d.historiaDesc;
+      document.getElementById('card-cuidadores-title').textContent = d.cuidadoresTitle;
+      document.getElementById('card-cuidadores-desc').textContent = d.cuidadoresDesc;
+      document.getElementById('card-clinicos-title').textContent = d.clinicosTitle;
+      document.getElementById('card-clinicos-desc').textContent = d.clinicosDesc;
+      document.getElementById('badge-soon').textContent = d.comingSoon;
+      document.getElementById('badge-soon-2').textContent = d.comingSoon;
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+    });
+
+    applyLang(currentLang);
+  </script>
+</body>
+</html>

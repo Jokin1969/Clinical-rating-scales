@@ -25,17 +25,6 @@
     .mode-card { position: relative; }
     .mode-card[disabled] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
 
-    .email-status {
-      text-align: center;
-      padding: 0.6rem 1rem;
-      border-radius: 8px;
-      margin: 0.75rem 0 0;
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
-    .email-status.sending { background: #eff6ff; color: #1a6bb5; }
-    .email-status.sent    { background: #f0fdf4; color: #16a34a; }
-    .email-status.error   { background: #fef2f2; color: #dc2626; }
   </style>
 </head>
 <body>
@@ -171,7 +160,6 @@
             <div id="results-score" class="score-number"></div>
           </div>
         </div>
-        <div id="email-status" class="email-status" style="display:none"></div>
         <div class="results-action-row">
           <button id="btn-view-report" class="btn btn-outline" data-i18n="viewReport">Ver Informe</button>
           <button id="btn-back-menu" class="btn btn-primary" data-i18n="backToMenu">Volver al Menú</button>
@@ -317,14 +305,43 @@
         return score;
       }
 
+      /* ── Progress persistence ── */
+      async function loadProgress(initials) {
+        try {
+          const res = await fetch('/api/progress/' + encodeURIComponent(initials));
+          const data = await res.json();
+          if (data && data['MRC'] && data['MRC'].answers) {
+            state.answers = { ...data['MRC'].answers };
+          }
+        } catch (e) {
+          console.warn('Could not load progress:', e);
+        }
+      }
+
+      async function saveProgress() {
+        if (!state.patientInitials) return;
+        try {
+          await fetch('/api/progress/' + encodeURIComponent(state.patientInitials), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ scaleId: 'MRC', answers: state.answers }),
+          });
+        } catch (e) {
+          console.warn('Could not save progress:', e);
+        }
+      }
+
       /* ── Start questionnaire ── */
-      function startQuestionnaire() {
+      async function startQuestionnaire() {
         const prompt_msg = tc('initialsPrompt', state.lang);
         const raw = window.prompt(prompt_msg, '');
         if (raw === null || raw.trim() === '') return; // cancelled or empty
         state.patientInitials = raw.trim().toUpperCase();
         state.currentIndex = 0;
         state.answers = {};
+
+        // Restore saved progress for these initials
+        await loadProgress(state.patientInitials);
 
         document.getElementById('scale-label').textContent = 'MRC';
         document.getElementById('questionnaire-initials').textContent = state.patientInitials;
@@ -356,6 +373,7 @@
           btn.textContent = opt.label[lang] || opt.label['es'];
           btn.addEventListener('click', () => {
             state.answers[state.currentIndex] = i;
+            saveProgress();
             renderQuestion();
           });
           list.appendChild(btn);
@@ -451,79 +469,68 @@
         return html;
       }
 
-      /* ── Finish: show results + send email ── */
+      /* ── Finish: show results + send email silently ── */
       async function finishScale() {
         const score = computeScore();
 
-        document.getElementById('results-initials').textContent    = state.patientInitials;
-        document.getElementById('results-scale-name').textContent  = t('scaleName_MRC', state.lang);
-        document.getElementById('results-score').textContent       = score;
-
-        const emailStatus = document.getElementById('email-status');
-        emailStatus.className   = 'email-status sending';
-        emailStatus.textContent = tc('sendingEmail', state.lang);
-        emailStatus.style.display = '';
+        document.getElementById('results-initials').textContent   = state.patientInitials;
+        document.getElementById('results-scale-name').textContent = t('scaleName_MRC', state.lang);
+        document.getElementById('results-score').textContent      = score;
 
         showView('results');
 
-        /* Generate PDF and POST to server */
+        // Fire-and-forget: generate PDF and send email in background
+        sendEmailReport().catch(err => console.error('Email send error:', err));
+      }
+
+      async function sendEmailReport() {
+        const reportHtml = buildReportHTML();
+        const filename   = 'informe-MRC-' + state.patientInitials + '.pdf';
+
+        // Render report in a full-screen overlay so html2canvas captures it properly
+        const overlay = document.createElement('div');
+        overlay.style.cssText =
+          'position:fixed;inset:0;z-index:9999;background:#fff;overflow:auto;';
+        const tmpDiv = document.createElement('div');
+        tmpDiv.className = 'report-paper';
+        tmpDiv.innerHTML = reportHtml;
+        overlay.appendChild(tmpDiv);
+        document.body.appendChild(overlay);
+
+        let pdfBlob;
         try {
-          const reportHtml = buildReportHTML();
-
-          // Render into an off-screen div so html2pdf can capture it
-          const tmpDiv = document.createElement('div');
-          tmpDiv.className = 'report-paper';
-          Object.assign(tmpDiv.style, {
-            position: 'fixed', left: '-9999px', top: '0',
-            width: '794px', background: '#fff',
-          });
-          tmpDiv.innerHTML = reportHtml;
-          document.body.appendChild(tmpDiv);
-
-          const filename = 'informe-MRC-' + state.patientInitials + '.pdf';
           const opt = {
             margin:      [10, 12, 10, 12],
             filename,
             image:       { type: 'jpeg', quality: 0.97 },
-            html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+            html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff',
+                           scrollX: 0, scrollY: 0 },
             jsPDF:       { unit: 'mm', format: 'a4', orientation: 'portrait' },
           };
-
-          const pdfBlob = await html2pdf().set(opt).from(tmpDiv).outputPdf('blob');
-          document.body.removeChild(tmpDiv);
-
-          // Blob → base64
-          const pdfBase64 = await new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload  = e => resolve(e.target.result.split(',')[1]);
-            reader.onerror = reject;
-            reader.readAsDataURL(pdfBlob);
-          });
-
-          const resp = await fetch('/api/send-report-email', {
-            method:  'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              html:            reportHtml,
-              pdfBase64,
-              filename,
-              patientInitials: state.patientInitials,
-              scaleName:       'MRC',
-            }),
-          });
-
-          if (resp.ok) {
-            emailStatus.className   = 'email-status sent';
-            emailStatus.textContent = tc('emailSent', state.lang);
-          } else {
-            const err = await resp.json().catch(() => ({}));
-            throw new Error(err.error || 'Server error');
-          }
-        } catch (err) {
-          console.error('Email send error:', err);
-          emailStatus.className   = 'email-status error';
-          emailStatus.textContent = tc('emailError', state.lang);
+          pdfBlob = await html2pdf().set(opt).from(tmpDiv).outputPdf('blob');
+        } finally {
+          document.body.removeChild(overlay);
         }
+
+        // Blob → base64
+        const pdfBase64 = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload  = e => resolve(e.target.result.split(',')[1]);
+          reader.onerror = reject;
+          reader.readAsDataURL(pdfBlob);
+        });
+
+        await fetch('/api/send-report-email', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            html:            reportHtml,
+            pdfBase64,
+            filename,
+            patientInitials: state.patientInitials,
+            scaleName:       'MRC',
+          }),
+        });
       }
 
       /* ── Help ── */

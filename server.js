@@ -68,7 +68,7 @@ app.post('/api/send-report-email', async (req, res) => {
   try {
     await transporter.sendMail({
       from:    process.env.SMTP_FROM || process.env.SMTP_USER,
-      to:      'castilla@joaquincastilla.com',
+      to:      process.env.CONTACT_EMAIL || process.env.SMTP_USER,
       subject: `Informe ${scaleName || 'MRC'} \u2014 Iniciales: ${patientInitials || '\u2014'}`,
       html:    fullHtml,
       attachments: [{

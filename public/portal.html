@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Escalas de Valoración Clínica</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -79,7 +80,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 2.5rem 1rem;
     }
     .portal-title {
@@ -231,12 +232,11 @@
       </a>
 
       <!-- Cuidadores -->
-      <div class="portal-card disabled" id="card-cuidadores">
-        <span class="portal-card__badge" id="badge-soon">Próximamente</span>
+      <a href="/cuidadores" class="portal-card primary" id="card-cuidadores">
         <span class="portal-card__icon">👨‍👩‍👧</span>
         <span class="portal-card__title" id="card-cuidadores-title">Cuidadores</span>
         <span class="portal-card__desc" id="card-cuidadores-desc">Escalas y herramientas de evaluación para cuidadores</span>
-      </div>
+      </a>
 
       <!-- Clínicos -->
       <div class="portal-card disabled" id="card-clinicos">
@@ -371,7 +371,6 @@
       document.getElementById('card-cuidadores-desc').textContent = d.cuidadoresDesc;
       document.getElementById('card-clinicos-title').textContent = d.clinicosTitle;
       document.getElementById('card-clinicos-desc').textContent = d.clinicosDesc;
-      document.getElementById('badge-soon').textContent = d.comingSoon;
       document.getElementById('badge-soon-2').textContent = d.comingSoon;
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);

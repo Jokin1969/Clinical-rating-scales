@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="appTitle">Escalas de Valoración Clínica — Cuidadores</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    /* ── Cuidadores extras ── */
+    .coming-badge {
+      position: absolute;
+      top: 0.65rem;
+      right: 0.75rem;
+      background: #e8a020;
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+    .mode-card { position: relative; }
+    .mode-card[disabled] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="app-header">
+    <h1 class="app-title" data-i18n="appTitle">Escalas de Valoración Clínica</h1>
+    <div class="lang-selector">
+      <button class="lang-btn" data-lang="es" title="Español"><img src="/assets/flags/es.png" alt="Español" /></button>
+      <button class="lang-btn" data-lang="en" title="English"><img src="/assets/flags/en.png" alt="English" /></button>
+      <button class="lang-btn" data-lang="de" title="Deutsch"><img src="/assets/flags/de.png" alt="Deutsch" /></button>
+      <button class="lang-btn" data-lang="it" title="Italiano"><img src="/assets/flags/it.png" alt="Italiano" /></button>
+    </div>
+  </header>
+
+  <!-- ===== LOGO BAR ===== -->
+  <div class="logo-bar">
+    <img src="/assets/logo-osakidetza.png" alt="Osakidetza" class="logo-img" />
+    <img src="/assets/logo-cicbiogune.png" alt="CIC bioGUNE" class="logo-img" />
+  </div>
+
+  <!-- ===== VIEW: LANDING ===== -->
+  <div id="view-landing" class="view active">
+    <div class="container">
+      <h2 class="section-title landing-title" data-i18n="selectMode">Seleccione el tipo de evaluación</h2>
+      <div class="landing-grid">
+        <button id="btn-symptomatic" class="mode-card">
+          <span class="mode-card__icon">🩺</span>
+          <span class="mode-card__title" data-i18n="symptomatic">Sintomático</span>
+          <span class="mode-card__desc" data-i18n="symptomaticDesc">Con sintomatología activa</span>
+        </button>
+        <button class="mode-card" disabled>
+          <span class="coming-badge" data-i18n="comingSoon">Próximamente</span>
+          <span class="mode-card__icon">💚</span>
+          <span class="mode-card__title" data-i18n="asymptomatic">Asintomático</span>
+          <span class="mode-card__desc" data-i18n="asymptomaticDesc">Sin sintomatología</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VIEW: HOME (scale selection) ===== -->
+  <div id="view-home" class="view">
+    <div class="container">
+      <div class="mode-bar">
+        <button id="btn-back-landing" class="btn btn-outline btn-sm">&#8592; <span data-i18n="backToSelection">Cambiar selección</span></button>
+        <span class="mode-bar__label">🩺 <span data-i18n="symptomatic">Sintomático</span></span>
+      </div>
+
+      <h2 class="section-title" data-i18n="selectScale">Seleccione una escala clínica</h2>
+
+      <div class="scales-grid">
+        <!-- MRC: active -->
+        <button class="scale-btn" id="btn-mrc" data-scale="MRC">
+          <span class="scale-abbr">MRC</span>
+          <span class="scale-name" data-i18n="scaleName_MRC">Modified Ranking for Caregivers</span>
+          <span class="scale-questions" data-i18n="questions_MRC">11 preguntas</span>
+          <span class="scale-score" id="mrc-score-badge"></span>
+        </button>
+        <!-- Future scales placeholder -->
+        <button class="scale-btn disabled" disabled style="opacity:0.42;cursor:not-allowed;">
+          <span class="scale-abbr" style="color:#b0b8c4;">···</span>
+          <span class="scale-name" data-i18n="comingSoon" style="color:#9aa4b2;">Próximamente</span>
+          <span class="scale-questions"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VIEW: QUESTIONNAIRE ===== -->
+  <div id="view-questionnaire" class="view">
+    <div class="container">
+
+      <div class="patient-info-bar">
+        <span>
+          <span id="initials-label-q">Iniciales del Paciente</span>:
+          <strong id="questionnaire-initials"></strong>
+        </span>
+        <button id="btn-back-to-menu" class="btn btn-outline btn-sm">&#8592; <span data-i18n="backToMenu">Volver al Menú</span></button>
+      </div>
+
+      <div class="question-header card">
+        <div class="question-meta">
+          <span id="scale-label" class="scale-label"></span>
+          <span id="question-counter" class="question-counter"></span>
+        </div>
+        <div class="progress-bar-wrap">
+          <div id="progress-bar" class="progress-bar"></div>
+        </div>
+      </div>
+
+      <div class="question-body card">
+        <div class="question-top-row">
+          <p id="question-text" class="question-text"></p>
+          <button id="btn-help" class="btn-help" aria-label="Ayuda"><span>?</span></button>
+        </div>
+        <div id="responses-list" class="responses-list"></div>
+      </div>
+
+      <div class="question-nav">
+        <button id="btn-first" class="btn btn-outline" data-i18n="first">Inicio</button>
+        <div class="nav-center">
+          <button id="btn-prev" class="btn btn-outline" data-i18n="previous">Anterior</button>
+          <button id="btn-next" class="btn btn-primary" data-i18n="next">Siguiente</button>
+        </div>
+        <button id="btn-last" class="btn btn-outline" data-i18n="last">Final</button>
+      </div>
+
+      <div class="finish-row">
+        <button id="btn-finish" class="btn btn-success disabled" data-i18n="finish" disabled>Finalizar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VIEW: RESULTS ===== -->
+  <div id="view-results" class="view">
+    <div class="container">
+      <div class="results-card card">
+        <div class="results-icon">✓</div>
+        <h2 class="results-title" data-i18n="completedTitle">¡Cuestionario completado!</h2>
+        <p class="results-subtitle" data-i18n="completedMessage">Ha completado todas las preguntas.</p>
+        <div class="results-info">
+          <div class="results-row">
+            <span id="initials-label-r">Iniciales del Paciente</span>
+            <strong id="results-initials"></strong>
+          </div>
+          <div class="results-row">
+            <span data-i18n="scale">Escala</span>
+            <strong id="results-scale-name"></strong>
+          </div>
+          <div class="score-block">
+            <div class="score-label" data-i18n="totalScore">Puntuación Total</div>
+            <div id="results-score" class="score-number"></div>
+          </div>
+        </div>
+        <div class="results-action-row">
+          <button id="btn-view-report" class="btn btn-outline" data-i18n="viewReport">Ver Informe</button>
+          <button id="btn-back-menu" class="btn btn-primary" data-i18n="backToMenu">Volver al Menú</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VIEW: REPORT ===== -->
+  <div id="view-report" class="view">
+    <div class="container">
+      <div class="report-toolbar">
+        <button id="btn-report-back" class="btn btn-outline btn-sm">&#8592; <span id="report-back-label">Volver</span></button>
+      </div>
+      <div id="report-paper" class="report-paper"></div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: HELP ===== -->
+  <div id="modal-help" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 data-i18n="help">Ayuda</h3>
+        <button id="btn-close-modal" class="btn-icon" aria-label="Cerrar">&#10005;</button>
+      </div>
+      <div id="modal-help-content" class="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="/js/i18n.js"></script>
+  <script src="/js/data.js"></script>
+  <script>
+    /* ── Extra i18n strings for Cuidadores ── */
+    const CUID = {
+      es: {
+        patientInitials: 'Iniciales del Paciente',
+        initialsPrompt:
+          'Introduzca las iniciales del paciente\n\nEjemplo: JPR (José Pérez Rodríguez)',
+        sendingEmail:    'Enviando informe por correo electrónico…',
+        emailSent:       '✓ Informe enviado a castilla@joaquincastilla.com',
+        emailError:      '✗ Error al enviar el informe. Contacte al administrador.',
+        backToResults:   'Volver a Resultados',
+      },
+      en: {
+        patientInitials: 'Patient Initials',
+        initialsPrompt:
+          'Enter patient initials\n\nExample: JPR (José Pérez Rodríguez)',
+        sendingEmail:    'Sending report by e-mail…',
+        emailSent:       '✓ Report sent to castilla@joaquincastilla.com',
+        emailError:      '✗ Error sending the report. Contact the administrator.',
+        backToResults:   'Back to Results',
+      },
+      de: {
+        patientInitials: 'Patienten-Initialen',
+        initialsPrompt:
+          'Patienten-Initialen eingeben\n\nBeispiel: JPR (José Pérez Rodríguez)',
+        sendingEmail:    'Bericht wird per E-Mail gesendet…',
+        emailSent:       '✓ Bericht gesendet an castilla@joaquincastilla.com',
+        emailError:      '✗ Sendefehler. Administrator kontaktieren.',
+        backToResults:   'Zurück zu Ergebnissen',
+      },
+      it: {
+        patientInitials: 'Iniziali del Paziente',
+        initialsPrompt:
+          'Inserisci le iniziali del paziente\n\nEsempio: JPR (José Pérez Rodríguez)',
+        sendingEmail:    'Invio del rapporto per e-mail…',
+        emailSent:       '✓ Rapporto inviato a castilla@joaquincastilla.com',
+        emailError:      '✗ Errore nell\'invio. Contattare l\'amministratore.',
+        backToResults:   'Torna ai Risultati',
+      },
+    };
+
+    function tc(key, lang) {
+      const d = CUID[lang] || CUID['es'];
+      return d[key] || t(key, lang);
+    }
+
+    /* ── Application ── */
+    const CuidApp = (() => {
+      const state = {
+        lang:            'es',
+        patientInitials: '',
+        currentIndex:    0,
+        answers:         {},
+      };
+
+      const views = {
+        landing:       document.getElementById('view-landing'),
+        home:          document.getElementById('view-home'),
+        questionnaire: document.getElementById('view-questionnaire'),
+        results:       document.getElementById('view-results'),
+        report:        document.getElementById('view-report'),
+      };
+
+      function showView(name) {
+        Object.values(views).forEach(v => v.classList.remove('active'));
+        views[name].classList.add('active');
+      }
+
+      function escHtml(s) {
+        return String(s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+
+      /* ── Language ── */
+      function applyLang(lang) {
+        if (!I18N[lang]) lang = 'es';
+        state.lang = lang;
+        localStorage.setItem('lang', lang);
+        document.documentElement.lang = lang;
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          el.textContent = t(el.getAttribute('data-i18n'), lang);
+        });
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.lang === lang);
+        });
+
+        // Update initials labels (not handled by data-i18n)
+        const initLabel = tc('patientInitials', lang);
+        document.getElementById('initials-label-q').textContent = initLabel;
+        document.getElementById('initials-label-r').textContent = initLabel;
+
+        // report back label if report is visible
+        if (views.report.classList.contains('active')) {
+          document.getElementById('report-back-label').textContent =
+            tc('backToResults', lang);
+          document.getElementById('report-paper').innerHTML = buildReportHTML();
+        }
+      }
+
+      /* ── Score ── */
+      function computeScore() {
+        const scale = SCALES['MRC'];
+        let score = 0;
+        scale.questions.forEach((q, i) => {
+          if (state.answers[i] !== undefined) {
+            score += q.options[state.answers[i]].value;
+          }
+        });
+        return score;
+      }
+
+      /* ── Progress persistence ── */
+      async function loadProgress(initials) {
+        try {
+          const res = await fetch('/api/progress/' + encodeURIComponent(initials));
+          const data = await res.json();
+          if (data && data['MRC'] && data['MRC'].answers) {
+            state.answers = { ...data['MRC'].answers };
+          }
+        } catch (e) {
+          console.warn('Could not load progress:', e);
+        }
+      }
+
+      async function saveProgress() {
+        if (!state.patientInitials) return;
+        try {
+          await fetch('/api/progress/' + encodeURIComponent(state.patientInitials), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ scaleId: 'MRC', answers: state.answers }),
+          });
+        } catch (e) {
+          console.warn('Could not save progress:', e);
+        }
+      }
+
+      /* ── Start questionnaire ── */
+      async function startQuestionnaire() {
+        const prompt_msg = tc('initialsPrompt', state.lang);
+        const raw = window.prompt(prompt_msg, '');
+        if (raw === null || raw.trim() === '') return; // cancelled or empty
+        state.patientInitials = raw.trim().toUpperCase();
+        state.currentIndex = 0;
+        state.answers = {};
+
+        // Restore saved progress for these initials
+        await loadProgress(state.patientInitials);
+
+        document.getElementById('scale-label').textContent = 'MRC';
+        document.getElementById('questionnaire-initials').textContent = state.patientInitials;
+        showView('questionnaire');
+        renderQuestion();
+      }
+
+      /* ── Render question ── */
+      function renderQuestion() {
+        const scale = SCALES['MRC'];
+        const q     = scale.questions[state.currentIndex];
+        const total = scale.questions.length;
+        const lang  = state.lang;
+
+        document.getElementById('question-counter').textContent =
+          t('questionOf', lang, { current: state.currentIndex + 1, total });
+        document.getElementById('question-text').textContent =
+          q.text[lang] || q.text['es'];
+
+        const bar = document.getElementById('progress-bar');
+        bar.style.width = ((state.currentIndex + 1) / total * 100) + '%';
+
+        const list = document.getElementById('responses-list');
+        list.innerHTML = '';
+        q.options.forEach((opt, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'response-btn';
+          if (state.answers[state.currentIndex] === i) btn.classList.add('selected');
+          btn.textContent = opt.label[lang] || opt.label['es'];
+          btn.addEventListener('click', () => {
+            state.answers[state.currentIndex] = i;
+            saveProgress();
+            renderQuestion();
+          });
+          list.appendChild(btn);
+        });
+
+        updateNavButtons();
+        updateFinishButton();
+      }
+
+      function updateNavButtons() {
+        const total   = SCALES['MRC'].questions.length;
+        const isFirst = state.currentIndex === 0;
+        const isLast  = state.currentIndex === total - 1;
+        document.getElementById('btn-prev').style.display  = isFirst ? 'none' : '';
+        document.getElementById('btn-next').disabled  = isLast;
+        document.getElementById('btn-first').disabled = isFirst;
+        document.getElementById('btn-last').disabled  = isLast;
+      }
+
+      function updateFinishButton() {
+        const total    = SCALES['MRC'].questions.length;
+        const allDone  = Object.keys(state.answers).length >= total;
+        const btn      = document.getElementById('btn-finish');
+        btn.classList.toggle('disabled', !allDone);
+        btn.disabled = !allDone;
+        document.getElementById('btn-next').style.display = allDone ? 'none' : '';
+      }
+
+      function goTo(idx) {
+        const total = SCALES['MRC'].questions.length;
+        state.currentIndex = Math.max(0, Math.min(total - 1, idx));
+        renderQuestion();
+      }
+
+      /* ── Build report HTML ── */
+      function buildReportHTML() {
+        const lang  = state.lang;
+        const locales = { es: 'es-ES', en: 'en-GB', de: 'de-DE', it: 'it-IT' };
+        const date  = new Date().toLocaleDateString(locales[lang] || 'es-ES', {
+          year: 'numeric', month: 'long', day: 'numeric',
+        });
+        const scale = SCALES['MRC'];
+        const score = computeScore();
+
+        let html = `
+          <div class="rp-doc-header">
+            <p class="rp-app-label">${escHtml(t('appTitle', lang))}</p>
+            <h1 class="rp-doc-title">${escHtml(t('reportTitle', lang))}</h1>
+            <div class="rp-doc-meta">
+              <div class="rp-meta-row">
+                <span class="rp-meta-k">${escHtml(tc('patientInitials', lang))}</span>
+                <span class="rp-meta-v">${escHtml(state.patientInitials)}</span>
+              </div>
+              <div class="rp-meta-row">
+                <span class="rp-meta-k">${escHtml(t('reportDate', lang))}</span>
+                <span class="rp-meta-v">${date}</span>
+              </div>
+            </div>
+          </div>
+          <div class="rp-scale-block">
+            <div class="rp-scale-id-bar">
+              <span class="rp-scale-id">MRC</span>
+              <span class="rp-scale-fullname">${escHtml(t('scaleName_MRC', lang))}</span>
+            </div>
+            <ol class="rp-qa-list">
+        `;
+
+        scale.questions.forEach((q, i) => {
+          const qText = q.text[lang] || q.text['es'];
+          const sel   = state.answers[i] !== undefined;
+          const aLabel = sel
+            ? (q.options[state.answers[i]].label[lang] || q.options[state.answers[i]].label['es'])
+            : '—';
+          html += `
+            <li class="rp-qa${sel ? '' : ' rp-qa--unanswered'}">
+              <div class="rp-qa-num">${i + 1}</div>
+              <div class="rp-qa-body">
+                <p class="rp-q">${escHtml(qText)}</p>
+                <p class="rp-a${sel ? ' rp-a--ok' : ''}">${sel ? '✓ ' : ''}${escHtml(aLabel)}</p>
+              </div>
+            </li>
+          `;
+        });
+
+        html += `
+            </ol>
+            <div class="rp-score-footer">
+              <span class="rp-score-lbl">${escHtml(t('totalScore', lang))}</span>
+              <span class="rp-score-num">${score}</span>
+            </div>
+          </div>
+        `;
+        return html;
+      }
+
+      /* ── Finish: show results + send email silently ── */
+      async function finishScale() {
+        const score = computeScore();
+
+        document.getElementById('results-initials').textContent   = state.patientInitials;
+        document.getElementById('results-scale-name').textContent = t('scaleName_MRC', state.lang);
+        document.getElementById('results-score').textContent      = score;
+
+        showView('results');
+
+        // Fire-and-forget: generate PDF and send email in background
+        sendEmailReport().catch(err => console.error('Email send error:', err));
+      }
+
+      async function sendEmailReport() {
+        const reportHtml = buildReportHTML();
+        const filename   = 'informe-MRC-' + state.patientInitials + '.pdf';
+
+        // Render report in a full-screen overlay so html2canvas captures it properly
+        const overlay = document.createElement('div');
+        overlay.style.cssText =
+          'position:fixed;inset:0;z-index:9999;background:#fff;overflow:auto;';
+        const tmpDiv = document.createElement('div');
+        tmpDiv.className = 'report-paper';
+        tmpDiv.innerHTML = reportHtml;
+        overlay.appendChild(tmpDiv);
+        document.body.appendChild(overlay);
+
+        let pdfBlob;
+        try {
+          const opt = {
+            margin:      [10, 12, 10, 12],
+            filename,
+            image:       { type: 'jpeg', quality: 0.97 },
+            html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff',
+                           scrollX: 0, scrollY: 0 },
+            jsPDF:       { unit: 'mm', format: 'a4', orientation: 'portrait' },
+          };
+          pdfBlob = await html2pdf().set(opt).from(tmpDiv).outputPdf('blob');
+        } finally {
+          document.body.removeChild(overlay);
+        }
+
+        // Blob → base64
+        const pdfBase64 = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload  = e => resolve(e.target.result.split(',')[1]);
+          reader.onerror = reject;
+          reader.readAsDataURL(pdfBlob);
+        });
+
+        await fetch('/api/send-report-email', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            html:            reportHtml,
+            pdfBase64,
+            filename,
+            patientInitials: state.patientInitials,
+            scaleName:       'MRC',
+          }),
+        });
+      }
+
+      /* ── Help ── */
+      function showHelp() {
+        const q    = SCALES['MRC'].questions[state.currentIndex];
+        const help = q.help && (q.help[state.lang] || q.help['es']);
+        document.getElementById('modal-help-content').textContent = help || '—';
+        document.getElementById('modal-help').classList.remove('hidden');
+      }
+
+      /* ── Report view ── */
+      function showReport() {
+        document.getElementById('report-paper').innerHTML = buildReportHTML();
+        document.getElementById('report-back-label').textContent =
+          tc('backToResults', state.lang);
+        showView('report');
+      }
+
+      /* ── Init ── */
+      function init() {
+        document.querySelectorAll('.lang-btn').forEach(btn =>
+          btn.addEventListener('click', () => applyLang(btn.dataset.lang)));
+
+        document.getElementById('btn-symptomatic').addEventListener('click', () =>
+          showView('home'));
+
+        document.getElementById('btn-back-landing').addEventListener('click', () =>
+          showView('landing'));
+
+        document.getElementById('btn-mrc').addEventListener('click', startQuestionnaire);
+
+        document.getElementById('btn-prev').addEventListener('click', () =>
+          goTo(state.currentIndex - 1));
+        document.getElementById('btn-next').addEventListener('click', () =>
+          goTo(state.currentIndex + 1));
+        document.getElementById('btn-first').addEventListener('click', () => goTo(0));
+        document.getElementById('btn-last').addEventListener('click', () =>
+          goTo(SCALES['MRC'].questions.length - 1));
+
+        document.getElementById('btn-finish').addEventListener('click', () => {
+          if (!document.getElementById('btn-finish').disabled) finishScale();
+        });
+
+        document.getElementById('btn-back-menu').addEventListener('click', () =>
+          showView('home'));
+        document.getElementById('btn-back-to-menu').addEventListener('click', () =>
+          showView('home'));
+
+        document.getElementById('btn-view-report').addEventListener('click', showReport);
+
+        document.getElementById('btn-report-back').addEventListener('click', () =>
+          showView('results'));
+
+        document.getElementById('btn-help').addEventListener('click', showHelp);
+        document.getElementById('btn-close-modal').addEventListener('click', () =>
+          document.getElementById('modal-help').classList.add('hidden'));
+        document.getElementById('modal-help').addEventListener('click', e => {
+          if (e.target === e.currentTarget)
+            document.getElementById('modal-help').classList.add('hidden');
+        });
+
+        applyLang(localStorage.getItem('lang') || 'es');
+      }
+
+      return { init };
+    })();
+
+    document.addEventListener('DOMContentLoaded', CuidApp.init);
+  </script>
+</body>
+</html>

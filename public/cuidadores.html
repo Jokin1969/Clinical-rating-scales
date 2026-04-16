@@ -37,6 +37,10 @@
       <button class="lang-btn" data-lang="en" title="English"><img src="/assets/flags/en.png" alt="English" /></button>
       <button class="lang-btn" data-lang="de" title="Deutsch"><img src="/assets/flags/de.png" alt="Deutsch" /></button>
       <button class="lang-btn" data-lang="it" title="Italiano"><img src="/assets/flags/it.png" alt="Italiano" /></button>
+      <button class="lang-btn" data-lang="fr" title="Français"><img src="/assets/flags/fr.png" alt="Français" /></button>
+      <button class="lang-btn" data-lang="pt" title="Português"><img src="/assets/flags/pt.png" alt="Português" /></button>
+      <button class="lang-btn" data-lang="sk" title="Slovenčina"><img src="/assets/flags/sk.png" alt="Slovenčina" /></button>
+      <button class="lang-btn" data-lang="he" title="עברית"><img src="/assets/flags/he.png" alt="עברית" /></button>
     </div>
   </header>
 
@@ -231,6 +235,42 @@
         emailError:      '✗ Errore nell\'invio. Contattare l\'amministratore.',
         backToResults:   'Torna ai Risultati',
       },
+      fr: {
+        patientInitials: 'Initiales du Patient',
+        initialsPrompt:
+          'Entrez les initiales du patient\n\nExemple : JPR (José Pérez Rodríguez)',
+        sendingEmail:    'Envoi du rapport par e-mail\u2026',
+        emailSent:       '\u2713 Rapport envoyé à castilla@joaquincastilla.com',
+        emailError:      '\u2717 Erreur lors de l\u2019envoi. Contactez l\u2019administrateur.',
+        backToResults:   'Retour aux Résultats',
+      },
+      pt: {
+        patientInitials: 'Iniciais do Paciente',
+        initialsPrompt:
+          'Introduza as iniciais do paciente\n\nExemplo: JPR (José Pérez Rodríguez)',
+        sendingEmail:    'A enviar relatório por e-mail\u2026',
+        emailSent:       '\u2713 Relatório enviado para castilla@joaquincastilla.com',
+        emailError:      '\u2717 Erro ao enviar o relatório. Contacte o administrador.',
+        backToResults:   'Voltar aos Resultados',
+      },
+      sk: {
+        patientInitials: 'Iniciálky pacienta',
+        initialsPrompt:
+          'Zadajte iniciálky pacienta\n\nPríklad: JPR (José Pérez Rodríguez)',
+        sendingEmail:    'Odosielanie správy e-mailom\u2026',
+        emailSent:       '\u2713 Správa odoslaná na castilla@joaquincastilla.com',
+        emailError:      '\u2717 Chyba pri odosielaní. Kontaktujte administrátora.',
+        backToResults:   'Späť k výsledkom',
+      },
+      he: {
+        patientInitials: '\u05e8\u05d0\u05e9\u05d9 \u05ea\u05d9\u05d1\u05d5\u05ea \u05d4\u05de\u05d8\u05d5\u05e4\u05dc',
+        initialsPrompt:
+          '\u05d4\u05d6\u05df \u05d0\u05ea \u05e8\u05d0\u05e9\u05d9 \u05d4\u05ea\u05d9\u05d1\u05d5\u05ea \u05e9\u05dc \u05d4\u05de\u05d8\u05d5\u05e4\u05dc\n\n\u05d3\u05d5\u05d2\u05de\u05d4: JPR (José Pérez Rodríguez)',
+        sendingEmail:    '\u05e9\u05d5\u05dc\u05d7 \u05d3\u05d5\u05d7 \u05d1\u05d3\u05d5\u05d0\u05f4\u05dc\u2026',
+        emailSent:       '\u2713 \u05d4\u05d3\u05d5\u05d7 \u05e0\u05e9\u05dc\u05d7 \u05dc-castilla@joaquincastilla.com',
+        emailError:      '\u2717 \u05e9\u05d2\u05d9\u05d0\u05d4 \u05d1\u05e9\u05dc\u05d9\u05d7\u05d4. \u05e4\u05e0\u05d4 \u05dc\u05de\u05e0\u05d4\u05dc.',
+        backToResults:   '\u05d7\u05d6\u05e8\u05d4 \u05dc\u05ea\u05d5\u05e6\u05d0\u05d5\u05ea',
+      },
     };
 
     function tc(key, lang) {
@@ -411,7 +451,7 @@
       /* ── Build report HTML ── */
       function buildReportHTML() {
         const lang  = state.lang;
-        const locales = { es: 'es-ES', en: 'en-GB', de: 'de-DE', it: 'it-IT' };
+        const locales = { es: 'es-ES', en: 'en-GB', de: 'de-DE', it: 'it-IT', fr: 'fr-FR', pt: 'pt-PT', sk: 'sk-SK', he: 'he-IL' };
         const date  = new Date().toLocaleDateString(locales[lang] || 'es-ES', {
           year: 'numeric', month: 'long', day: 'numeric',
         });

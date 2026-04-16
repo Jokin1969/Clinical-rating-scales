@@ -852,6 +852,19 @@ body {
   letter-spacing: 0.04em;
 }
 
+/* ===== RTL SUPPORT (Hebrew) ===== */
+[dir="rtl"] .app-header { direction: rtl; }
+[dir="rtl"] .question-text,
+[dir="rtl"] .response-btn,
+[dir="rtl"] .modal-content,
+[dir="rtl"] .results-card,
+[dir="rtl"] .patient-code-box,
+[dir="rtl"] .report-paper { direction: rtl; text-align: right; }
+[dir="rtl"] .question-nav { direction: rtl; }
+[dir="rtl"] .rp-qa-list { direction: rtl; }
+[dir="rtl"] .input-row { direction: rtl; }
+[dir="rtl"] .mode-bar { direction: rtl; }
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 480px) {
   .app-title { font-size: 1.1rem; }

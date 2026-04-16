@@ -459,7 +459,7 @@ const App = (() => {
   // ── Report ────────────────────────────────────────────────
   function buildReportHTML(scaleIds) {
     const lang = state.lang;
-    const locales = { es: 'es-ES', en: 'en-GB', de: 'de-DE', it: 'it-IT' };
+    const locales = { es: 'es-ES', en: 'en-GB', de: 'de-DE', it: 'it-IT', fr: 'fr-FR', pt: 'pt-PT', sk: 'sk-SK', he: 'he-IL' };
     const date = new Date().toLocaleDateString(locales[lang] || 'es-ES', {
       year: 'numeric', month: 'long', day: 'numeric'
     });

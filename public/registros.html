@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Registro MRC</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f4f8; color: #1e293b; min-height: 100vh; }
+    .app-header {
+      background: linear-gradient(135deg, #1a6bb5 0%, #0d4f8a 100%); color: #fff;
+      padding: 0.9rem 1rem; display: flex; align-items: center; gap: 0.75rem;
+      position: sticky; top: 0; z-index: 5; box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    .back { color: #fff; text-decoration: none; font-size: 1.4rem; width: 44px; height: 44px;
+            display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+    .back:hover { background: rgba(255,255,255,0.15); }
+    .app-header h1 { font-size: 1.1rem; font-weight: 700; flex: 1; }
+    .count { font-size: 0.85rem; opacity: 0.85; }
+    main { max-width: 760px; margin: 0 auto; padding: 1rem 16px 3rem; }
+    .search {
+      width: 100%; font: inherit; font-size: 1rem; padding: 0.75rem 1rem;
+      border: 2px solid #d3dde8; border-radius: 12px; margin-bottom: 1rem; background: #fff;
+    }
+    .search:focus { outline: none; border-color: #1a6bb5; }
+    .msg { text-align: center; color: #6a8aaa; padding: 2rem 1rem; }
+    .entry { background: #fff; border-radius: 14px; box-shadow: 0 2px 10px rgba(26,107,181,0.08); margin-bottom: 0.75rem; overflow: hidden; }
+    .entry summary {
+      list-style: none; cursor: pointer; padding: 0.9rem 1rem; display: flex; align-items: center; gap: 0.9rem;
+      min-height: 64px; -webkit-tap-highlight-color: transparent;
+    }
+    .entry summary::-webkit-details-marker { display: none; }
+    .ini { font-weight: 700; font-size: 1.1rem; color: #1a3a5c; min-width: 3.5rem; }
+    .date { flex: 1; font-size: 0.88rem; color: #5a7a9a; }
+    .score { background: #e8f0fb; color: #1a6bb5; font-weight: 700; border-radius: 10px; padding: 0.35rem 0.7rem; font-size: 1rem; white-space: nowrap; }
+    .chev { color: #9fb3c8; transition: transform 0.15s; }
+    .entry[open] .chev { transform: rotate(90deg); }
+    .qa-list { list-style: none; border-top: 1px solid #e2e8f0; }
+    .qa { display: flex; gap: 0.75rem; padding: 0.7rem 1rem; border-bottom: 1px solid #f1f5f9; }
+    .qa-num { font-weight: 700; color: #94a3b8; min-width: 1.4rem; }
+    .qa-body { flex: 1; }
+    .q { font-weight: 600; font-size: 0.92rem; margin-bottom: 0.15rem; }
+    .a { font-size: 0.9rem; color: #16a34a; }
+    .a.none { color: #94a3b8; }
+    .pts { font-size: 0.8rem; color: #64748b; white-space: nowrap; align-self: center; }
+    .foot { display: flex; justify-content: space-between; padding: 0.75rem 1rem; background: #f8fafc; font-size: 0.85rem; color: #475569; }
+    .lock { max-width: 360px; margin: 3rem auto; background: #fff; border-radius: 14px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .lock button { min-height: 48px; border: none; border-radius: 12px; background: #1a6bb5; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+    .err { color: #d9534f; font-size: 0.88rem; min-height: 1.2em; }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <a href="/" class="back" aria-label="Volver">&#8592;</a>
+    <h1>Registro MRC</h1>
+    <span class="count" id="count"></span>
+  </header>
+
+  <main id="main">
+    <p class="msg">Cargando…</p>
+  </main>
+
+  <script>
+    const KEY_STORE = 'mrcRepoKey';
+    const main = document.getElementById('main');
+
+    function esc(s) {
+      return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    function fmtDate(iso) {
+      const d = new Date(iso);
+      if (isNaN(d)) return '—';
+      return d.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' }) +
+             ' · ' + d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function getKey() { try { return sessionStorage.getItem(KEY_STORE) || ''; } catch { return ''; } }
+    function setKey(k) { try { sessionStorage.setItem(KEY_STORE, k); } catch {} }
+
+    function showLock(error) {
+      main.innerHTML = `
+        <form class="lock" id="lock">
+          <label for="pwd"><strong>Contraseña del registro</strong></label>
+          <input id="pwd" class="search" type="password" autocomplete="current-password" style="margin:0" />
+          <div class="err">${error ? 'Contraseña incorrecta' : ''}</div>
+          <button type="submit">Entrar</button>
+        </form>`;
+      document.getElementById('pwd').focus();
+      document.getElementById('lock').addEventListener('submit', e => {
+        e.preventDefault();
+        setKey(document.getElementById('pwd').value);
+        load();
+      });
+    }
+
+    /* Fallback for old entries without a text snapshot: rebuild from data.js */
+    function itemsFor(r) {
+      if (Array.isArray(r.items) && r.items.length) return r.items;
+      if (typeof SCALES === 'undefined' || !SCALES.MRC) return [];
+      return SCALES.MRC.questions.map((q, i) => {
+        const idx = r.answers ? r.answers[i] : undefined;
+        const o = idx !== undefined ? q.options[idx] : null;
+        return { q: q.text.es, a: o ? o.label.es : null, value: o ? o.value : null,
+                 max: Math.max(...q.options.map(x => x.value)) };
+      });
+    }
+
+    function render(list) {
+      document.getElementById('count').textContent = list.length ? list.length + ' registros' : '';
+      if (!list.length) {
+        main.innerHTML = '<p class="msg">Todavía no hay cuestionarios guardados.</p>';
+        return;
+      }
+      main.innerHTML = `<input class="search" id="q" type="search" placeholder="Buscar por iniciales…" autocapitalize="characters" />
+                        <div id="list"></div>`;
+      const listEl = document.getElementById('list');
+      const draw = filter => {
+        const f = filter.trim().toUpperCase();
+        const rows = list.filter(r => !f || (r.initials || '').includes(f));
+        listEl.innerHTML = rows.length ? rows.map(r => {
+          const items = itemsFor(r);
+          const max = items.reduce((s, it) => s + (it.max || 0), 0);
+          return `
+          <details class="entry">
+            <summary>
+              <span class="ini">${esc(r.initials)}</span>
+              <span class="date">${fmtDate(r.completedAt)}</span>
+              <span class="score">${r.score ?? '—'}${max ? ' / ' + max : ''}</span>
+              <span class="chev">&#9656;</span>
+            </summary>
+            <ol class="qa-list">
+              ${items.map((it, i) => `
+                <li class="qa">
+                  <span class="qa-num">${i + 1}</span>
+                  <div class="qa-body">
+                    <p class="q">${esc(it.q)}</p>
+                    <p class="a${it.a == null ? ' none' : ''}">${it.a == null ? 'Sin respuesta' : '&#10003; ' + esc(it.a)}</p>
+                  </div>
+                  <span class="pts">${it.value ?? '–'} / ${it.max ?? '–'}</span>
+                </li>`).join('')}
+            </ol>
+            <div class="foot"><span>Puntuación total</span><strong>${r.score ?? '—'}${max ? ' / ' + max : ''}</strong></div>
+          </details>`;
+        }).join('') : '<p class="msg">Sin resultados.</p>';
+      };
+      document.getElementById('q').addEventListener('input', e => draw(e.target.value));
+      draw('');
+    }
+
+    async function load() {
+      main.innerHTML = '<p class="msg">Cargando…</p>';
+      try {
+        const res = await fetch('/api/mrc-results', { headers: { 'x-repo-key': getKey() } });
+        if (res.status === 401) return showLock(!!getKey());
+        if (!res.ok) throw new Error(res.status);
+        const data = await res.json();
+        render(data.results || []);
+      } catch (e) {
+        main.innerHTML = '<p class="msg">No se pudo cargar el registro.</p>';
+      }
+    }
+  </script>
+  <script src="/js/data.js"></script>
+  <script>load();</script>
+</body>
+</html>

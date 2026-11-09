@@ -519,8 +519,38 @@
 
         showView('results');
 
+        // Store the completed questionnaire in the server-side repository
+        saveResultToRepository(score).catch(err => console.error('Result save error:', err));
+
         // Fire-and-forget: generate PDF and send email in background
         sendEmailReport().catch(err => console.error('Email send error:', err));
+      }
+
+      let lastSavedSignature = null;
+      async function saveResultToRepository(score) {
+        const scale = SCALES['MRC'];
+        const signature = state.patientInitials + '|' + JSON.stringify(state.answers);
+        if (signature === lastSavedSignature) return; // avoid duplicates on repeated "Finalizar"
+        const items = scale.questions.map((q, i) => {
+          const idx = state.answers[i];
+          const opt = idx !== undefined ? q.options[idx] : null;
+          return {
+            q:     q.text['es'],
+            a:     opt ? (opt.label['es'] || '') : null,
+            value: opt ? opt.value : null,
+            max:   Math.max(...q.options.map(o => o.value)),
+          };
+        });
+        const id = Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+        const res = await fetch('/api/mrc-results', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id, initials: state.patientInitials, answers: state.answers,
+            items, score, lang: state.lang,
+          }),
+        });
+        if (res.ok) lastSavedSignature = signature;
       }
 
       async function sendEmailReport() {

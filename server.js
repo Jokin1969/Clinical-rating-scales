@@ -4,8 +4,10 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const DATA_DIR = path.join(__dirname, 'data');
+// DATA_DIR can point to a persistent volume (e.g. Railway volume mounted at /data)
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
 const DATA_FILE = path.join(DATA_DIR, 'progress.json');
+const RESULTS_FILE = path.join(DATA_DIR, 'mrc-results.json');
 
 app.use(express.json({ limit: '10mb' }));
 
@@ -14,6 +16,7 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'portal.h
 app.get('/historia-natural', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 app.get('/cuidadores', (req, res) => res.sendFile(path.join(__dirname, 'public', 'cuidadores.html')));
 app.get('/clinicos', (req, res) => res.sendFile(path.join(__dirname, 'public', 'portal.html')));
+app.get('/registros-mrc', (req, res) => res.sendFile(path.join(__dirname, 'public', 'registros.html')));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -136,6 +139,69 @@ app.delete('/api/progress/:code/:scaleId', (req, res) => {
     saveData(data);
   }
   res.json({ ok: true });
+});
+
+// ===== MRC results repository =====
+// Optional env var REPO_PASSWORD: if set, reading results requires header x-repo-key.
+function loadResults() {
+  try {
+    if (fs.existsSync(RESULTS_FILE)) return JSON.parse(fs.readFileSync(RESULTS_FILE, 'utf8'));
+  } catch (e) {
+    console.error('Error loading results:', e);
+  }
+  return [];
+}
+
+function saveResults(list) {
+  if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+  const tmp = RESULTS_FILE + '.tmp';
+  fs.writeFileSync(tmp, JSON.stringify(list, null, 2));
+  fs.renameSync(tmp, RESULTS_FILE);
+}
+
+function requireRepoKey(req, res, next) {
+  const pwd = process.env.REPO_PASSWORD;
+  if (!pwd) return next();
+  if (req.get('x-repo-key') === pwd) return next();
+  return res.status(401).json({ error: 'unauthorized' });
+}
+
+// POST a completed MRC questionnaire (called from cuidadores.html on "Finalizar")
+app.post('/api/mrc-results', (req, res) => {
+  const { id, initials, answers, items, score, lang } = req.body || {};
+  if (!initials || typeof initials !== 'string' || !answers || typeof answers !== 'object') {
+    return res.status(400).json({ error: 'Missing initials or answers' });
+  }
+  const list = loadResults();
+  const entryId = (typeof id === 'string' && /^[a-z0-9-]{6,64}$/i.test(id))
+    ? id
+    : Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+  // Idempotent: the same submission id is stored only once
+  if (list.some(r => r.id === entryId)) return res.json({ ok: true, id: entryId, duplicate: true });
+
+  list.push({
+    id:          entryId,
+    scale:       'MRC',
+    initials:    initials.trim().toUpperCase().slice(0, 20),
+    completedAt: new Date().toISOString(),
+    lang:        typeof lang === 'string' ? lang.slice(0, 5) : 'es',
+    score:       Number.isFinite(score) ? score : null,
+    answers,
+    items:       Array.isArray(items) ? items.slice(0, 50) : [],
+  });
+  try {
+    saveResults(list);
+    res.json({ ok: true, id: entryId });
+  } catch (e) {
+    console.error('Error saving result:', e);
+    res.status(500).json({ error: 'Could not save result' });
+  }
+});
+
+// GET all MRC results (read-only)
+app.get('/api/mrc-results', requireRepoKey, (req, res) => {
+  const list = loadResults().sort((a, b) => (b.completedAt || '').localeCompare(a.completedAt || ''));
+  res.json({ results: list, protected: !!process.env.REPO_PASSWORD });
 });
 
 app.listen(PORT, () => {

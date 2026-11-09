@@ -577,13 +577,17 @@
         return '+' + p.e164;
       }
 
-      /* Message template. `gender` ('m' | 'f' | '') is available for gendered wording. */
+      /* Message template. gender: 'm' | 'f' | '' */
       function buildMessage(nm, g) {
-        const greet = nm ? 'Hola, ' + nm + ':' : 'Hola:';
+        // Gender → "Estimado/Estimada"; no gender → neutral "Hola"
+        const word = g === 'm' ? 'Estimado' : g === 'f' ? 'Estimada' : null;
+        const greet = word
+          ? (nm ? word + ' ' + nm + ':' : word + ':')
+          : (nm ? 'Hola, ' + nm + ':' : 'Hola:');
         return greet + ' te paso el enlace para el cuestionario sobre el estado de la persona de la que hemos estado hablando. ' +
           'Por favor, clicka sobre el botón “Sintomático”, luego rellena las iniciales y comienza el cuestionario:\n\n' +
           CUID_URL + '\n\n' +
-          'No hace falta que me envíe el resultado, dado que lo recibiré tan pronto lo termine.\n' +
+          'No hace falta que me envíes el resultado, dado que lo recibiré tan pronto lo termine.\n' +
           'Muchas gracias. Estaremos en contacto. Un abrazo, Jokin';
       }
 
